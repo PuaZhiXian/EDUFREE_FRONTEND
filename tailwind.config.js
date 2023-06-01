@@ -12,6 +12,9 @@ module.exports = {
         'primary': '#2453EE',
         'success': '#27C468'
       },
+      fontFamily: {
+        poppins: ['Poppins'],
+      }
     },
   },
   plugins: [],

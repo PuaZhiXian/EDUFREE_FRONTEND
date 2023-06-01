@@ -1,10 +1,18 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-  title = 'EDUFREE_FRONTEND';
+export class AppComponent implements OnInit {
+
+  ngOnInit(): void {
+  }
+
+  redirect(link:string){
+    console.log(link);
+
+  }
+
 }

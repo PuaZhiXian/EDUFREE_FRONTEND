@@ -1,1 +1,198 @@
-<p class="h-full my-96">dashboard works!</p>
+<!--Banner-->
+<div class="bg-[#1C1E53] pt-20 pb-48">
+  <div class="container mx-auto ">
+    <div class="max-w-2xl">
+      <div class="text-white text-5xl font-semibold tracking-[0.005em] leading-[62px]">
+        Empowering Your Path to Success
+      </div>
+      <div class="text-white py-10 ">
+        Unlock Your Success with EDUFREE's Dynamic E-Learning Platform.
+      </div>
+      <div>
+        <button nz-button class="h-full py-4 px-10 bg-[#FCD980] font-medium">View Course</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Amount-->
+<div class="bg-[#EEF4FA] py-16">
+  <div class="container mx-auto flex">
+    <div>
+      <div class="text-2xl font-semibold tracking-[0.005em]">32000+</div>
+      <div>Active users</div>
+    </div>
+    <div class="mx-11">
+      <div class="text-2xl font-semibold tracking-[0.005em]">600+</div>
+      <div>Instructors</div>
+    </div>
+    <div>
+      <div class="text-2xl font-semibold tracking-[0.005em]">2000+</div>
+      <div>Courses</div>
+    </div>
+  </div>
+</div>
+
+<!--Benefit-->
+<div class="container mx-auto pb-32">
+  <div class="justify-center item-center pt-32 pb-20">
+    <div class="max-w-lg text-center mx-auto text-4xl font-semibold tracking-[0.008em] leading-[57px]">Unlock the
+      Benefits of EDUFREE E-Learning
+    </div>
+  </div>
+
+  <div class="grid grid-cols-3 gap-14">
+    <div>
+      <nz-card class="h-full bg-[#F4F6FC] border-[#F4F6FC] pb-10">
+        <div class="font-medium text-2xl pb-2">Personalized Learning Paths</div>
+        <div>Tailor your learning journey with customized courses and resources that align with your goals and
+          interests
+        </div>
+      </nz-card>
+    </div>
+    <div>
+      <nz-card class="h-full bg-[#F4F6FC] border-[#F4F6FC] pb-10">
+        <div class="font-medium text-2xl pb-2">Continuous Skill Development</div>
+        <div>Stay ahead in your field with access to advanced courses and specialization programs for ongoing skill
+          enhancement
+        </div>
+      </nz-card>
+    </div>
+    <div>
+      <nz-card class="h-full bg-[#F4F6FC] border-[#F4F6FC] pb-10">
+        <div class="font-medium text-2xl pb-2">Interactive Learning Community</div>
+        <div>Engage with a vibrant community of learners and instructors, fostering collaboration, discussions, and
+          networking opportunities
+        </div>
+      </nz-card>
+    </div>
+  </div>
+</div>
+
+<!--Recommend for you-->
+<div class="container mx-auto " *ngIf="!loadingRecommend else loadingTpl">
+  <div class="max-w-md text-4xl	font-semibold tracking-[0.008em] leading-[57px]">Recommended Courses For You</div>
+  <hr class="mb-20 divide-black">
+
+  <nz-carousel #recommendCarousel [nzEffect]="effect" [nzEnableSwipe]="false" class="h-[500px]	"
+               [nzAutoPlaySpeed]="30000">
+    <div nz-carousel-content *ngFor="let index of array">
+      <div class="flex">
+        <div (click)="onCarousel('left')" class="flex items-center cursor-pointer hover:bg-[#F4F6FC]">
+          <span class="material-icons-outlined mx-8 rounded-full border py-2 px-2 bg-black text-white">arrow_back</span>
+        </div>
+        <div class="grid grid-cols-3 gap-16">
+          <div>
+            <nz-card class="h-full">
+              <img class="w-full" src="https://img-b.udemycdn.com/course/240x135/1565838_e54e_16.jpg">
+              <div class="font-bold text-2xl line-clamp-2">The Complete 2023 Web Development Bootcamp</div>
+              <div class="font-light">Dr. Angela Yu</div>
+              <div class="flex items-center">
+                <span class="mr-2 text-[#FCD980] text-xl font-extrabold">4.5</span>
+                <nz-rate [nzDisabled]="true" [ngModel]="4.5" nzAllowHalf></nz-rate>
+                <span class="text-xs	font-light">(815)</span>
+              </div>
+              <div class="ml-2 font-bold text-xl">RM89.90</div>
+            </nz-card>
+          </div>
+          <div>
+            <nz-card class="h-full">
+              <img class="w-full" src="https://img-c.udemycdn.com/course/240x135/2993624_0967_2.jpg">
+              <div class="font-bold text-2xl line-clamp-2">The Complete Python Bootcamp</div>
+              <div class="font-light">Jose Portilla</div>
+              <div class="flex items-center">
+                <span class="mr-2 text-[#FCD980] text-xl font-extrabold">4.7</span>
+                <nz-rate [nzDisabled]="true" [ngModel]="4.7" nzAllowHalf></nz-rate>
+                <span class="text-xs	font-light">(529)</span>
+              </div>
+              <div class="ml-2 font-bold text-xl">RM69.90</div>
+            </nz-card>
+          </div>
+          <div>
+            <nz-card class="h-full">
+              <img class="w-full" src="https://img-b.udemycdn.com/course/240x135/950390_270f_3.jpg">
+              <div class="font-bold text-2xl line-clamp-2">Machine Learning A-Z™: AI, Python & R</div>
+              <div class="font-light">SuperDataScience Team</div>
+              <div class="flex items-center">
+                <span class="mr-2 text-[#FCD980] text-xl font-extrabold">4.9</span>
+                <nz-rate [nzDisabled]="true" [ngModel]="4.9" nzAllowHalf></nz-rate>
+                <span class="text-xs	font-light">(716)</span>
+              </div>
+              <div class="ml-2 font-bold text-xl">RM69.90</div>
+            </nz-card>
+          </div>
+        </div>
+        <div (click)="onCarousel('right')" class="flex items-center cursor-pointer hover:bg-[#F4F6FC]">
+          <span
+            class="material-icons-outlined mx-8 rounded-full border py-2 px-2 bg-black text-white">arrow_forward</span>
+        </div>
+      </div>
+    </div>
+  </nz-carousel>
+</div>
+
+<!--Top Category-->
+<div class="container mx-auto mb-32">
+  <div class="font-semibold text-2xl tracking-[0.008em] leading-[42px]">Top categories</div>
+  <div class="grid grid-cols-3 gap-10">
+    <div>
+      <div>
+        <nz-card class="bg-[#F4F6FC] max-w-md	w-full h-[260px]"></nz-card>
+      </div>
+      <div class="font-bold text-xl font-semibold text-center">Business</div>
+    </div>
+    <div>
+      <div>
+        <nz-card class="bg-[#F4F6FC] max-w-md	w-full h-[260px]"></nz-card>
+      </div>
+      <div class="font-bold text-xl font-semibold text-center">Data Science</div>
+    </div>
+    <div>
+      <div>
+        <nz-card class="bg-[#F4F6FC] max-w-md	w-full h-[260px]"></nz-card>
+      </div>
+      <div class="font-bold text-xl font-semibold text-center">IT and Software</div>
+    </div>
+    <div>
+      <div>
+        <nz-card class="bg-[#F4F6FC] max-w-md	w-full h-[260px]"></nz-card>
+      </div>
+      <div class="font-bold text-xl font-semibold text-center">Social sciences</div>
+    </div>
+    <div>
+      <div>
+        <nz-card class="bg-[#F4F6FC] max-w-md	w-full h-[260px]"></nz-card>
+      </div>
+      <div class="font-bold text-xl font-semibold text-center">Art and Humanities</div>
+    </div>
+    <div>
+      <div>
+        <nz-card class="bg-[#F4F6FC] max-w-md	w-full h-[260px]"></nz-card>
+      </div>
+      <div class="font-bold text-xl font-semibold text-center">Engineering</div>
+    </div>
+  </div>
+</div>
+
+<!--FAQ-->
+<div class="container mx-auto flex" *ngIf="!loadingFQA else loadingTpl">
+  <div class="max-w-xs text-2xl font-semibold leading-[48px] tracking-[0.005em] mr-32">Frequently Asked Questions</div>
+  <div class="grow">
+    <nz-collapse nzExpandIconPosition="right" class="bg-white" [nzBordered]="false">
+      <nz-collapse-panel class="py-6" *ngFor="let panel of panels" [nzHeader]="headerTpl" [nzActive]="panel.active">
+        <div class="text-[#282938] font-medium text-lg pl-[75px] opacity-70	">{{panel.answer}}</div>
+        <ng-template #headerTpl>
+          <div class="flex items-center">
+            <span class="text-[#2405F2] pr-12 text-2xl">{{panel.id}}</span>
+            <span class="font-medium text-2xl">{{panel.name}}</span>
+          </div>
+        </ng-template>
+      </nz-collapse-panel>
+    </nz-collapse>
+
+  </div>
+</div>
+
+<ng-template #loadingTpl>
+  <nz-skeleton></nz-skeleton>
+</ng-template>

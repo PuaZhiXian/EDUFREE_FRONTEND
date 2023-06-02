@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {NzCarouselComponent} from "ng-zorro-antd/carousel";
 import {ICourseDetail} from "../../../../interface/courses/i-course-detail";
+import {IFaq} from "../../../../interface/FAQ/i-faq";
 
 @Component({
   selector: 'app-dashboard',
@@ -12,35 +13,14 @@ export class DashboardComponent implements OnInit {
   effect = 'scrollx';
   @ViewChild('recommendCarousel') recommendCarousel!: NzCarouselComponent;
 
-  panels = [
-    {
-      id: '01',
-      active: true,
-      name: 'This is panel header 1',
-      answer: 'A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.'
-    },
-    {
-      id: '02',
-      active: false,
-      name: 'This is panel header 2',
-      answer: 'A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.'
-    },
-    {
-      id: '03',
-      active: false,
-      name: 'This is panel header 3',
-      answer: 'A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.'
-    }
-  ];
+  panels: IFaq[] = [];
   recommendArray!: ICourseDetail[];
 
   loadingRecommend: boolean = true;
-  loadingFQA: boolean = true;
-  i = 0;
-  index = 0;
+  loadingFAQ: boolean = true;
 
   ngOnInit(): void {
-    this.loadingFQA = false;
+    this.initFAQ()
     this.initRecommendCourse();
 
   }
@@ -149,8 +129,30 @@ export class DashboardComponent implements OnInit {
     ];
     this.array = Array.from({length: Math.ceil(this.recommendArray.length / 3)}, (_, index) => index);
     this.loadingRecommend = false;
+  }
 
-    console.log(this.recommendArray[this.i +this.index * 3].image)
+  initFAQ() {
+    this.panels = [
+      {
+        id: '01',
+        active: true,
+        name: 'This is panel header 1',
+        answer: 'A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.'
+      },
+      {
+        id: '02',
+        active: false,
+        name: 'This is panel header 2',
+        answer: 'A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.'
+      },
+      {
+        id: '03',
+        active: false,
+        name: 'This is panel header 3',
+        answer: 'A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.'
+      }
+    ];
+    this.loadingFAQ = false;
   }
 
   onCarousel(direction: string) {

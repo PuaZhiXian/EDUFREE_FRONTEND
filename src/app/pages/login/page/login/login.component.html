@@ -1,0 +1,91 @@
+<div class="container mx-auto flex h-full">
+  <div class="max-w-2xl w-full py-10">
+    <nz-card class="flex bg-[#1C1E53] rounded-lg h-full items-end">
+      <div class="text-white font-bold text-4xl mt-auto">Lorem Ipsum is simply</div>
+      <div class="text-white text-2xl	mt-auto">Lorem Ipsum is simply</div>
+    </nz-card>
+  </div>
+  <div class="grow px-16 py-10">
+    <div class="w-full h-full py-10">
+      <div class="text-center">Welcome to lorem..!</div>
+      <div class="flex justify-center my-6">
+        <div class="switch-button">
+          <input class="switch-button-checkbox" (click)="toggleIsLogin(isRegister)" [ngModel]="isRegister" type="checkbox">
+          <label class="switch-button-label"><span class="switch-button-label-span">Login</span></label>
+        </div>
+      </div>
+
+      <div class="">
+        <div class="text-[#5B5B5B] my-7">Lorem Ipsum is simply dummy text of the printing and typesetting
+          industry.
+        </div>
+        <form nz-form [formGroup]="validateForm">
+
+          <!--Email-->
+          <div *ngIf="isRegister" class="my-3">Email Address</div>
+          <div *ngIf="isRegister">
+            <nz-form-item class="">
+              <nz-form-control nzErrorTip="Please input your email address!">
+                <nz-input-group class="rounded-3xl">
+                  <input class="w-full text-sm border-[#244088] border placeholder-[#ACACAC]"
+                         formControlName="email" nz-input placeholder="Enter your Email Address"/>
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <!--Username-->
+          <div class="my-3">Username</div>
+          <div>
+            <nz-form-item class="">
+              <nz-form-control nzErrorTip="Please input your username!">
+                <nz-input-group class="rounded-3xl">
+                  <input class="w-full text-sm border-[#244088] border placeholder-[#ACACAC]"
+                         formControlName="username" nz-input placeholder="Enter your Username"/>
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <!--Password-->
+          <div class="mt-7 mb-3">Password</div>
+          <div class="mb-6">
+            <nz-form-item class="">
+              <nz-form-control nzErrorTip="Please input your Password!">
+                <nz-input-group [nzSuffix]="suffixTemplate" class="rounded-3xl border-[#244088] border">
+                  <input [type]="passwordVisible ? 'text' : 'password'"
+                         class="w-full text-sm border-[#244088] border placeholder-[#ACACAC]"
+                         formControlName="password" nz-input placeholder="Enter your Password"/>
+                </nz-input-group>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+
+
+        </form>
+
+        <!--Remember Me & Forget Password-->
+        <div *ngIf="!isRegister" class="grid grid-cols-2">
+          <div>
+            <label nz-checkbox [(ngModel)]="isRememberMe">Remember Me</label>
+          </div>
+          <div class="flex justify-end">
+            <div>Forget password?</div>
+          </div>
+        </div>
+        <!--Submit-->
+        <div class="flex justify-end mt-14">
+          <button (click)="submitForm()"
+                  class="px-20 h-auto rounded-full py-3
+                  hover:bg-[#688AFDFF] hover:text-white
+                         bg-[#1C1E53] text-white border-0 py-4">{{isRegister ? 'Register' : 'Login'}}
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<ng-template #suffixTemplate>
+  <span (click)="passwordVisible = !passwordVisible"
+        class="material-icons-outlined">{{passwordVisible ? 'visibility' : 'visibility_off'}}</span>
+</ng-template>

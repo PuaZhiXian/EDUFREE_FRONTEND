@@ -1,0 +1,74 @@
+.switch-button {
+  background: rgb(104, 138, 253);
+  border-radius: 30px;
+  overflow: hidden;
+  width: 75%;
+  text-indent: 55px;
+  font-size: 16px;
+  letter-spacing: 1px;
+  color: #ffffff;
+  position: relative;
+  padding-right: 100px;
+  position: relative;
+
+  &:before {
+    content: "Register";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 230px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+    pointer-events: none;
+  }
+
+  &-checkbox {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: 2;
+
+    &:checked + .switch-button-label:before {
+      transform: translateX(170px);
+      transition: transform 300ms linear;
+    }
+
+    & + .switch-button-label {
+      position: relative;
+      padding: 8px 0;
+      margin: 10px 13px;
+      display: block;
+      user-select: none;
+      pointer-events: none;
+
+      &:before {
+        content: "";
+        background: #1C1E53;
+        height: 100%;
+        width: 70%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        border-radius: 30px;
+        transform: translateX(0);
+        transition: transform 300ms;
+      }
+
+      .switch-button-label-span {
+        position: relative;
+      }
+    }
+  }
+}
+
+.ant-input-group > .ant-input:first-child, .ant-input-group-addon:first-child {
+  border-radius: 44px;
+}

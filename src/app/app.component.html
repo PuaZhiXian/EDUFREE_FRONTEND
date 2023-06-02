@@ -1,6 +1,6 @@
 <div class="w-full font-poppins">
   <!--Header-->
-  <div class="w-full bg-[#1C1E53]">
+  <div *ngIf="!hiddenHeader" class="w-full bg-[#1C1E53]">
     <div class="container mx-auto flex text-white items-center py-7">
       <!--Logo-->
       <div class="text-2xl font-bold grow">
@@ -24,7 +24,7 @@
   </div>
 
   <!--Footer-->
-  <div class="w-full bg-[#1C1E53] mt-40">
+  <div *ngIf="!hiddenFooter"  class="w-full bg-[#1C1E53] mt-40">
     <div class="container mx-auto flex text-white py-7 mb-16">
 
       <div class="font-bold grow text-2xl">[EDUFREE]</div>

@@ -75,50 +75,28 @@
   <hr class="mb-20 divide-black">
 
   <nz-carousel #recommendCarousel [nzEffect]="effect" [nzEnableSwipe]="false" class="h-[500px]	"
-               [nzAutoPlaySpeed]="30000">
+               [nzAutoPlaySpeed]="30000" *ngIf="!loadingRecommend;else loadingTpl">
     <div nz-carousel-content *ngFor="let index of array">
       <div class="flex">
         <div (click)="onCarousel('left')" class="flex items-center cursor-pointer hover:bg-[#F4F6FC]">
           <span class="material-icons-outlined mx-8 rounded-full border py-2 px-2 bg-black text-white">arrow_back</span>
         </div>
         <div class="grid grid-cols-3 gap-16">
-          <div>
+          <div *ngFor="let item of recommendArray.slice(index * 3, 3 + index * 3)">
             <nz-card class="h-full">
-              <img class="w-full" src="https://img-b.udemycdn.com/course/240x135/1565838_e54e_16.jpg">
-              <div class="font-bold text-2xl line-clamp-2">The Complete 2023 Web Development Bootcamp</div>
-              <div class="font-light">Dr. Angela Yu</div>
+              <img class="w-full" src="{{item.image}}">
+              <div class="font-bold text-2xl line-clamp-2">{{item.title}}</div>
+              <div class="font-light">{{item.author}}</div>
               <div class="flex items-center">
-                <span class="mr-2 text-[#FCD980] text-xl font-extrabold">4.5</span>
-                <nz-rate [nzDisabled]="true" [ngModel]="4.5" nzAllowHalf></nz-rate>
-                <span class="text-xs	font-light">(815)</span>
+                <span
+                  class="mr-2 text-[#FCD980] text-xl font-extrabold">{{item.rate}}</span>
+                <nz-rate [nzDisabled]="true" [ngModel]="item.rate" nzAllowHalf></nz-rate>
+                <span class="text-xs	font-light">({{item.rateCount}})</span>
               </div>
-              <div class="ml-2 font-bold text-xl">RM89.90</div>
-            </nz-card>
-          </div>
-          <div>
-            <nz-card class="h-full">
-              <img class="w-full" src="https://img-c.udemycdn.com/course/240x135/2993624_0967_2.jpg">
-              <div class="font-bold text-2xl line-clamp-2">The Complete Python Bootcamp</div>
-              <div class="font-light">Jose Portilla</div>
-              <div class="flex items-center">
-                <span class="mr-2 text-[#FCD980] text-xl font-extrabold">4.7</span>
-                <nz-rate [nzDisabled]="true" [ngModel]="4.7" nzAllowHalf></nz-rate>
-                <span class="text-xs	font-light">(529)</span>
-              </div>
-              <div class="ml-2 font-bold text-xl">RM69.90</div>
-            </nz-card>
-          </div>
-          <div>
-            <nz-card class="h-full">
-              <img class="w-full" src="https://img-b.udemycdn.com/course/240x135/950390_270f_3.jpg">
-              <div class="font-bold text-2xl line-clamp-2">Machine Learning A-Z™: AI, Python & R</div>
-              <div class="font-light">SuperDataScience Team</div>
-              <div class="flex items-center">
-                <span class="mr-2 text-[#FCD980] text-xl font-extrabold">4.9</span>
-                <nz-rate [nzDisabled]="true" [ngModel]="4.9" nzAllowHalf></nz-rate>
-                <span class="text-xs	font-light">(716)</span>
-              </div>
-              <div class="ml-2 font-bold text-xl">RM69.90</div>
+              <nz-statistic class="font-bold text-xl" nzPrefix="RM"
+                            ngClass="text-xl font-poppins"
+                            [nzValueStyle]="{ 'font-size': '20px' }"
+                            [nzValue]="(item.price | number: '1.2')!"></nz-statistic>
             </nz-card>
           </div>
         </div>

@@ -30,10 +30,18 @@ export class AppComponent implements OnInit {
   }
 
   redirect(link: string) {
-    if (link == 'login') {
-      this.router.navigate(['/', link]);
-      this.hiddenFooter = true;
-      this.hiddenHeader = true;
+    switch (link) {
+      case 'login':
+        this.hiddenHeader = true;
+        this.hiddenFooter = true;
+        this.router.navigate(['/', link]);
+        break;
+      case 'courses':
+        this.router.navigate(['/', 'courses', 'default'])
+        break;
+      default:
+        this.router.navigate(['/', link])
+        break;
     }
     console.log(link);
   }

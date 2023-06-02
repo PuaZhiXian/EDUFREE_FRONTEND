@@ -11,10 +11,11 @@ import {NzRateModule} from "ng-zorro-antd/rate";
 import {FormsModule} from "@angular/forms";
 import {NzCollapseModule} from "ng-zorro-antd/collapse";
 import {NzSkeletonModule} from "ng-zorro-antd/skeleton";
+import {NzStatisticModule} from "ng-zorro-antd/statistic";
 
 
 @NgModule({
-  imports: [DashboardRoutingModule, NzButtonModule, NzCardModule, NzCarouselModule, CommonModule, NzRateModule, FormsModule, NzCollapseModule, NzSkeletonModule],
+    imports: [DashboardRoutingModule, NzButtonModule, NzCardModule, NzCarouselModule, CommonModule, NzRateModule, FormsModule, NzCollapseModule, NzSkeletonModule, NzStatisticModule],
   declarations: [DashboardComponent],
   exports: [DashboardComponent]
 })

@@ -4,14 +4,14 @@
     <div class="container mx-auto flex text-white items-center py-7">
       <!--Logo-->
       <div class="text-2xl font-bold grow">
-        <button>EDUFREE</button>
+        <button (click)="redirect('dashboard')">EDUFREE</button>
       </div>
       <div class="">
-        <button class="mx-5" (click)="redirect('home')">HOME</button>
-        <button class="mx-5" (click)="redirect('about us')">ABOUT US</button>
-        <button class="mx-5" (click)="redirect('course')">COURSE</button>
-        <button class="mx-5" (click)="redirect('faq')">FAQ</button>
-        <button class="mx-5" (click)="redirect('blog')">BLOG</button>
+        <button class="mx-5 cursor-pointer" (click)="redirect('home')">HOME</button>
+        <button class="mx-5 cursor-pointer" (click)="redirect('about us')">ABOUT US</button>
+        <button class="mx-5 cursor-pointer" (click)="redirect('courses')">COURSE</button>
+        <button class="mx-5 cursor-pointer" (click)="redirect('faq')">FAQ</button>
+        <button class="mx-5 cursor-pointer" (click)="redirect('blog')">BLOG</button>
 
         <button nz-button class=" ml-16 border py-3 px-10 " (click)="redirect('login')">Login</button>
       </div>
@@ -24,7 +24,7 @@
   </div>
 
   <!--Footer-->
-  <div *ngIf="!hiddenFooter"  class="w-full bg-[#1C1E53] mt-40">
+  <div *ngIf="!hiddenFooter" class="w-full bg-[#1C1E53] mt-40">
     <div class="container mx-auto flex text-white py-7 mb-16">
 
       <div class="font-bold grow text-2xl">[EDUFREE]</div>

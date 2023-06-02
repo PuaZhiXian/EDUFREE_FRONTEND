@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {NzCarouselComponent} from "ng-zorro-antd/carousel";
 import {ICourseDetail} from "../../../../interface/courses/i-course-detail";
 import {IFaq} from "../../../../interface/FAQ/i-faq";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-dashboard',
@@ -18,6 +19,36 @@ export class DashboardComponent implements OnInit {
 
   loadingRecommend: boolean = true;
   loadingFAQ: boolean = true;
+
+  topCategory = [
+    {
+      category: 'Business',
+      link: 'business'
+    },
+    {
+      category: 'Data Science',
+      link: 'dataScience'
+    },
+    {
+      category: 'IT and Software',
+      link: 'itSoftware'
+    },
+    {
+      category: 'Social sciences',
+      link: 'socialScience'
+    },
+    {
+      category: 'Art and Humanities',
+      link: 'artHumanities'
+    },
+    {
+      category: 'Engineering',
+      link: 'engineering'
+    }
+  ]
+
+  constructor(private router: Router,) {
+  }
 
   ngOnInit(): void {
     this.initFAQ()
@@ -159,4 +190,7 @@ export class DashboardComponent implements OnInit {
     direction === 'right' ? this.recommendCarousel.next() : this.recommendCarousel.pre();
   }
 
+  redirectToCourse(link:string){
+    this.router.navigate(['/','courses', link])
+  }
 }

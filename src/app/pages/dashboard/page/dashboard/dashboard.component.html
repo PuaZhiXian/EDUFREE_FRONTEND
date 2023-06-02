@@ -113,41 +113,11 @@
 <div class="container mx-auto mb-32">
   <div class="font-semibold text-2xl tracking-[0.008em] leading-[42px]">Top categories</div>
   <div class="grid grid-cols-3 gap-10">
-    <div>
-      <div>
-        <nz-card class="bg-[#F4F6FC] max-w-md	w-full h-[260px]"></nz-card>
+    <div *ngFor="let category of topCategory">
+      <div (click)="redirectToCourse(category.link)">
+        <nz-card class="bg-[#F4F6FC] max-w-md	w-full h-[260px] cursor-pointer"></nz-card>
       </div>
-      <div class="font-bold text-xl font-semibold text-center">Business</div>
-    </div>
-    <div>
-      <div>
-        <nz-card class="bg-[#F4F6FC] max-w-md	w-full h-[260px]"></nz-card>
-      </div>
-      <div class="font-bold text-xl font-semibold text-center">Data Science</div>
-    </div>
-    <div>
-      <div>
-        <nz-card class="bg-[#F4F6FC] max-w-md	w-full h-[260px]"></nz-card>
-      </div>
-      <div class="font-bold text-xl font-semibold text-center">IT and Software</div>
-    </div>
-    <div>
-      <div>
-        <nz-card class="bg-[#F4F6FC] max-w-md	w-full h-[260px]"></nz-card>
-      </div>
-      <div class="font-bold text-xl font-semibold text-center">Social sciences</div>
-    </div>
-    <div>
-      <div>
-        <nz-card class="bg-[#F4F6FC] max-w-md	w-full h-[260px]"></nz-card>
-      </div>
-      <div class="font-bold text-xl font-semibold text-center">Art and Humanities</div>
-    </div>
-    <div>
-      <div>
-        <nz-card class="bg-[#F4F6FC] max-w-md	w-full h-[260px]"></nz-card>
-      </div>
-      <div class="font-bold text-xl font-semibold text-center">Engineering</div>
+      <div class="font-bold text-xl font-semibold text-center">{{category.category}}</div>
     </div>
   </div>
 </div>

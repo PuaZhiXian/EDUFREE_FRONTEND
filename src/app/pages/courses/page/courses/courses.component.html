@@ -1,1 +1,26 @@
-<p>courses works!</p>
+<div class="container mx-auto my-36">
+  <div class="mx-20 " *ngIf="!loadingCourses; else loadingTpl">
+    <div class="flex justify-center my-11">
+      <input nz-input placeholder="What do you want to learn?"
+             class="w-2/3 text-xl border" [(ngModel)]="searchKey"/>
+    </div>
+
+    <div class="flex justify-center">
+      <div *ngFor="let category of coursesCategoryList" (click)="selectTab(category.category)"
+           class="text-lg font-medium hover:text-[#2405F2] border-0 mx-5 cursor-pointer
+           {{category.category === selectedTab ? 'text-[#2405F2]' : 'text-black'}}">
+        {{category.category}}
+      </div>
+    </div>
+
+
+    <div class="my-28">
+      <course-table [selectedCourse]="selectedCourse"></course-table>
+    </div>
+
+  </div>
+</div>
+
+<ng-template #loadingTpl>
+  <nz-skeleton></nz-skeleton>
+</ng-template>

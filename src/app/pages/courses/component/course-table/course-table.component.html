@@ -1,0 +1,38 @@
+<div>
+  <div class="grid grid-cols-3 gap-14">
+    <div *ngFor="let item of selectedPage">
+      <nz-card class="h-full">
+        <img class="w-full" src="{{item.image}}">
+        <div class="font-bold text-2xl line-clamp-2">{{item.title}}</div>
+        <div class="font-light">{{item.author}}</div>
+        <div class="flex items-center">
+                <span
+                  class="mr-2 text-[#FCD980] text-xl font-extrabold">{{item.rate}}</span>
+          <nz-rate [nzDisabled]="true" [ngModel]="item.rate" nzAllowHalf></nz-rate>
+          <span class="text-xs	font-light">({{item.rateCount}})</span>
+        </div>
+        <nz-statistic class="font-bold text-xl" nzPrefix="RM"
+                      ngClass="text-xl font-poppins"
+                      [nzValueStyle]="{ 'font-size': '20px' }"
+                      [nzValue]="(item.price | number: '1.2')!"></nz-statistic>
+      </nz-card>
+    </div>
+  </div>
+
+</div>
+<div class="my-24 flex justify-center">
+
+  <nz-pagination [(nzPageIndex)]="pageIndex" [nzTotal]="courseSize" [nzPageSize]="6" [nzItemRender]="renderItemTemplate"
+                 (nzPageIndexChange)="onPageIndexChange($event)" id="demo"></nz-pagination>
+</div>
+
+<ng-template #renderItemTemplate let-type let-page="page">
+  <ng-container [ngSwitch]="type">
+    <a *ngSwitchCase="'page'"
+       class=" {{page == pageIndex  ? 'bg-[#FCD980]':'bg-[#F5F5F5]'}}">{{ page }}</a>
+    <a *ngSwitchCase="'prev'"><</a>
+    <a *ngSwitchCase="'next'">></a>
+    <a *ngSwitchCase="'prev_5'">...</a>
+    <a *ngSwitchCase="'next_5'">...</a>
+  </ng-container>
+</ng-template>

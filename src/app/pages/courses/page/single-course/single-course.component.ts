@@ -25,6 +25,7 @@ export class SingleCourseComponent implements OnInit {
   }
 
   initSingleCourse() {
+    //TODO: create api for gain single course detail
     this.singleCourseDetail = {
       author: "Dr. Angela Yu",
       courseIncludes: [

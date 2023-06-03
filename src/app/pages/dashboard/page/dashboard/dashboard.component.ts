@@ -57,6 +57,7 @@ export class DashboardComponent implements OnInit {
   }
 
   initRecommendCourse() {
+    //TODO: create api for gain recommend course
     this.recommendArray = [
       {
         id: '1',
@@ -163,6 +164,7 @@ export class DashboardComponent implements OnInit {
   }
 
   initFAQ() {
+    //TODO: create api for gain FAQ
     this.panels = [
       {
         id: '01',

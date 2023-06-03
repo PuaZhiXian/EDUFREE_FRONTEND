@@ -193,4 +193,8 @@ export class DashboardComponent implements OnInit {
   redirectToCourse(link:string){
     this.router.navigate(['/','courses', link])
   }
+
+  openSingleCourse(id:string){
+    this.router.navigate(['/','courses', 'recommend',id])
+  }
 }

@@ -12,11 +12,12 @@ import {NzCardModule} from "ng-zorro-antd/card";
 import {NzRateModule} from "ng-zorro-antd/rate";
 import {NzStatisticModule} from "ng-zorro-antd/statistic";
 import {NzPaginationModule} from "ng-zorro-antd/pagination";
+import { SingleCourseComponent } from './page/single-course/single-course.component';
 
 
 @NgModule({
   imports: [CoursesRoutingModule, FormsModule, NzInputModule, NzTabsModule, CommonModule, NzRadioModule, NzSkeletonModule, NzCardModule, NzRateModule, NzStatisticModule, NzPaginationModule],
-  declarations: [CoursesComponent, CourseTableComponent],
+  declarations: [CoursesComponent, CourseTableComponent, SingleCourseComponent],
   exports: [CoursesComponent]
 })
 export class CoursesModule {

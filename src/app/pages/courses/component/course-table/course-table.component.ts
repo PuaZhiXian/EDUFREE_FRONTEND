@@ -1,5 +1,6 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {ICourseDetail} from "../../../../interface/courses/i-course-detail";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'course-table',
@@ -9,11 +10,15 @@ import {ICourseDetail} from "../../../../interface/courses/i-course-detail";
 export class CourseTableComponent implements OnInit, OnChanges {
 
   @Input() selectedCourse!: ICourseDetail[];
+  @Input() categoryType!:string | null;
   pages: ICourseDetail[][] = [];
   selectedPage: ICourseDetail[] = [];
   courseSize!: number;
   pageIndex!: number;
 
+
+  constructor(private router: Router,) {
+  }
   ngOnInit(): void {
     this.splitCourseToPage();
   }
@@ -38,5 +43,9 @@ export class CourseTableComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     this.splitCourseToPage();
+  }
+
+  openSingleCourse(id:string){
+    this.router.navigate(['/','courses', this.categoryType,id])
   }
 }

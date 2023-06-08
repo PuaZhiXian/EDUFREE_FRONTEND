@@ -3,6 +3,7 @@ import {NzCarouselComponent} from "ng-zorro-antd/carousel";
 import {ICourseDetail} from "../../../../interface/courses/i-course-detail";
 import {IFaq} from "../../../../interface/FAQ/i-faq";
 import {Router} from "@angular/router";
+import {GetAPIService} from "../../../../get-api.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -47,14 +48,27 @@ export class DashboardComponent implements OnInit {
     }
   ]
 
-  constructor(private router: Router,) {
+  constructor(private router: Router, private api: GetAPIService) {
   }
 
-  ngOnInit(): void {
-    this.initFAQ()
+  async ngOnInit() {
+    var faq = await this.initFAQ(); 
+    this.panels = faq;
+    console.log(this.panels);
+    this.loadingFAQ = false;  
     this.initRecommendCourse();
-
+    // this.initAPICalling();
   }
+
+  async initFAQ(): Promise<any> {
+    try {
+      const data = await this.api.getSomeData().toPromise();
+      return data;
+    } catch (error) {
+      console.error(error);
+      throw error; // Throw the error to be handled by the caller
+    }
+  } 
 
   initRecommendCourse() {
     //TODO: create api for gain recommend course
@@ -163,30 +177,30 @@ export class DashboardComponent implements OnInit {
     this.loadingRecommend = false;
   }
 
-  initFAQ() {
-    //TODO: create api for gain FAQ
-    this.panels = [
-      {
-        id: '01',
-        active: true,
-        name: 'This is panel header 1',
-        answer: 'A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.'
-      },
-      {
-        id: '02',
-        active: false,
-        name: 'This is panel header 2',
-        answer: 'A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.'
-      },
-      {
-        id: '03',
-        active: false,
-        name: 'This is panel header 3',
-        answer: 'A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.'
-      }
-    ];
-    this.loadingFAQ = false;
-  }
+  // initFAQ() {
+  //   //TODO: create api for gain FAQ
+  //   this.panels = [
+  //     {
+  //       id: '01',
+  //       active: true,
+  //       FAQ_name: 'This is panel header 1',
+  //       FAQ_answer: 'A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.'
+  //     },
+  //     {
+  //       id: '02',
+  //       active: false,
+  //       FAQ_name: 'This is panel header 2',
+  //       FAQ_answer: 'A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.'
+  //     },
+  //     {
+  //       id: '03',
+  //       active: false,
+  //       FAQ_name: 'This is panel header 3',
+  //       FAQ_answer: 'A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.'
+  //     }
+  //   ];
+  //   this.loadingFAQ = false;
+  // }
 
   onCarousel(direction: string) {
     direction === 'right' ? this.recommendCarousel.next() : this.recommendCarousel.pre();

@@ -4,6 +4,7 @@ import {ICourseDetail} from "../../../../interface/courses/i-course-detail";
 import {IFaq} from "../../../../interface/FAQ/i-faq";
 import {Router} from "@angular/router";
 import {GetAPIService} from "../../../../get-api.service";
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -51,23 +52,27 @@ export class DashboardComponent implements OnInit {
   constructor(private router: Router, private api: GetAPIService) {
   }
 
-  async ngOnInit() {
-    var faq = await this.initFAQ(); 
-    this.panels = faq;
-    console.log(this.panels);
-    this.loadingFAQ = false;  
+  ngOnInit() {
+    this.initFAQ(); 
+    // console.log(this.panels);
+      
     this.initRecommendCourse();
     // this.initAPICalling();
   }
 
-  async initFAQ(): Promise<any> {
-    try {
-      const data = await this.api.getSomeData().toPromise();
-      return data;
-    } catch (error) {
-      console.error(error);
-      throw error; // Throw the error to be handled by the caller
-    }
+  initFAQ() {
+      this.api.getSomeData().pipe(
+        finalize(() => {
+            this.loadingFAQ =false;
+            console.log(this.panels);
+        console.log(this.loadingFAQ);
+        }) 
+      )  
+      .subscribe((resp) => {
+        this.panels = resp;
+        
+      })
+
   } 
 
   initRecommendCourse() {
@@ -212,5 +217,9 @@ export class DashboardComponent implements OnInit {
 
   openSingleCourse(id:string){
     this.router.navigate(['/','courses', 'recommend',id])
+  }
+  
+  submit(){
+    console.log(this.loadingFAQ);
   }
 }

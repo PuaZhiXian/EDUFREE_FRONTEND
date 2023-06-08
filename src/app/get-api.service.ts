@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import {IFaq} from "../app/interface/FAQ/i-faq";
+import { Observable } from 'rxjs';
 
 
 @Injectable({
@@ -10,8 +12,8 @@ export class GetAPIService {
 
   constructor(private http: HttpClient) { }
 
-  getSomeData() {
-    var result = this.http.get(`${this.apiUrl}/dbBridge.php`);
+  getSomeData():Observable<IFaq[]>{
+    var result = this.http.get<IFaq[]>(`${this.apiUrl}/dbBridge.php`);
     return result;
   }
 }

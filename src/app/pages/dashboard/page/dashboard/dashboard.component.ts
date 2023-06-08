@@ -1,15 +1,16 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {NzCarouselComponent} from "ng-zorro-antd/carousel";
 import {ICourseDetail} from "../../../../interface/courses/i-course-detail";
 import {IFaq} from "../../../../interface/FAQ/i-faq";
 import {Router} from "@angular/router";
 import {GetAPIService} from "../../../../get-api.service";
-import { finalize } from 'rxjs';
+import {finalize} from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardComponent implements OnInit {
   array: number[] = [];
@@ -49,31 +50,32 @@ export class DashboardComponent implements OnInit {
     }
   ]
 
-  constructor(private router: Router, private api: GetAPIService) {
+  constructor(private router: Router,
+              private api: GetAPIService,
+              private ref: ChangeDetectorRef) {
   }
 
   ngOnInit() {
-    this.initFAQ(); 
-    // console.log(this.panels);
-      
+    this.initFAQ();
+
     this.initRecommendCourse();
     // this.initAPICalling();
   }
 
   initFAQ() {
-      this.api.getSomeData().pipe(
-        finalize(() => {
-            this.loadingFAQ =false;
-            console.log(this.panels);
+    this.api.getSomeData().pipe(
+      finalize(() => {
+        this.loadingFAQ = false;
+        console.log(this.panels);
         console.log(this.loadingFAQ);
-        }) 
-      )  
-      .subscribe((resp) => {
-        this.panels = resp;
-        
+        this.ref.detectChanges();
+        this.ref.markForCheck();
       })
+    ).subscribe((resp) => {
+      this.panels = resp;
+    })
 
-  } 
+  }
 
   initRecommendCourse() {
     //TODO: create api for gain recommend course
@@ -182,44 +184,19 @@ export class DashboardComponent implements OnInit {
     this.loadingRecommend = false;
   }
 
-  // initFAQ() {
-  //   //TODO: create api for gain FAQ
-  //   this.panels = [
-  //     {
-  //       id: '01',
-  //       active: true,
-  //       FAQ_name: 'This is panel header 1',
-  //       FAQ_answer: 'A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.'
-  //     },
-  //     {
-  //       id: '02',
-  //       active: false,
-  //       FAQ_name: 'This is panel header 2',
-  //       FAQ_answer: 'A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.'
-  //     },
-  //     {
-  //       id: '03',
-  //       active: false,
-  //       FAQ_name: 'This is panel header 3',
-  //       FAQ_answer: 'A dog is a type of domesticated animal. Known for its loyalty and faithfulness, it can be found as a welcome guest in many households across the world.'
-  //     }
-  //   ];
-  //   this.loadingFAQ = false;
-  // }
-
   onCarousel(direction: string) {
     direction === 'right' ? this.recommendCarousel.next() : this.recommendCarousel.pre();
   }
 
-  redirectToCourse(link:string){
-    this.router.navigate(['/','courses', link])
+  redirectToCourse(link: string) {
+    this.router.navigate(['/', 'courses', link])
   }
 
-  openSingleCourse(id:string){
-    this.router.navigate(['/','courses', 'recommend',id])
+  openSingleCourse(id: string) {
+    this.router.navigate(['/', 'courses', 'recommend', id])
   }
-  
-  submit(){
+
+  submit() {
     console.log(this.loadingFAQ);
   }
 }

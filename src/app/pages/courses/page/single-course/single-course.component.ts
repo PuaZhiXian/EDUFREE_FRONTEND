@@ -27,6 +27,7 @@ export class SingleCourseComponent implements OnInit {
   initSingleCourse() {
     //TODO: create api for gain single course detail
     this.singleCourseDetail = {
+      enrolled: false,
       author: "Dr. Angela Yu",
       courseIncludes: [
         '23 hours on-demand video',
@@ -35,7 +36,7 @@ export class SingleCourseComponent implements OnInit {
         'Certificate of completion'
       ],
       overview: "Become a Full-Stack Web Developer with just ONE course. HTML, CSS, Javascript, Node, React, MongoDB, Web3 and DApps",
-      description:'Join the Complete Web Development Bootcamp: the highest-rated, comprehensive course to become a full-stack web developer. Learn the latest tools and technologies used by top companies like Apple, Google, and Netflix. With animated explanations, real-world projects, and 65+ hours of video tutorials, even beginners can become masters. Save $12,000 compared to in-person bootcamps. Start coding and change your life today!',
+      description: 'Join the Complete Web Development Bootcamp: the highest-rated, comprehensive course to become a full-stack web developer. Learn the latest tools and technologies used by top companies like Apple, Google, and Netflix. With animated explanations, real-world projects, and 65+ hours of video tutorials, even beginners can become masters. Save $12,000 compared to in-person bootcamps. Start coding and change your life today!',
       id: "1",
       image: "https://img-b.udemycdn.com/course/240x135/1565838_e54e_16.jpg",
       price: 89.90,
@@ -108,4 +109,10 @@ export class SingleCourseComponent implements OnInit {
     this.loadingSingleCourse = false;
   }
 
+
+  enrollCourse(){
+    this.singleCourseDetail.enrolled = true;
+
+    //TODO: create api for toggle it
+  }
 }

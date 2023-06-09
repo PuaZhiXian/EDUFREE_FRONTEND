@@ -73,22 +73,33 @@
         <div class="sticky top-0">
           <div><img class="w-full" src="{{singleCourseDetail.image}}"></div>
           <div class="bg-white px-9">
-            <div class="font-bold text-3xl font-semibold font-poppins tracking-[0.005em] leading-[51px]">
-              RM {{singleCourseDetail.price | number: '1.2'}}
+            <div *ngIf="!singleCourseDetail.enrolled">
+              <div class="font-bold text-3xl font-semibold font-poppins tracking-[0.005em] leading-[51px]">
+                RM {{singleCourseDetail.price | number: '1.2'}}
+              </div>
+              <div class="my-2.5 w-full">
+                <button
+                  class="font-light rounded tracking-[0.005em] leading-[26px] py-3 bg-[#FCD980] w-full text-center">
+                  Add to Cart
+                </button>
+              </div>
+              <div class="mb-2.5 w-full">
+                <button (click)="enrollCourse()"
+                        class="font-light rounded tracking-[0.005em] leading-[26px] py-3 border border-black w-full text-center">
+                  Buy now
+                </button>
+              </div>
+              <div class="text-center font-light tracking-[0.005em] leading-[24px] mb-5">
+                30-Day Money-Back Guarantee
+              </div>
             </div>
-            <div class="my-2.5 w-full">
-              <button class="font-light rounded tracking-[0.005em] leading-[26px] py-3 bg-[#FCD980] w-full text-center">
-                Add to Cart
-              </button>
-            </div>
-            <div class="mb-2.5 w-full">
-              <button
-                class="font-light rounded tracking-[0.005em] leading-[26px] py-3 border border-black w-full text-center">
-                Buy now
-              </button>
-            </div>
-            <div class="text-center font-light tracking-[0.005em] leading-[24px] mb-5">
-              30-Day Money-Back Guarantee
+            <div *ngIf="singleCourseDetail.enrolled">
+              <div class="my-2.5 w-full">
+                <button
+                  class="font-light rounded tracking-[0.005em] leading-[26px] py-3 border border-black w-full text-center">
+                  Start Learning
+                </button>
+              </div>
             </div>
             <div class="text-xl font-semibold leading-[28px] tracking-[0.005em]">
               This course includes:

@@ -1,6 +1,7 @@
 import {ICourseDetail} from "./i-course-detail";
 
 export interface ISingleCourseDetail extends ICourseDetail {
+  enrolled:boolean,
   overview: string,
   courseIncludes: string[],
   whatWillLearn: string[],

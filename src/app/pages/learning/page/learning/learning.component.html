@@ -1,0 +1,83 @@
+<nz-layout class="h-auto" *ngIf="!loadingCourse ; else loadingTpl">
+  <nz-sider class="bg-white pb-40" nzWidth="300px" nzCollapsible [(nzCollapsed)]="isCollapsed" [nzTrigger]="null">
+
+    <div class="py-4 px-6" *ngIf="!isCollapsed">
+      <div>
+        <div class="text-base font-medium text-[#1C1E53]">Statistics</div>
+        <div class="text-sm text-right text-[#1C1E53">{{(iLearning.viewed / iLearning.total) * 100 | number :'1.0' }}%
+        </div>
+        <nz-progress [nzPercent]="20" [nzStrokeColor]="{ '0%': '#108ee9', '100%': '#87d068' }"
+                     [nzShowInfo]="false"></nz-progress>
+        <div class="font-light text-[13px] text-[#1C1E53]">{{iLearning.viewed}}/{{iLearning.total}} videos have been
+          completed
+        </div>
+      </div>
+      <div class="mt-12" *ngFor="let item of iLearning.listVideos">
+        <div class="text-base font-medium text-[#1C1E53]">{{item.category}}</div>
+        <div class="flex items-center pt-3.5" *ngFor="let video of item.videos">
+          <div class="material-icons-outlined px-2.5 text-[#FCD980]"> play_circle</div>
+          <div class="font-light text-sm text-[#1C1E53] cursor-pointer"
+               (click)="selectVideo(video, item.category)">{{video.title}}</div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="isCollapsed" class="flex justify-center py-4">
+      <nz-progress [nzPercent]="(iLearning.viewed / iLearning.total) * 100"
+                   [nzStrokeColor]="{ '0%': '#108ee9', '100%': '#87d068' }"
+                   [nzWidth]="50" nzType="circle"></nz-progress>
+    </div>
+
+  </nz-sider>
+  <nz-layout>
+    <nz-content>
+      <div class="flex items-center justify-between pt-5">
+        <div class="material-icons-outlined text-5xl text-[#1C1E53] trigger hover:text-[#1890ff]"
+             (click)="isCollapsed = !isCollapsed">{{isCollapsed ? 'menu' : 'menu_open'}}</div>
+        <div>
+          <button class="h-full py-2 px-2.5 rounded-full flex items-center " nz-button nz-dropdown
+                  [nzDropdownMenu]="profileAction">
+            <div class="w-[50px] h-[50px] bg-[#1C1E53] rounded-full"></div>
+            <div class="pl-3.5 pr-8">
+              <div class="text-sm">Hi, Jia Hong</div>
+              <div class="font-medium text-xs">Student</div>
+            </div>
+            <div>
+              <span class="material-icons-outlined">expand_more</span>
+            </div>
+          </button>
+        </div>
+      </div>
+      <div class="text-4xl font-semibold my-11 leading-[57px] tracking-[0.008em]">{{selectedVideo.title}}</div>
+      <div class="inner-content">
+        <iframe class="w-full aspect-video" [src]="selectedVideo.link | nzSanitizer : 'resourceUrl'"
+                title="YouTube video player"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
+      </div>
+      <div class="grid grid-cols-12 my-8">
+        <div class="h-full col-span-2">
+          <button nz-button [disabled]="previousVideo === undefined"
+                  (click)="selectVideo(previousVideo!, previousCategory!)"
+                  class="w-full h-full bg-[#FCD980] rounded text-[#1C1E53] font-medium px-10 py-3 text-base">Previous
+          </button>
+        </div>
+        <div class="col-span-8"></div>
+        <div class="h-full col-span-2">
+          <button nz-button [disabled]="nextVideo === undefined" (click)="selectVideo(nextVideo!,nextCategory!)"
+                  class="w-full h-full bg-[#FCD980] rounded text-[#1C1E53] font-medium px-10 py-3 text-base">Next
+          </button>
+        </div>
+      </div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>
+
+<ng-template #loadingTpl>
+  <nz-skeleton></nz-skeleton>
+</ng-template>
+<nz-dropdown-menu #profileAction="nzDropdownMenu">
+  <ul nz-menu>
+    <li nz-menu-item (click)="logOut()">Log Out</li>
+  </ul>
+</nz-dropdown-menu>

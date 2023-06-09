@@ -115,4 +115,9 @@ export class SingleCourseComponent implements OnInit {
 
     //TODO: create api for toggle it
   }
+
+  learningCourse(){
+    this.router.navigate(['/','learning',this.singleCourseDetail.id])
+  }
+
 }

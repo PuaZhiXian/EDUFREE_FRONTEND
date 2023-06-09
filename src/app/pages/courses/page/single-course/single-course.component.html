@@ -1,52 +1,109 @@
-<div class="bg-[#F4F6FC]">
+<div class="bg-[#F4F6FC] h-[550px] absolute w-full -z-10">
+
+</div>
+<div class="">
   <div class="container mx-auto py-16">
-    <div class="grid grid-cols-3 gap-20">
+    <div class="grid grid-cols-3 gap-20" *ngIf="!loadingSingleCourse ; else loadingTpl">
       <div class="col-span-2 ">
-        <div class="font-semibold text-4xl tracking-[0.005em] leading-[67px]">{{singleCourseDetail.title}}</div>
-        <div class="text-xl tracking-[0.005em] leading-[32px]">{{singleCourseDetail.description}}</div>
-        <div class="flex items-center">
+        <div>
+          <div class="font-semibold text-4xl tracking-[0.005em] leading-[67px]">{{singleCourseDetail.title}}</div>
+          <div class="text-xl tracking-[0.005em] leading-[32px]">{{singleCourseDetail.overview}}</div>
+          <div class="flex items-center">
                 <span
-                  class="mr-2 text-[#FCD980] text-xl font-extrabold">{{singleCourseDetail.rate}}</span>
-          <nz-rate [nzDisabled]="true" [ngModel]="singleCourseDetail.rate" nzAllowHalf></nz-rate>
-          <span class="text-xs	font-light">({{singleCourseDetail.rateCount}})</span>
+                  class="mr-2 text-[#FCD980] text-xl font-extrabold">{{singleCourseDetail.rate | number :'1.1'}}</span>
+            <nz-rate [nzDisabled]="true" [ngModel]="singleCourseDetail.rate" nzAllowHalf></nz-rate>
+            <span class="text-xs	font-light">({{singleCourseDetail.rateCount}})</span>
+          </div>
+          <div class="font-light">Created by {{singleCourseDetail.author}}</div>
         </div>
-        <div class="font-light">Created by {{singleCourseDetail.author}}</div>
+        <div class="mt-32">
+          <nz-card>
+            <div class="font-semibold text-[28px]">What you’ll learn</div>
+            <div>
+              <ul class="list-disc list-inside">
+                <li class="my-2 text-base font-light"
+                    *ngFor="let whatWillLearn of singleCourseDetail.whatWillLearn">{{whatWillLearn}}</li>
+              </ul>
+            </div>
+          </nz-card>
+        </div>
+        <div class="mb-9">
+          <div class="px-6 my-7 font-semibold text-[28px]">Course Content</div>
+          <nz-collapse nzAccordion>
+            <nz-collapse-panel *ngFor="let courseContent of singleCourseDetail.courseContent"
+                               [nzHeader]="courseContent.title">
+              <p>{{ courseContent.content }}</p>
+            </nz-collapse-panel>
+          </nz-collapse>
+        </div>
+        <div>
+          <div class="font-bold text-[28px]">Description</div>
+          <div class="font-light text-base py-[18px] text-justify	">{{singleCourseDetail.description}}</div>
+        </div>
+        <div class="py-7">
+          <div class="font-bold text-[28px]">Instructor</div>
+          <div class="font-semibold text-2xl text-[#1855F1]">{{singleCourseDetail.instructor.name}}</div>
+          <div class="flex items-center my-3">
+            <div class="mr-9">
+              <img [src]="singleCourseDetail.instructor.image" class="rounded-full h-[200px] w-[200px]">
+            </div>
+            <div class="grid space-y-4">
+              <div class="flex items-center ">
+                <div class="text-[#FCD980] text-lg material-icons-outlined mr-[18px]">star</div>
+                <div class="text-lg font-medium">{{singleCourseDetail.instructor.rating | number :'1.1'}} Rating</div>
+              </div>
+              <div class="flex items-center ">
+                <div class="text-[#FCD980] text-lg material-icons-outlined mr-[18px]">edit</div>
+                <div class="text-lg font-medium">{{singleCourseDetail.instructor.reviews}} Reviews</div>
+              </div>
+              <div class="flex items-center ">
+                <div class="text-[#FCD980] text-lg material-icons-outlined mr-[18px]">man</div>
+                <div class="text-lg font-medium">{{singleCourseDetail.instructor.student}} Students</div>
+              </div>
+              <div class="flex items-center ">
+                <div class="text-[#FCD980] text-lg material-icons-outlined mr-[18px]">local_library</div>
+                <div class="text-lg font-medium">{{singleCourseDetail.instructor.courses}} Courses</div>
+              </div>
+            </div>
+          </div>
+          <div class="text-base font-light text-justify	py-2.5">{{singleCourseDetail.instructor.introduction}}</div>
+        </div>
       </div>
       <div class="col-span-1">
-        <div><img class="w-full" src="{{singleCourseDetail.image}}"></div>
-        <div class="bg-white px-9">
-          <div>
-            <nz-statistic class="font-bold text-xl" nzPrefix="RM"
-                          ngClass="text-3xl font-semibold font-poppins tracking-[0.005em] leading-[51px]"
-                          [nzValueStyle]="{ 'font-size': '32px', 'font-weight':'600' }"
-                          [nzValue]="(singleCourseDetail.price | number: '1.2')!"></nz-statistic>
-          </div>
-          <div class="my-2.5 w-full">
-            <button class="font-light rounded tracking-[0.005em] leading-[26px] py-3 bg-[#FCD980] w-full text-center">
-              Add to Cart
-            </button>
-          </div>
-          <div class="mb-2.5 w-full">
-            <button
-              class="font-light rounded tracking-[0.005em] leading-[26px] py-3 border border-black w-full text-center">
-              Buy now
-            </button>
-          </div>
-          <div class="text-center font-light tracking-[0.005em] leading-[24px] mb-5">
-            30-Day Money-Back Guarantee
-          </div>
-          <div class="text-xl font-semibold leading-[28px] tracking-[0.005em]">
-            This course includes:
-          </div>
-          <div>
-            <ul class="list-disc list-inside">
-              <li>Coffee</li>
-              <li>Tea</li>
-              <li>Milk</li>
-            </ul>
+        <div class="sticky top-0">
+          <div><img class="w-full" src="{{singleCourseDetail.image}}"></div>
+          <div class="bg-white px-9">
+            <div class="font-bold text-3xl font-semibold font-poppins tracking-[0.005em] leading-[51px]">
+              RM {{singleCourseDetail.price | number: '1.2'}}
+            </div>
+            <div class="my-2.5 w-full">
+              <button class="font-light rounded tracking-[0.005em] leading-[26px] py-3 bg-[#FCD980] w-full text-center">
+                Add to Cart
+              </button>
+            </div>
+            <div class="mb-2.5 w-full">
+              <button
+                class="font-light rounded tracking-[0.005em] leading-[26px] py-3 border border-black w-full text-center">
+                Buy now
+              </button>
+            </div>
+            <div class="text-center font-light tracking-[0.005em] leading-[24px] mb-5">
+              30-Day Money-Back Guarantee
+            </div>
+            <div class="text-xl font-semibold leading-[28px] tracking-[0.005em]">
+              This course includes:
+            </div>
+            <div>
+              <ul class="list-disc list-inside">
+                <li *ngFor="let includes of singleCourseDetail.courseIncludes">{{includes}}</li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+<ng-template #loadingTpl>
+  <nz-skeleton></nz-skeleton>
+</ng-template>

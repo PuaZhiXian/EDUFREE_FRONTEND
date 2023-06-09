@@ -89,14 +89,13 @@
               <div class="font-light">{{item.author}}</div>
               <div class="flex items-center">
                 <span
-                  class="mr-2 text-[#FCD980] text-xl font-extrabold">{{item.rate}}</span>
+                  class="mr-2 text-[#FCD980] text-xl font-extrabold">{{item.rate  | number :'1.1'}}</span>
                 <nz-rate [nzDisabled]="true" [ngModel]="item.rate" nzAllowHalf></nz-rate>
                 <span class="text-xs	font-light">({{item.rateCount}})</span>
               </div>
-              <nz-statistic class="font-bold text-xl" nzPrefix="RM"
-                            ngClass="text-xl font-poppins"
-                            [nzValueStyle]="{ 'font-size': '20px' }"
-                            [nzValue]="(item.price | number: '1.2')!"></nz-statistic>
+              <div class="font-bold text-xl font-poppins">
+                RM {{item.price | number: '1.2'}}
+              </div>
             </nz-card>
           </div>
         </div>

@@ -39,6 +39,9 @@ export class AppComponent implements OnInit {
       case 'courses':
         this.router.navigate(['/', 'courses', 'default'])
         break;
+      case 'faq':
+        this.router.navigate(['/', 'dashboard'], {queryParams: {section: 'faq'}});
+        break;
       default:
         this.router.navigate(['/', link])
         break;

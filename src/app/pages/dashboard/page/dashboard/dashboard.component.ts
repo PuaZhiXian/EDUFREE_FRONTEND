@@ -1,8 +1,16 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild
+} from '@angular/core';
 import {NzCarouselComponent} from "ng-zorro-antd/carousel";
 import {ICourseDetail} from "../../../../interface/courses/i-course-detail";
 import {IFaq} from "../../../../interface/FAQ/i-faq";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {GetAPIService} from "../../../../get-api.service";
 import {finalize} from 'rxjs';
 
@@ -12,10 +20,11 @@ import {finalize} from 'rxjs';
   styleUrls: ['./dashboard.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, AfterViewInit {
   array: number[] = [];
   effect = 'scrollx';
   @ViewChild('recommendCarousel') recommendCarousel!: NzCarouselComponent;
+  @ViewChild('faq') container!: ElementRef<HTMLElement>;
 
   panels: IFaq[] = [];
   recommendArray!: ICourseDetail[];
@@ -52,7 +61,8 @@ export class DashboardComponent implements OnInit {
 
   constructor(private router: Router,
               private api: GetAPIService,
-              private ref: ChangeDetectorRef) {
+              private ref: ChangeDetectorRef,
+              private activeRoute: ActivatedRoute,) {
   }
 
   ngOnInit() {
@@ -66,8 +76,6 @@ export class DashboardComponent implements OnInit {
     this.api.getSomeData().pipe(
       finalize(() => {
         this.loadingFAQ = false;
-        console.log(this.panels);
-        console.log(this.loadingFAQ);
         this.ref.detectChanges();
         this.ref.markForCheck();
       })
@@ -198,5 +206,13 @@ export class DashboardComponent implements OnInit {
 
   submit() {
     console.log(this.loadingFAQ);
+  }
+
+  ngAfterViewInit(): void {
+    this.activeRoute.queryParamMap.subscribe((query) => {
+      if(query.get('section') === 'faq'){
+        this.container.nativeElement.scrollIntoView({behavior: "smooth", block: "start"});
+      }
+    })
   }
 }

@@ -1,9 +1,11 @@
 <div class="container mx-auto my-36">
   <div class="mx-20 " *ngIf="!loadingCourses; else loadingTpl">
-    <div class="flex justify-center my-11">
-      <input nz-input placeholder="What do you want to learn?"
-             class="w-2/3 text-xl border" [(ngModel)]="searchKey"/>
-    </div>
+    <form nz-form [formGroup]="validateForm">
+      <div class="flex justify-center my-11">
+        <input nz-input placeholder="What do you want to learn?" formControlName="searchKey"
+               class="w-2/3 text-xl border"/>
+      </div>
+    </form>
 
     <div class="flex justify-center">
       <div *ngFor="let category of coursesCategoryList" (click)="selectTab(category.category)"
@@ -15,7 +17,7 @@
 
 
     <div class="my-28">
-      <course-table [categoryType]="courseCategory" [selectedCourse]="selectedCourse"></course-table>
+      <course-table [categoryType]="courseCategory" [selectedCourse]="displayingSelectedCourse"></course-table>
     </div>
 
   </div>

@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CoursesRoutingModule} from './courses-routing.module';
 import {CoursesComponent} from './page/courses/courses.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NzInputModule} from "ng-zorro-antd/input";
 import {NzTabsModule} from "ng-zorro-antd/tabs";
 import {CommonModule} from "@angular/common";
@@ -14,10 +14,11 @@ import {NzStatisticModule} from "ng-zorro-antd/statistic";
 import {NzPaginationModule} from "ng-zorro-antd/pagination";
 import { SingleCourseComponent } from './page/single-course/single-course.component';
 import {NzCollapseModule} from "ng-zorro-antd/collapse";
+import {NzFormModule} from "ng-zorro-antd/form";
 
 
 @NgModule({
-    imports: [CoursesRoutingModule, FormsModule, NzInputModule, NzTabsModule, CommonModule, NzRadioModule, NzSkeletonModule, NzCardModule, NzRateModule, NzStatisticModule, NzPaginationModule, NzCollapseModule],
+  imports: [CoursesRoutingModule, FormsModule, NzInputModule, NzTabsModule, CommonModule, NzRadioModule, NzSkeletonModule, NzCardModule, NzRateModule, NzStatisticModule, NzPaginationModule, NzCollapseModule, ReactiveFormsModule, NzFormModule],
   declarations: [CoursesComponent, CourseTableComponent, SingleCourseComponent],
   exports: [CoursesComponent]
 })

@@ -53,47 +53,135 @@ export class SingleCourseComponent implements OnInit {
       courseContent: [
         {
           title: 'Front end Web Development',
-          content: 'ask sim'
+          content: [
+            'What is HTML?',
+            'HTML Heading Elements',
+            'HTML Paragraph Elements',
+            'The List Element',
+            'Anchor Elements',
+            'Image Elements',
+            '[Project] Birthday Invite'
+          ]
         },
         {
           title: 'HTML',
-          content: 'ask sim'
+          content: [
+            'What is HTML?',
+            'Anchor Elements',
+            'Image Elements',
+            '[Project] Birthday Invite',
+            'HTML Heading Elements',
+            'HTML Paragraph Elements',
+            'The List Element'
+          ]
         },
         {
           title: 'CSS',
-          content: 'ask sim'
+          content: [
+            'What is HTML?',
+            'HTML Heading Elements',
+            'HTML Paragraph Elements',
+            'The List Element',
+            'Anchor Elements',
+            'Image Elements',
+            '[Project] Birthday Invite'
+          ]
         },
         {
           title: 'Bootstrap',
-          content: 'ask sim'
+          content: [
+            'What is HTML?',
+            'HTML Heading Elements',
+            'HTML Paragraph Elements',
+            'The List Element',
+            'Anchor Elements',
+            'Image Elements',
+            '[Project] Birthday Invite'
+          ]
         },
         {
           title: 'JavaScript',
-          content: 'ask sim'
+          content: [
+            'What is HTML?',
+            'HTML Heading Elements',
+            'HTML Paragraph Elements',
+            'The List Element',
+            'Anchor Elements',
+            'Image Elements',
+            '[Project] Birthday Invite'
+          ]
         },
         {
           title: 'Back end Web Development',
-          content: 'ask sim'
+          content: [
+            'What is HTML?',
+            'HTML Heading Elements',
+            'HTML Paragraph Elements',
+            'The List Element',
+            'Anchor Elements',
+            'Image Elements',
+            '[Project] Birthday Invite'
+          ]
         },
         {
           title: 'Node.js',
-          content: 'ask sim'
+          content: [
+            'What is HTML?',
+            'HTML Heading Elements',
+            'HTML Paragraph Elements',
+            'The List Element',
+            'Anchor Elements',
+            'Image Elements',
+            '[Project] Birthday Invite'
+          ]
         },
         {
           title: 'SQL',
-          content: 'ask sim'
+          content: [
+            'What is HTML?',
+            'HTML Heading Elements',
+            'HTML Paragraph Elements',
+            'The List Element',
+            'Anchor Elements',
+            'Image Elements',
+            '[Project] Birthday Invite'
+          ]
         },
         {
           title: 'Database',
-          content: 'ask sim'
+          content: [
+            'What is HTML?',
+            'HTML Heading Elements',
+            'HTML Paragraph Elements',
+            'The List Element',
+            'Anchor Elements',
+            'Image Elements',
+            '[Project] Birthday Invite'
+          ]
         },
         {
           title: 'SQL',
-          content: 'ask sim'
+          content: [
+            'What is HTML?',
+            'HTML Heading Elements',
+            'HTML Paragraph Elements',
+            'The List Element',
+            'Anchor Elements',
+            'Image Elements',
+            '[Project] Birthday Invite'
+          ]
         },
         {
           title: 'Deployment',
-          content: 'ask sim'
+          content: [
+            'What is HTML?',
+            'HTML Heading Elements',
+            'HTML Paragraph Elements',
+            'The List Element',
+            'Anchor Elements',
+            'Image Elements',
+            '[Project] Birthday Invite'
+          ]
         }
       ],
       instructor: {
@@ -110,14 +198,14 @@ export class SingleCourseComponent implements OnInit {
   }
 
 
-  enrollCourse(){
+  enrollCourse() {
     this.singleCourseDetail.enrolled = true;
 
     //TODO: create api for toggle it
   }
 
-  learningCourse(){
-    this.router.navigate(['/','learning',this.singleCourseDetail.id])
+  learningCourse() {
+    this.router.navigate(['/', 'learning', this.singleCourseDetail.id])
   }
 
 }

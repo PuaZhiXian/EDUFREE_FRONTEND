@@ -32,7 +32,10 @@
           <nz-collapse nzAccordion>
             <nz-collapse-panel *ngFor="let courseContent of singleCourseDetail.courseContent"
                                [nzHeader]="courseContent.title">
-              <p>{{ courseContent.content }}</p>
+              <div class="flex items-center pt-3.5" *ngFor="let content of courseContent.content">
+                <div class="material-icons-outlined px-2.5 text-[#FCD980]"> play_circle</div>
+                <div class="font-light text-sm text-[#1C1E53] cursor-pointer">{{content}}</div>
+              </div>
             </nz-collapse-panel>
           </nz-collapse>
         </div>

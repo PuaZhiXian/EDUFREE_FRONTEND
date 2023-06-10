@@ -12,7 +12,7 @@ export interface ISingleCourseDetail extends ICourseDetail {
 
 interface ICourseContent {
   title: string,
-  content: string
+  content: string[]
 }
 
 interface Iinstructor {

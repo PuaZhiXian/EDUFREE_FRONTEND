@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
     if (this.validateForm.valid) {
       this.isRegister ? console.log('register') : console.log('login');
       console.log('value : ', this.validateForm.value);
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['/profile']);
 
     } else {
       Object.values(this.validateForm.controls).forEach(control => {

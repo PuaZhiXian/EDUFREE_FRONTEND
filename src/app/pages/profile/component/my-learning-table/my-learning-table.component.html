@@ -1,0 +1,49 @@
+<nz-table  #basicTable [nzData]="tableData" [nzShowPagination]="false">
+  <thead>
+  <tr>
+    <th>
+      <div class="text-[#B5B7C0] font-medium text-sm">Course Name</div>
+    </th>
+    <th [nzWidth]="'300px'">
+      <div class="text-[#B5B7C0] font-medium text-sm">Progress</div>
+    </th>
+    <th [nzAlign]="'center'">
+      <div class="text-[#B5B7C0] font-medium text-sm">Status</div>
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let data of basicTable.data">
+    <td>
+      <div class="flex items-center">
+        <div class="mr-7 ">
+          <img class="max-h-[60px]" width="90px" height="60px" [src]="data.img"/>
+        </div>
+        <div>
+          <div class="font-semibold text-[18px]">{{data.courseName}}</div>
+          <div class="text-[#9197B3] text-xs">{{data.description}}</div>
+        </div>
+      </div>
+    </td>
+    <td class="w-[230px]">
+      <div>
+        <div class="text-sm text-right text-[#1C1E53">{{ data.progress | number :'1.0' }}%
+        </div>
+        <nz-progress [nzPercent]="data.progress" [nzStrokeColor]="{ '0%': '#108ee9', '100%': '#87d068' }"
+                     [nzShowInfo]="false"></nz-progress>
+      </div>
+    </td>
+    <td class="" [nzAlign]="'center'">
+      <div *ngIf="data.progress !== 100">
+        <a (click)="continueLearning(data.id)" class="underline text-[#2405F2] text-base">Continue</a>
+      </div>
+      <div *ngIf="data.progress == 100">
+        <button nz-button class="bg-[#FCD980] text-[#282938] text-xs font-medium py-2 px-5"
+                (click)="getCertificate(data.id)">
+          Certificate
+        </button>
+      </div>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>

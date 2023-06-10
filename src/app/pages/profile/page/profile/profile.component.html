@@ -1,0 +1,124 @@
+<div class="bg-[#F4F6FC] pb-10">
+  <div class="container mx-auto">
+    <div class="flex items-center justify-end pt-5">
+      <div>
+        <button class="h-full py-2 px-2.5 rounded-full flex items-center bg-white " nz-button nz-dropdown
+                [nzDropdownMenu]="profileAction">
+          <div class="w-[50px] h-[50px] bg-[#1C1E53] rounded-full"></div>
+          <div class="pl-3.5 pr-8">
+            <div class="text-sm">Hi, Jia Hong</div>
+            <div class="font-medium text-xs">Student</div>
+          </div>
+          <div>
+            <span class="material-icons-outlined">expand_more</span>
+          </div>
+        </button>
+      </div>
+    </div>
+    <div class="mt-16 mb-16 grid grid-cols-3 gap-24">
+      <div class="col-span-2">
+        <nz-card class="rounded h-[400px]">
+          <div>
+            <div class="flex items-center justify-between">
+              <div class="font-bold text-xl ">Overview</div>
+              <div>
+                <button class="h-full py-2 px-2.5 rounded-full flex items-center bg-[#F9FBFF] " nz-button nz-dropdown
+                        [nzDropdownMenu]="columnCategory">
+                  <div class="pl-3.5 pr-8">
+                    <div class="text-sm">{{columnCategoryType}}</div>
+                  </div>
+                  <div>
+                    <span class="material-icons-outlined">expand_more</span>
+                  </div>
+                </button>
+              </div>
+            </div>
+            <div class="text-[#ACACAC] text-sm mb-4">Video completed ({{columnCategoryType}})</div>
+            <canvasjs-chart [options]="chartOptions"></canvasjs-chart>
+          </div>
+        </nz-card>
+      </div>
+      <div class="col-span-1">
+        <nz-card class="rounded h-full">
+          <div class="font-bold text-[22px] font-semibold">Statistics</div>
+          <div class="text-sm text-[#ACACAC] pb-6">Video watched</div>
+          <div class="flex justify-center">
+            <nz-progress [nzFormat]="progressCircleTpl"
+                         [nzStrokeColor]="{ '0%': '#108ee9', '50%': '#2db7f5', '100%': '#87d068' }"
+                         nzType="circle" [nzWidth]="180"
+                         [nzPercent]="60" [nzStrokeWidth]="12"
+                         [nzSuccessPercent]="30"
+            ></nz-progress>
+          </div>
+
+
+        </nz-card>
+      </div>
+    </div>
+    <div class="pt-10">
+      <nz-card>
+        <div class="flex items-center font-semibold text-[22px] ">
+          <div class="grow">My learning</div>
+          <form nz-form [formGroup]="validateForm">
+            <div class="flex justify-center my-11 mx-4">
+              <nz-input-group [nzPrefix]="prefixTemplateInfo" class="border-0">
+                <input nz-input placeholder="Search" nzBorderless
+                       formControlName="searchKey"
+                       class="text-xs border rounded bg-[#F9FBFF]"/>
+              </nz-input-group>
+            </div>
+          </form>
+          <div class="flex items-center justify-between">
+            <div>
+              <button class="h-full px-2.5 rounded-full flex items-center bg-[#F9FBFF] " nz-button nz-dropdown
+                      [nzDropdownMenu]="myLearningCategory">
+                <div class="pl-3.5 pr-8">
+                  <div class="text-sm">{{myLearningCategoryType}}</div>
+                </div>
+                <div>
+                  <span class="material-icons-outlined">expand_more</span>
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="mb-5">
+          <my-learning-table
+            [tableData]="selectingMyLearningData"></my-learning-table>
+        </div>
+      </nz-card>
+    </div>
+  </div>
+</div>
+
+
+<nz-dropdown-menu #profileAction="nzDropdownMenu">
+  <ul nz-menu>
+    <li nz-menu-item (click)="logOut()">Log Out</li>
+  </ul>
+</nz-dropdown-menu>
+
+<nz-dropdown-menu #columnCategory="nzDropdownMenu">
+  <ul nz-menu>
+    <li nz-menu-item (click)="getColumnChartData('Day')">Day</li>
+    <li nz-menu-item (click)="getColumnChartData('Month')">Month</li>
+  </ul>
+</nz-dropdown-menu>
+
+<nz-dropdown-menu #myLearningCategory="nzDropdownMenu">
+  <ul nz-menu>
+    <li nz-menu-item (click)="getMyLearningCategory('Day')">Day</li>
+    <li nz-menu-item (click)="getMyLearningCategory('Month')">Month</li>
+  </ul>
+</nz-dropdown-menu>
+
+<ng-template #progressCircleTpl let-precent>
+  <div class="font-bold 2xl">{{precent}}%</div>
+  <div class="text-base">Video watched</div>
+</ng-template>
+
+<ng-template #prefixTemplateInfo>
+<span class="material-icons-outlined">
+search
+</span>
+</ng-template>

@@ -73,7 +73,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   initFAQ() {
-    this.api.getSomeData().pipe(
+    this.api.getFaq().pipe(
       finalize(() => {
         this.loadingFAQ = false;
         this.ref.detectChanges();

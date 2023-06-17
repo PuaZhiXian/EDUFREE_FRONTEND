@@ -1,7 +1,7 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {IColumnDataPoints} from "../../../../interface/chart/i-column-data-points";
-import {IMyLearning} from "../../../../interface/learning/i-my-learning";
+import {IMyLearning, IMyLearningCategory} from "../../../../interface/learning/i-my-learning";
 import {ILogout} from "../../../../interface/login/i-logout";
 import {GetAPIService} from "../../../../get-api.service";
 import {finalize} from 'rxjs';
@@ -29,7 +29,7 @@ export class ProfileComponent implements OnInit {
 
   validateForm!: UntypedFormGroup;
 
-  listOfCategory: string[] = [];
+  listOfCategory: IMyLearningCategory[] = [];
 
   constructor(private fb: UntypedFormBuilder,
               private router: Router,
@@ -62,6 +62,7 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.initMyLearningData();
     this.initCategory();
     this.initColumnData();
     this.getColumnChartData('Day');
@@ -70,9 +71,17 @@ export class ProfileComponent implements OnInit {
   }
 
   initCategory() {
-    this.listOfCategory = ['category 1', 'category 2', 'category 3']
-    this.getMyLearningCategory(this.listOfCategory[0]);
-
+    var username = sessionStorage.getItem('username');
+    this.api.getUserCategory(username).pipe(
+      finalize(() => {
+        this.ref.detectChanges();
+        this.ref.markForCheck();
+      })
+    ).subscribe((resp) => {
+      this.listOfCategory = resp;
+      this.getMyLearningCategory(this.listOfCategory[0]);
+    })
+    
     this.initMyLearningData();
   }
 
@@ -187,7 +196,7 @@ export class ProfileComponent implements OnInit {
 
   getColumnChartData(type: string) {
     this.columnCategoryType = type;
-
+    
     //TODO: create api to get statictis
     this.chartOptions = {
       height: 260,
@@ -200,9 +209,23 @@ export class ProfileComponent implements OnInit {
     };
   }
 
-  getMyLearningCategory(type: string) {
+  getMyLearningCategory(type: any) {
     this.myLearningCategoryType = type;
-    //TODO : pass category to backend then gain my learning data
+    // TODO : pass category to backend then gain my learning data
+    var username = sessionStorage.getItem('username');
+    var data = {
+      'username': username,
+      'category': type
+    }
+    this.api.getUserCourse(data).pipe(
+      finalize(() => {
+        this.ref.detectChanges();
+        this.ref.markForCheck();
+      })
+    ).subscribe((resp) => {
+      this.selectingMyLearningData = resp;
+    })
+
     this.selectingMyLearningData = [
       {
         id: "1",

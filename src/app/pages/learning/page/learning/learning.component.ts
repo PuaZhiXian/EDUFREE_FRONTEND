@@ -2,6 +2,8 @@ import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@an
 import {ActivatedRoute, Router} from "@angular/router";
 import {ILearning} from "../../../../interface/learning/i-learning";
 import {IVideo} from "../../../../interface/learning/i-video";
+import {GetAPIService} from "../../../../get-api.service";
+import {finalize} from 'rxjs';
 
 @Component({
   selector: 'app-learning',
@@ -24,6 +26,7 @@ export class LearningComponent implements OnInit {
 
   constructor(private router: Router,
               public activatedRoute: ActivatedRoute,
+              private api: GetAPIService,
               private ref: ChangeDetectorRef,) {
   }
 
@@ -35,6 +38,18 @@ export class LearningComponent implements OnInit {
   }
 
   initCourse() {
+    //TODO: create api to gain learning course detail
+    this.api.getLearningDetails(this.courseId).pipe(
+      finalize(() => {
+        this.ref.detectChanges();
+        this.ref.markForCheck();
+      })
+    ).subscribe((resp) => {
+      this.iLearning = resp;
+      this.selectVideo(this.iLearning.listVideos[0].videos[0], this.iLearning.listVideos[0].category);
+      this.loadingCourse = false;
+    })
+
     this.iLearning = {
       listVideos: [
         {

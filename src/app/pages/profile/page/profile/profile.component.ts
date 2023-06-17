@@ -64,9 +64,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.initCategory();
     this.initColumnData();
-    this.initMyLearningData();
     this.getColumnChartData('Day');
-    this.myLearningCategoryType = 'Day';
     this.initForm();
     this.changeHandler();
   }
@@ -74,6 +72,8 @@ export class ProfileComponent implements OnInit {
   initCategory() {
     this.listOfCategory = ['category 1', 'category 2', 'category 3']
     this.getMyLearningCategory(this.listOfCategory[0]);
+
+    this.initMyLearningData();
   }
 
   initForm() {
@@ -145,12 +145,11 @@ export class ProfileComponent implements OnInit {
       finalize(() => {
         this.ref.detectChanges();
         this.ref.markForCheck();
-        this.getMyLearningCategory('Day');
+        this.getMyLearningCategory(this.listOfCategory[0]);
       })
     ).subscribe((resp) => {
       this.dayMyLearningData = resp;
     })
-
 
 
     this.monthMyLearningData = [

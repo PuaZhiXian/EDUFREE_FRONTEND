@@ -150,7 +150,11 @@ export class ProfileComponent implements OnInit {
   initMyLearningData() {
     //TODO: api to get all user's courses
     var username = sessionStorage.getItem('username');
-    this.api.getUserCourse(username).pipe(
+    var data = {
+      'username': username,
+      'category': null
+    }
+    this.api.getUserCourse(data).pipe(
       finalize(() => {
         this.ref.detectChanges();
         this.ref.markForCheck();

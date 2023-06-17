@@ -73,11 +73,6 @@ export class CoursesComponent implements OnInit {
       this.coursesCategoryList = resp;
       this.selectTab(this.coursesCategoryList[0].category);
     })
-
-    this.coursesCategoryList = [
-    ]
-    this.selectTab(this.coursesCategoryList[0].category);
-    this.loadingCourses = false;
   }
 
   selectTab(category: string) {

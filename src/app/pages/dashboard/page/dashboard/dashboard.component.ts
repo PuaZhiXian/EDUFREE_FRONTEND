@@ -34,8 +34,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   topCategory = [
     {
-      category: 'Business',
-      link: 'business'
+      category: 'Python',
+      link: 'python'
     },
     {
       category: 'Data Science',

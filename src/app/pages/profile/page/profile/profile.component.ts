@@ -61,7 +61,6 @@ export class ProfileComponent implements OnInit {
     this.initColumnData();
     this.initMyLearningData();
     this.getColumnChartData('Day');
-    this.getMyLearningCategory('Day');
     this.myLearningCategoryType = 'Day';
     this.initForm();
     this.changeHandler();
@@ -130,36 +129,19 @@ export class ProfileComponent implements OnInit {
   }
 
   initMyLearningData() {
-    this.dayMyLearningData = [
-      {
-        id: "1",
-        courseName: 'Fundamental of Web Programming',
-        description: 'Creating a website...',
-        progress: 20,
-        img: 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTg5j5w2xybUndnmFDBn19mJCk0Vd6BT3wmSuxGnXXwG0exeP9G'
-      },
-      {
-        id: "1",
-        courseName: 'Digital Marketing 101',
-        description: 'Marketing strategies and concepts for beginners',
-        progress: 100,
-        img: 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcT2jlelmdJPCLa6V9cCTnUk81iEfS8N6uVAmLtT8FYdrHqK4mf2'
-      },
-      {
-        id: "1",
-        courseName: 'Introduction to Data Science',
-        description: 'N/A',
-        progress: 50,
-        img: 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRxNhdWds9jljKiw7UEWef9tCslalAucMkUu9z4GkC8-Bfucvpr'
-      },
-      {
-        id: "1",
-        courseName: 'UI/UX Design',
-        description: 'N/A',
-        progress: 90,
-        img: 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSyZEbbB9vP9PtVmYKk3N2d_YZzk3nBjS0hrMZrlRSLEtyKCPZ_'
-      }
-    ];
+    //TODO: api to get all user's courses
+    var username = sessionStorage.getItem('username');
+    this.api.getUserCourse(username).pipe(
+      finalize(() => {
+        this.ref.detectChanges();
+        this.ref.markForCheck();
+        this.getMyLearningCategory('Day');
+      })
+    ).subscribe((resp) => {
+      this.dayMyLearningData = resp;
+    })
+
+    
 
     this.monthMyLearningData = [
       {

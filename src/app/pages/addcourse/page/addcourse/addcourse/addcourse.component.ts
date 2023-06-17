@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-
+import {NzUploadChangeParam} from "ng-zorro-antd/upload";
 @Component({
   selector: 'app-addcourse',
   templateUrl: './addcourse.component.html',
@@ -26,6 +26,10 @@ export class AddcourseComponent implements OnInit{
     this.isNextForm = true;
   }
 
+
+  handleChange({ file, fileList }: NzUploadChangeParam): void {
+
+  }
 }
 
 

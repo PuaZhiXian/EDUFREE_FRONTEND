@@ -5,10 +5,11 @@ import {NzDropDownModule} from "ng-zorro-antd/dropdown";
 import {AddcourseComponent} from "./page/addcourse/addcourse/addcourse.component";
 import {NgForOf, NgIf} from "@angular/common";
 import {NzImageModule} from "ng-zorro-antd/experimental/image";
+import {NzUploadModule} from "ng-zorro-antd/upload";
 
 
 @NgModule({
-  imports: [AddcourseRoutingModule, NzButtonModule, NzDropDownModule, NgForOf, NgIf, NzImageModule],
+  imports: [AddcourseRoutingModule, NzButtonModule, NzDropDownModule, NgForOf, NgIf, NzImageModule, NzUploadModule],
   declarations: [
     AddcourseComponent
   ],

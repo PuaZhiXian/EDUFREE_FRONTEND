@@ -11,6 +11,8 @@ export class AppComponent implements OnInit {
   currentUrl: string = '';
   hiddenHeader: boolean = false;
   hiddenFooter: boolean = false;
+  static hiddenLogin: boolean = false;
+  hl: boolean = AppComponent.hiddenLogin;
 
   constructor(private router: Router,
               public activatedRoute: ActivatedRoute) {
@@ -22,6 +24,7 @@ export class AppComponent implements OnInit {
         this.hiddenHeader = false;
         this.hiddenFooter = false;
       }
+
     });
   }
 

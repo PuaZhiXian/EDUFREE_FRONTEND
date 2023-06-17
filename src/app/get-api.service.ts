@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {IFaq} from "../app/interface/FAQ/i-faq";
 import {ICourseCategory} from "../app/interface/courses/i-course-category";
+import {ICourseDetail} from "../app/interface/courses/i-course-detail";
 import {Observable} from 'rxjs';
 
 
@@ -21,6 +22,11 @@ export class GetAPIService {
 
   getCourseList(): Observable<ICourseCategory[]>{
     var result = this.http.get<ICourseCategory[]>(`${this.apiUrl}/db_getICourseCategory.php`);
+    return result;
+  }
+
+  getRecommendedCourseList(): Observable<ICourseDetail[]>{
+    var result = this.http.get<ICourseDetail[]>(`${this.apiUrl}/db_GetRecommendCourse.php`);
     return result;
   }
 }

@@ -86,7 +86,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   }
 
   initRecommendCourse() {
-    //TODO: create api for gain recommend course
+    //create api for gain recommend course
     this.api.getRecommendedCourseList().pipe(
       finalize(() => {
         this.loadingRecommend = false;

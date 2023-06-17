@@ -1,0 +1,77 @@
+<div class="bg-[#F4F6FC] py-10">
+  <div class="container bg-white justify-items-center mx-auto border-2 border-gray-300 rounded-2xl ">
+    <div class="font-bold mx-10 my-6 text-2xl">
+      Add Course
+    </div>
+    <div>
+      <form *ngIf="!isNextForm ;  else nextForm">
+        <div>
+          <div class="grid grid-cols-3 gap-20 ml-10">
+            <div class="col-span-2" >
+              <div class="mb-7">
+                <input class="text-xl placeholder-gray-300 w-full px-10 py-5 border-2 border-gray-300 rounded-xl" type="text" required name="title" placeholder="Title">
+              </div>
+              <div class="mb-7">
+                <input class="text-xl w-full px-10 py-5 border-2 border-gray-300 rounded-xl placeholder-gray-300" type="text" name="author" required placeholder="Instructor">
+              </div>
+              <div>
+                <textarea class="text-xl w-full px-10 pt-5 pb-40 border-2 border-gray-300 rounded-xl text-start placeholder-gray-300 break-after-all" type="text" name="description" required placeholder="Description"></textarea>
+              </div>
+            </div>
+            <div class="col-span-1 pr-10">
+              <div class="mb-7">
+                <select class="text-xl w-full text-black px-10 py-5 border-2 border-gray-300 rounded-3xl">
+                  <option class="text-gray-300" selected disabled>Category</option>
+                  <option class="text-black" *ngFor="let category of subCategory">{{category}}</option>
+                </select>
+              </div>
+              <div class="mb-7">
+                <input class="text-xl w-full text-black px-10 py-5 border-2 border-gray-300 rounded-3xl" type="number" required name="price" min="0" placeholder="Price" value="0" step=".01">
+              </div>
+            </div>
+          </div>
+          <div class="grid grid-cols-3 pb-7">
+            <div class="col-span-1 ml-10 mt-5">
+              <button class="text-xl px-20 py-5 bg-amber-300 rounded-2xl hover:bg-amber-400" type="submit" name="next" (click)="onToggleForm()">Next</button>
+            </div>
+          </div>
+        </div>
+      </form>
+      <ng-template #nextForm>
+        <form>
+          <div class="mx-10 my-5">
+            <div class="h-full mx-5 mb-7 p-32 border-2 border-gray-300 rounded-xl">
+              <div>
+                <div>
+                  <img class="h-[75px] w-[75px] mx-auto" src="https://mpilabels.com/wp-content/uploads/2020/04/UploadLabelArtworkFiles.png">
+                </div>
+                <div class="text-center ml-20 my-5">
+                  <input class="w-full file:text-xl file:text-slate-500" name="file" type="file" class="file-input mx-auto">
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center py-4">
+              <div class="flex-grow h-px bg-gray-400"></div>
+              <span class="flex-shrink text-2xl text-gray-700 px-4 font-light">OR</span>
+              <div class="flex-grow h-px bg-gray-400"></div>
+            </div>
+            <div class="p-5">
+              <input class="text-xl placeholder-gray-300 w-full px-10 py-5 border-2 border-gray-300 rounded-xl" type="text" name="url" placeholder="Import from URL">
+            </div>
+            <div class="grid grid-cols-5 pb-7">
+              <div class="col-span-1 ml-5 mt-5">
+                <button class="text-xl px-20 py-5 bg-amber-300 rounded-2xl hover:bg-amber-400" type="submit" name="back" (click)="onToggleForm()">Back</button>
+              </div>
+              <div class="col-span-1 ml-10 mt-5">
+                <button class="text-xl px-20 py-5 bg-amber-300 rounded-2xl hover:bg-amber-400" type="submit" name="upload" (click)="onToggleForm()">Upload</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </ng-template>
+    </div>
+  </div>
+
+</div>
+
+

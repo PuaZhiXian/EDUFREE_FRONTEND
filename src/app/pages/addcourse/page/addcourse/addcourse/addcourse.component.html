@@ -4,33 +4,66 @@
       Add Course
     </div>
     <div>
-      <form *ngIf="!isNextForm ;  else nextForm">
+      <form nz-form [formGroup]="addcourseForm" *ngIf="!isNextForm ;  else nextForm">
         <div>
           <div class="grid grid-cols-3 gap-20 ml-10">
             <div class="col-span-2" >
               <div class="mb-7">
-                <input class="text-xl placeholder-gray-300 w-full px-10 py-5 border-2 border-gray-300 rounded-xl" type="text" required name="title" placeholder="Title">
+                <nz-form-item >
+                  <nz-form-control nzErrorTip="Please input your course title!">
+                    <nz-input-group class="rounded-2xl">
+                      <input class="text-xl placeholder-gray-300 w-full px-10 py-5 border-2 border-gray-300"
+                             formControlName="title" nz-input placeholder="Title"/>
+                    </nz-input-group>
+                  </nz-form-control>
+                </nz-form-item>
               </div>
               <div class="mb-7">
-                <input class="text-xl w-full px-10 py-5 border-2 border-gray-300 rounded-xl placeholder-gray-300" type="text" name="author" required placeholder="Instructor">
+                <nz-form-item >
+                  <nz-form-control nzErrorTip="Please input the author name of the course!">
+                    <nz-input-group class="rounded-2xl" >
+                      <input class="text-xl w-full px-10 py-5 border-2 border-gray-300 placeholder-gray-300"
+                             formControlName="author" nz-input placeholder="Instructor"/>
+                    </nz-input-group>
+                  </nz-form-control>
+                </nz-form-item>
               </div>
               <div>
-                <textarea class="text-xl w-full px-10 pt-5 pb-40 border-2 border-gray-300 rounded-xl text-start placeholder-gray-300 break-after-all" type="text" name="description" required placeholder="Description"></textarea>
+                <nz-form-item >
+                  <nz-form-control nzErrorTip="Please input your course description!">
+                    <nz-input-group class="rounded-2xl" >
+                      <textarea class="text-xl w-full px-10 pt-5 pb-40 border-2 border-gray-300 rounded-xl text-start placeholder-gray-300 break-after-all"
+                                nz-input  formControlName="description" placeholder="Description"></textarea>
+                    </nz-input-group>
+                  </nz-form-control>
+                </nz-form-item>
+
               </div>
             </div>
             <div class="col-span-1 pr-10">
               <div class="mb-7">
-                <select class="text-xl w-full text-black px-10 py-5 border-2 border-gray-300 rounded-3xl">
-                  <option class="text-gray-300" selected disabled>Category</option>
-                  <option class="text-black" *ngFor="let category of subCategory">{{category}}</option>
+                <select class="text-xl w-full text-black px-10 py-5 border-2 border-gray-300 rounded-3xl" #category (change)="onSelectCategory(category.value)">
+                  <option value="" selected disabled >Category</option>
+                  <option class="text-black" *ngFor="let category of subCategory" value="{{category}}}">{{category}}</option>
                 </select>
               </div>
               <div class="mb-7">
-                <input class="text-xl w-full text-black px-10 py-5 border-2 border-gray-300 rounded-3xl" type="number" required name="price" min="0" placeholder="Price" value="0" step=".01">
+                <nz-form-item>
+                  <nz-form-control nzErrorTip="Please input your course price!">
+                    <nz-input-group class="rounded-2xl" >
+                      <input class="text-xl w-full text-black px-10 py-5 border-2 border-gray-300 rounded-3xl" type="number"
+                             formControlName="price" placeholder="Price" value="0" step=".01">
+                    </nz-input-group>
+                  </nz-form-control>
+                </nz-form-item>
+
               </div>
             </div>
           </div>
-          <div class="grid grid-cols-3 pb-7">
+          <div class="grid grid-cols-5 pb-7">
+            <div class="col-span-1 ml-10 mt-5">
+              <button class="text-xl px-10 py-5 bg-amber-300 rounded-2xl hover:bg-amber-400" type="submit" name="backProfile" (click)="backProfile()">Back To Profile</button>
+            </div>
             <div class="col-span-1 ml-10 mt-5">
               <button class="text-xl px-20 py-5 bg-amber-300 rounded-2xl hover:bg-amber-400" type="submit" name="next" (click)="onToggleForm()">Next</button>
             </div>
@@ -40,34 +73,33 @@
       <ng-template #nextForm>
         <form>
           <div class="mx-10 my-5">
-            <nz-upload
-              nzType="drag"
-              [nzMultiple]="true"
-              nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-              (nzChange)="handleChange($event)"
-            >
-              <p class="ant-upload-drag-icon">
-                <span nz-icon nzType="inbox"></span>
-              </p>
-              <p class="ant-upload-text">Click or drag file to this area to upload</p>
-              <p class="ant-upload-hint">
-                Support for a single or bulk upload. Strictly prohibit from uploading company data or other band files
-              </p>
-            </nz-upload>
+            <div >
+              <nz-upload class="p-96"
+                nzType="drag"
+                [nzMultiple]="true"
+                nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                (nzChange)="handleChange($event)"
+              >
+                <div class="ant-upload-drag-icon text-center my-5">
+                  <img class="h-[75px] w-[75px] mx-auto mt-28" src="https://mpilabels.com/wp-content/uploads/2020/04/UploadLabelArtworkFiles.png">
+                </div>
+                <div class="ant-upload-text mb-28">Drag & Drop or Choose file to upload</div>
+              </nz-upload>
+            </div>
             <div class="flex items-center py-4">
               <div class="flex-grow h-px bg-gray-400"></div>
               <span class="flex-shrink text-2xl text-gray-700 px-4 font-light">OR</span>
               <div class="flex-grow h-px bg-gray-400"></div>
             </div>
-            <div class="p-5">
-              <input class="text-xl placeholder-gray-300 w-full px-10 py-5 border-2 border-gray-300 rounded-xl" type="text" name="url" placeholder="Import from URL">
+            <div class="p-5" >
+              <input class="text-xl placeholder-gray-300 w-full px-10 py-5 border-2 border-gray-300 rounded-xl" [(ngModel)]="urlInput" (ngModelChange)="checkURL($event)"  type="text" name="url" placeholder="Import from URL">
             </div>
             <div class="grid grid-cols-5 pb-7">
               <div class="col-span-1 ml-5 mt-5">
                 <button class="text-xl px-20 py-5 bg-amber-300 rounded-2xl hover:bg-amber-400" type="submit" name="back" (click)="onToggleForm()">Back</button>
               </div>
               <div class="col-span-1 ml-10 mt-5">
-                <button class="text-xl px-20 py-5 bg-amber-300 rounded-2xl hover:bg-amber-400" type="submit" name="upload" (click)="onToggleForm()">Upload</button>
+                <button class="text-xl px-20 py-5 bg-amber-300 rounded-2xl hover:bg-amber-400" type="submit" name="upload" (click)="onSubmitForm()">Upload</button>
               </div>
             </div>
           </div>

@@ -6,7 +6,7 @@ import {ICourseDetail} from "../app/interface/courses/i-course-detail";
 import {ISingleCourseDetail} from "../app/interface/courses/i-single-course-detail";
 import {ILearning} from "../app/interface/learning/i-learning";
 import {ILogin} from "../app/interface/login/i-login";
-import { IMyLearning } from "../app/interface/learning/i-my-learning";
+import { IMyLearning, IMyLearningCategory } from "../app/interface/learning/i-my-learning";
 import {ILogout} from "../app/interface/login/i-logout";
 import {Observable} from 'rxjs';
 
@@ -57,7 +57,12 @@ export class GetAPIService {
   }
 
   getUserCourse(param: any): Observable<IMyLearning[]>{
-    var result = this.http.get<IMyLearning[]>(`${this.apiUrl}/db_getUserCourses.php?param=${param}`);
+    var result = this.http.post<IMyLearning[]>(`${this.apiUrl}/db_getUserCourses.php`, param);
+    return result;
+  }
+
+  getUserCategory(param: any): Observable<IMyLearningCategory[]>{
+    var result = this.http.get<IMyLearningCategory[]>(`${this.apiUrl}/db_getUserCourseCategory.php?param=${param}`);
     return result;
   }
 }

@@ -5,6 +5,7 @@ import {GetAPIService} from "../../../../get-api.service";
 import {finalize} from 'rxjs';
 import {ILogin} from "../../../../interface/login/i-login";
 import {ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
+import {AppComponent} from "../../../../app.component";
 
 @Component({
   selector: 'app-login',
@@ -60,6 +61,7 @@ export class LoginComponent implements OnInit {
       ).subscribe((resp) => {
         console.log(resp.isLogin);
         if(resp['isLogin'] == true){
+          AppComponent.hiddenLogin = true;
           sessionStorage.setItem('username', username);
           sessionStorage.setItem('password', password);
           this.router.navigate(['/profile']);
@@ -87,7 +89,7 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  
+
   // submitForm() {
   //   if (this.validateForm.valid) {
   //     this.isRegister ? console.log('register') : console.log('login');

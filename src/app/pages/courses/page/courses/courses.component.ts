@@ -61,7 +61,7 @@ export class CoursesComponent implements OnInit {
   }
 
   initCourses() {
-    
+
     //TODO: create api for gain course
     this.api.getCourseList().pipe(
       finalize(() => {

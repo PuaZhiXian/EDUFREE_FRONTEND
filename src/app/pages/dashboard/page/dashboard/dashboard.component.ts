@@ -78,6 +78,11 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         this.loadingFAQ = false;
         this.ref.detectChanges();
         this.ref.markForCheck();
+        this.activeRoute.queryParamMap.subscribe((query) => {
+          if (query.get('section') === 'faq') {
+            this.container.nativeElement.scrollIntoView({behavior: "smooth", block: "start"});
+          }
+        })
       })
     ).subscribe((resp) => {
       this.panels = resp;
@@ -97,7 +102,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       this.recommendArray = resp;
       this.array = Array.from({length: Math.ceil(this.recommendArray.length / 3)}, (_, index) => index);
     })
-    
+
   }
 
   onCarousel(direction: string) {
@@ -118,8 +123,10 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.activeRoute.queryParamMap.subscribe((query) => {
-      if(query.get('section') === 'faq'){
-        this.container.nativeElement.scrollIntoView({behavior: "smooth", block: "start"});
+      if (query.get('section') === 'faq') {
+        if (!this.loadingFAQ) {
+          this.container.nativeElement.scrollIntoView({behavior: "smooth", block: "start"});
+        }
       }
     })
   }

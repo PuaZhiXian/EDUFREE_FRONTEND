@@ -5,7 +5,8 @@ import {ICourseCategory} from "../app/interface/courses/i-course-category";
 import {ICourseDetail} from "../app/interface/courses/i-course-detail";
 import {ISingleCourseDetail} from "../app/interface/courses/i-single-course-detail";
 import {ILearning} from "../app/interface/learning/i-learning";
-import {ILogin} from "../app/interface/login/login";
+import {ILogin} from "../app/interface/login/i-login";
+import {ILogout} from "../app/interface/login/i-logout";
 import {Observable} from 'rxjs';
 
 
@@ -45,8 +46,12 @@ export class GetAPIService {
   }
 
   login(param: any): Observable<ILogin>{
-    console.log('earsdfasd', param);
     var result = this.http.post<ILogin>(`${this.apiUrl}/db_getLogin.php`, param);
+    return result;
+  }
+
+  logout(param: any): Observable<ILogout>{
+    var result = this.http.post<ILogout>(`${this.apiUrl}/db_getLogout.php`, param);
     return result;
   }
 }

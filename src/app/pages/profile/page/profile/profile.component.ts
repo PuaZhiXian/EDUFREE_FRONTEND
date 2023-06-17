@@ -1,8 +1,11 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
-import {IColumnDataPoints} from "../../../../interface/chart/i-column-data-points";
-import {IMyLearning} from "../../../../interface/learning/i-my-learning";
-import {UntypedFormBuilder, UntypedFormGroup} from "@angular/forms";
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from "@angular/router";
+import { IColumnDataPoints } from "../../../../interface/chart/i-column-data-points";
+import { IMyLearning } from "../../../../interface/learning/i-my-learning";
+import { ILogout } from "../../../../interface/login/i-logout";
+import { GetAPIService } from "../../../../get-api.service";
+import {finalize} from 'rxjs';
+import { UntypedFormBuilder, UntypedFormGroup } from "@angular/forms";
 
 @Component({
   selector: 'app-profile',
@@ -21,18 +24,37 @@ export class ProfileComponent implements OnInit {
   monthMyLearningData!: IMyLearning[];
 
   selectingMyLearningData!: IMyLearning[];
+  logout: ILogout[] = [];
 
   validateForm!: UntypedFormGroup;
 
-  constructor(private router: Router,
-              public activatedRoute: ActivatedRoute,
-              private fb: UntypedFormBuilder,
-              private ref: ChangeDetectorRef,) {
+  constructor(private fb: UntypedFormBuilder,
+    private router: Router,
+    public activatedRoute: ActivatedRoute,
+    private api: GetAPIService,
+    private ref: ChangeDetectorRef,) {
   }
 
   logOut() {
+    var username = sessionStorage.getItem('username');
+    var password = sessionStorage.getItem('password');
+    var data = {
+      'username': username,
+      'password': password
+    }
     //TODO: create api for log out
+    this.api.logout(data).pipe(
+      finalize(() => {
+        this.ref.detectChanges();
+        this.ref.markForCheck();
+      })
+    ).subscribe((resp) => {
+      
+    })
+    sessionStorage.removeItem('username');
+    sessionStorage.removeItem('password');
     this.router.navigate(['/', 'dashboard']);
+    
   }
 
   ngOnInit(): void {
@@ -59,51 +81,51 @@ export class ProfileComponent implements OnInit {
 
   initColumnData() {
     this.dayColumnDataPoints = [
-      {label: "1 Jan", y: 10},
-      {label: "2 Jan", y: 15},
-      {label: "3 Jan", y: 25},
-      {label: "4 Jan", y: 30},
-      {label: "5 Jan", y: 28},
-      {label: "6 Jan", y: 10},
-      {label: "7 Jan", y: 15},
-      {label: "8 Jan", y: 25},
-      {label: "9 Jan", y: 30},
-      {label: "10 Jan", y: 28},
-      {label: "11 Jan", y: 10},
-      {label: "12 Jan", y: 15},
-      {label: "13 Jan", y: 25},
-      {label: "14 Jan", y: 30},
-      {label: "15 Jan", y: 28},
-      {label: "16 Jan", y: 10},
-      {label: "17 Jan", y: 15},
-      {label: "18 Jan", y: 25},
-      {label: "19 Jan", y: 30},
-      {label: "20 Jan", y: 28},
-      {label: "21 Jan", y: 10},
-      {label: "22 Jan", y: 15},
-      {label: "23 Jan", y: 25},
-      {label: "24 Jan", y: 30},
-      {label: "25 Jan", y: 28},
-      {label: "26 Jan", y: 10},
-      {label: "27 Jan", y: 15},
-      {label: "28 Jan", y: 25},
-      {label: "29 Jan", y: 30},
-      {label: "30 Jan", y: 28},
-      {label: "31 Jan", y: 28}
+      { label: "1 Jan", y: 10 },
+      { label: "2 Jan", y: 15 },
+      { label: "3 Jan", y: 25 },
+      { label: "4 Jan", y: 30 },
+      { label: "5 Jan", y: 28 },
+      { label: "6 Jan", y: 10 },
+      { label: "7 Jan", y: 15 },
+      { label: "8 Jan", y: 25 },
+      { label: "9 Jan", y: 30 },
+      { label: "10 Jan", y: 28 },
+      { label: "11 Jan", y: 10 },
+      { label: "12 Jan", y: 15 },
+      { label: "13 Jan", y: 25 },
+      { label: "14 Jan", y: 30 },
+      { label: "15 Jan", y: 28 },
+      { label: "16 Jan", y: 10 },
+      { label: "17 Jan", y: 15 },
+      { label: "18 Jan", y: 25 },
+      { label: "19 Jan", y: 30 },
+      { label: "20 Jan", y: 28 },
+      { label: "21 Jan", y: 10 },
+      { label: "22 Jan", y: 15 },
+      { label: "23 Jan", y: 25 },
+      { label: "24 Jan", y: 30 },
+      { label: "25 Jan", y: 28 },
+      { label: "26 Jan", y: 10 },
+      { label: "27 Jan", y: 15 },
+      { label: "28 Jan", y: 25 },
+      { label: "29 Jan", y: 30 },
+      { label: "30 Jan", y: 28 },
+      { label: "31 Jan", y: 28 }
     ];
     this.monthColumnDataPoints = [
-      {label: "Jan", y: 10},
-      {label: "Feb", y: 15},
-      {label: "Mar", y: 25},
-      {label: "Apr", y: 30},
-      {label: "May", y: 28},
-      {label: "Jun", y: 10},
-      {label: "Jul", y: 15},
-      {label: "Aug", y: 25},
-      {label: "Sep", y: 30},
-      {label: "Oct", y: 28},
-      {label: "Nov", y: 10},
-      {label: "Sep", y: 15}
+      { label: "Jan", y: 10 },
+      { label: "Feb", y: 15 },
+      { label: "Mar", y: 25 },
+      { label: "Apr", y: 30 },
+      { label: "May", y: 28 },
+      { label: "Jun", y: 10 },
+      { label: "Jul", y: 15 },
+      { label: "Aug", y: 25 },
+      { label: "Sep", y: 30 },
+      { label: "Oct", y: 28 },
+      { label: "Nov", y: 10 },
+      { label: "Sep", y: 15 }
     ];
   }
 

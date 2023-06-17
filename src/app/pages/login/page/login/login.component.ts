@@ -3,7 +3,7 @@ import {UntypedFormBuilder, UntypedFormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {GetAPIService} from "../../../../get-api.service";
 import {finalize} from 'rxjs';
-import {ILogin} from "../../../../interface/login/login";
+import {ILogin} from "../../../../interface/login/i-login";
 import {ChangeDetectionStrategy, ChangeDetectorRef} from '@angular/core';
 
 @Component({
@@ -60,6 +60,8 @@ export class LoginComponent implements OnInit {
       ).subscribe((resp) => {
         console.log(resp.isLogin);
         if(resp['isLogin'] == true){
+          sessionStorage.setItem('username', username);
+          sessionStorage.setItem('password', password);
           this.router.navigate(['/profile']);
         }else{
           Object.values(this.validateForm.controls).forEach(control => {

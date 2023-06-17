@@ -61,7 +61,7 @@ export class CoursesComponent implements OnInit {
   }
 
   initCourses() {
-    
+
     //TODO: create api for gain course
     this.api.getCourseList().pipe(
       finalize(() => {
@@ -73,11 +73,6 @@ export class CoursesComponent implements OnInit {
       this.coursesCategoryList = resp;
       this.selectTab(this.coursesCategoryList[0].category);
     })
-
-    this.coursesCategoryList = [
-    ]
-    this.selectTab(this.coursesCategoryList[0].category);
-    this.loadingCourses = false;
   }
 
   selectTab(category: string) {

@@ -5,6 +5,7 @@ import {ICourseCategory} from "../app/interface/courses/i-course-category";
 import {ICourseDetail} from "../app/interface/courses/i-course-detail";
 import {ISingleCourseDetail} from "../app/interface/courses/i-single-course-detail";
 import {ILearning} from "../app/interface/learning/i-learning";
+import {ILogin} from "../app/interface/login/login";
 import {Observable} from 'rxjs';
 
 
@@ -40,6 +41,12 @@ export class GetAPIService {
 
   getLearningDetails(param: string|null): Observable<ILearning>{
     var result = this.http.get<ILearning>(`${this.apiUrl}/db_getLearningDetail.php?param=${param}`);
+    return result;
+  }
+
+  login(param: any): Observable<ILogin>{
+    console.log('earsdfasd', param);
+    var result = this.http.post<ILogin>(`${this.apiUrl}/db_getLogin.php`, param);
     return result;
   }
 }

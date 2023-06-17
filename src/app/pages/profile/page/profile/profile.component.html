@@ -107,8 +107,7 @@
 
 <nz-dropdown-menu #myLearningCategory="nzDropdownMenu">
   <ul nz-menu>
-    <li nz-menu-item (click)="getMyLearningCategory('Day')">Day</li>
-    <li nz-menu-item (click)="getMyLearningCategory('Month')">Month</li>
+    <li nz-menu-time *ngFor="let category of listOfCategory" (click)="getMyLearningCategory(category)">{{category}}</li>
   </ul>
 </nz-dropdown-menu>
 

@@ -9,7 +9,7 @@ import {Observable} from 'rxjs';
   providedIn: 'root'
 })
 export class GetAPIService {
-  private apiUrl = 'http://localhost/finalbackend'; // Replace with your PHP server URL
+  private apiUrl = 'http://localhost/finalbackendgithub/wie2002backend/finalbackend'; // Replace with your PHP server URL
 
   constructor(private http: HttpClient) {
   }
@@ -17,7 +17,7 @@ export class GetAPIService {
   getFaq(): Observable<IFaq[]> {
     var result = this.http.get<IFaq[]>(`${this.apiUrl}/db_getFaq.php`);
     return result;
-  }
+  } 
 
   getCourseList(): Observable<ICourseCategory[]>{
     var result = this.http.get<ICourseCategory[]>(`${this.apiUrl}/db_getICourseCategory.php`);

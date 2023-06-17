@@ -131,12 +131,12 @@
     <div class="grow">
       <nz-collapse nzExpandIconPosition="right" class="bg-white" [nzBordered]="false">
         <nz-collapse-panel class="pb-5 mb-5" *ngFor="let panel of panels" [nzHeader]="headerTpl"
-                           [nzActive]="panel.active">
-          <div class="text-[#282938] font-medium text-lg pl-[75px] opacity-70	">{{panel.FAQ_answer}}</div>
+                           [nzActive]="true">
+          <div class="text-[#282938] font-medium text-lg pl-[75px] opacity-70	">{{panel.faqAnswer}}</div>
           <ng-template #headerTpl>
             <div class="flex items-center">
               <span class="text-[#2405F2] pr-12 text-2xl">{{panel.id}}</span>
-              <span class="font-medium text-2xl">{{panel.FAQ_name}}</span>
+              <span class="font-medium text-2xl">{{panel.faqName}}</span>
             </div>
           </ng-template>
         </nz-collapse-panel>

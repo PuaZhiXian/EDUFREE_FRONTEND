@@ -31,6 +31,8 @@ export class ProfileComponent implements OnInit {
 
   listOfCategory: IMyLearningCategory[] = [];
 
+  watchedVideoPercentage!:number;
+
   constructor(private fb: UntypedFormBuilder,
               private router: Router,
               public activatedRoute: ActivatedRoute,
@@ -68,6 +70,8 @@ export class ProfileComponent implements OnInit {
     this.getColumnChartData('Day');
     this.initForm();
     this.changeHandler();
+    //TODO: add api for this @Oscar
+    this.watchedVideoPercentage =60;
   }
 
   initCategory() {

@@ -76,7 +76,7 @@ export class LearningComponent implements OnInit {
     var data = {
       'courseId': this.courseId,
       'userId': sessionStorage.getItem('userId'),
-      'index': videoIndex+1
+      'index': categoryIndex + 1
     }
     this.api.updateProgress(data).pipe(
       finalize(() => {
@@ -85,9 +85,9 @@ export class LearningComponent implements OnInit {
       })
     ).subscribe((resp) => {
       console.log('progress updated');
-      this.iLearning.viewed  = videoIndex + 1;
-      console.log(this.iLearning.listVideos);
-      this.iLearning.total = this.iLearning.listVideos[0].videos.length;
+      this.iLearning.viewed  = (categoryIndex == 0) ? categoryIndex + videoIndex + 1 : categoryIndex * (this.iLearning.listVideos[0].videos.length) + videoIndex + 1;
+      console.log(this.iLearning.total);
+      this.iLearning.total = this.iLearning.total;
     })
 
     this.getPreNextVideo(categoryIndex, videoIndex);

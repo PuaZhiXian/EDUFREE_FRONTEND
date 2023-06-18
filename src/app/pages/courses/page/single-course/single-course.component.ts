@@ -46,7 +46,18 @@ export class SingleCourseComponent implements OnInit {
 
   enrollCourse() {
     this.singleCourseDetail.enrolled = true;
-
+    var data = {
+      'courseId': this.courseId,
+      'userId': sessionStorage.getItem('userId')
+    }
+    this.api.enrollClass(data).pipe(
+      finalize(() => {
+        this.ref.detectChanges();
+        this.ref.markForCheck();
+      })
+    ).subscribe((resp) => {
+      console.log('added course to this user');
+    })
     //TODO: create api for toggle it
   }
 

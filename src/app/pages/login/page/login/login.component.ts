@@ -64,6 +64,7 @@ export class LoginComponent implements OnInit {
           AppComponent.hiddenLogin = true;
           sessionStorage.setItem('username', username);
           sessionStorage.setItem('password', password);
+          sessionStorage.setItem('userId', resp['userId']);
           this.router.navigate(['/profile']);
         }else{
           Object.values(this.validateForm.controls).forEach(control => {

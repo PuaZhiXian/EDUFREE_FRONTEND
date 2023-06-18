@@ -82,4 +82,9 @@ export class GetAPIService {
     var result = this.http.post<ICourseProgress>(`${this.apiUrl}/db_getUserProgress.php`, param);
     return result;
   }
+
+  enrollClass(param: any){
+    var result = this.http.post(`${this.apiUrl}/db_enrollCourse.php`, param);
+    return result;
+  }
 }

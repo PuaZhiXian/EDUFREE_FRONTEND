@@ -28,6 +28,11 @@ export class AppComponent implements OnInit {
         this.hiddenHeader = false;
         this.hiddenFooter = false;
       }
+      if (sessionStorage.getItem('isLogin') == '1'){
+        AppComponent.hiddenLogin = true;
+      }else{
+        AppComponent.hiddenLogin = false;
+      }
       this.hl = AppComponent.hiddenLogin;
     });
   }

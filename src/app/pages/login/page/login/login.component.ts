@@ -69,6 +69,7 @@ export class LoginComponent implements OnInit {
             sessionStorage.setItem('username', username);
             sessionStorage.setItem('password', password);
             sessionStorage.setItem('userId', resp['userId']);
+            sessionStorage.setItem('isLogin', '1');
             this.router.navigate(['/profile']);
           } else {
             Object.values(this.validateForm.controls).forEach(control => {

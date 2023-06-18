@@ -11,6 +11,7 @@ import { IMyLearning, IMyLearningCategory } from "../app/interface/learning/i-my
 import { ICourseProgress } from "../app/interface/courses/i-progress";
 import {ILogout} from "../app/interface/login/i-logout";
 import { IColumnDataPoints } from "../app/interface/chart/i-column-data-points";
+import {IMyTeaching} from "../app/interface/learning/i-my-teaching";
 import {Observable} from 'rxjs';
 
 
@@ -96,6 +97,11 @@ export class GetAPIService {
 
   updateProgress(param: any){
     var result = this.http.post(`${this.apiUrl}/db_updateProgress.php`, param);
+    return result;
+  }
+
+  getTeachingCourse(param: any): Observable<IMyTeaching[]>{
+    var result = this.http.get<IMyTeaching[]>(`${this.apiUrl}/db_getTeachingCourse.php?param=${param}`);
     return result;
   }
 }

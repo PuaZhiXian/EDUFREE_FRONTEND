@@ -20,6 +20,7 @@ export class ProfileComponent implements OnInit {
   columnCategoryType!: string;
   dayColumnDataPoints!: IColumnDataPoints[];
   monthColumnDataPoints!: IColumnDataPoints[];
+  username!: string|null;
 
   myLearningCategoryType!: string;
   dayMyLearningData!: IMyLearning[];
@@ -60,12 +61,14 @@ export class ProfileComponent implements OnInit {
     })
     sessionStorage.removeItem('username');
     sessionStorage.removeItem('password');
+    sessionStorage.removeItem('userId');
     AppComponent.hiddenLogin = false;
     this.router.navigate(['/', 'dashboard']);
 
   }
 
   ngOnInit(): void {
+    this.username = sessionStorage.getItem('username');
     this.initMyLearningData();
     this.initCategory();
     this.initColumnData();

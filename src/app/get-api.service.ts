@@ -6,6 +6,7 @@ import {ICourseDetail} from "../app/interface/courses/i-course-detail";
 import {ISingleCourseDetail} from "../app/interface/courses/i-single-course-detail";
 import {ILearning} from "../app/interface/learning/i-learning";
 import {ILogin} from "../app/interface/login/i-login";
+import {IRegister} from "../app/interface/login/i-register";
 import { IMyLearning, IMyLearningCategory } from "../app/interface/learning/i-my-learning";
 import { ICourseProgress } from "../app/interface/courses/i-progress";
 import {ILogout} from "../app/interface/login/i-logout";
@@ -85,6 +86,11 @@ export class GetAPIService {
 
   enrollClass(param: any){
     var result = this.http.post(`${this.apiUrl}/db_enrollCourse.php`, param);
+    return result;
+  }
+
+  register(param: any): Observable<IRegister>{
+    var result = this.http.post<IRegister>(`${this.apiUrl}/db_register.php`, param);
     return result;
   }
 }

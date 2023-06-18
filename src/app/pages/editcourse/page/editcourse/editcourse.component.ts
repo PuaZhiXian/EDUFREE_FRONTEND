@@ -82,9 +82,8 @@ export class EditcourseComponent implements OnInit{
       this.isNextForm = !this.isNextForm;
     }
   }
-
-  submitForm() {
-    if (this.editcourseForm.valid) {
+  onSubmitForm() {
+    if(this.isCompleted){
       var title = this.editcourseForm.value['title'];
       var author = this.editcourseForm.value['author'];
       var description = this.editcourseForm.value['description'];
@@ -97,22 +96,8 @@ export class EditcourseComponent implements OnInit{
         'category': this.category,
         'urlInput': this.urlInput
       }
-      // TODO: API
+      //TODO
 
-
-
-    } else {
-      Object.values(this.editcourseForm.controls).forEach(control => {
-        if (control.invalid) {
-          control.markAsDirty();
-          control.updateValueAndValidity({onlySelf: true});
-        }
-      });
-    }
-  }
-
-  onSubmitForm() {
-    if(this.isCompleted){
       this.createSuccessMessage();
       this.backProfile();
     }

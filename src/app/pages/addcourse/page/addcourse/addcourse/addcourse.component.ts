@@ -65,8 +65,8 @@ export class AddcourseComponent implements OnInit{
     }
   }
 
-  submitForm() {
-    if (this.addcourseForm.valid) {
+  onSubmitForm() {
+    if(this.isCompleted){
       var title = this.addcourseForm.value['title'];
       var author = this.addcourseForm.value['author'];
       var description = this.addcourseForm.value['description'];
@@ -79,22 +79,7 @@ export class AddcourseComponent implements OnInit{
         'category': this.category,
         'urlInput': this.urlInput
       }
-      // TODO: API
-
-
-
-    } else {
-      Object.values(this.addcourseForm.controls).forEach(control => {
-        if (control.invalid) {
-          control.markAsDirty();
-          control.updateValueAndValidity({onlySelf: true});
-        }
-      });
-    }
-  }
-
-  onSubmitForm() {
-    if(this.isCompleted){
+      //TODO
       this.createSuccessMessage();
       this.backProfile();
     }

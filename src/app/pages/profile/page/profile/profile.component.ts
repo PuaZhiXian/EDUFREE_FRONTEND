@@ -159,7 +159,7 @@ export class ProfileComponent implements OnInit {
         this.monthColumnDataPoints = newArr2;
 
       })
-
+      this.getColumnChartData('Day');
     })
 
   }

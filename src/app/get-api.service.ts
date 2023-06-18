@@ -7,7 +7,9 @@ import {ISingleCourseDetail} from "../app/interface/courses/i-single-course-deta
 import {ILearning} from "../app/interface/learning/i-learning";
 import {ILogin} from "../app/interface/login/i-login";
 import { IMyLearning, IMyLearningCategory } from "../app/interface/learning/i-my-learning";
+import { ICourseProgress } from "../app/interface/courses/i-progress";
 import {ILogout} from "../app/interface/login/i-logout";
+import { IColumnDataPoints } from "../app/interface/chart/i-column-data-points";
 import {Observable} from 'rxjs';
 
 
@@ -63,6 +65,21 @@ export class GetAPIService {
 
   getUserCategory(param: any): Observable<IMyLearningCategory[]>{
     var result = this.http.get<IMyLearningCategory[]>(`${this.apiUrl}/db_getUserCourseCategory.php?param=${param}`);
+    return result;
+  }
+
+  getChartDay(): Observable<IColumnDataPoints[]>{
+    var result = this.http.get<IColumnDataPoints[]>(`${this.apiUrl}/db_getChartDay.php`);
+    return result;
+  }
+
+  getChartMonth(): Observable<IColumnDataPoints[]>{
+    var result = this.http.get<IColumnDataPoints[]>(`${this.apiUrl}/db_getChartMonth.php`);
+    return result;
+  }
+
+  getUserProgress(param: any): Observable<ICourseProgress>{
+    var result = this.http.post<ICourseProgress>(`${this.apiUrl}/db_getUserProgress.php`, param);
     return result;
   }
 }

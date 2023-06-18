@@ -1,9 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {UntypedFormBuilder, UntypedFormGroup, Validators} from "@angular/forms";
 import {NzUploadChangeParam} from "ng-zorro-antd/upload";
 import {ActivatedRoute, Router} from "@angular/router";
+import {GetAPIService} from "../../../../get-api.service";
 import {NzMessageService} from "ng-zorro-antd/message";
 import {IMyTeaching} from "../../../../interface/learning/i-my-teaching";
+import {finalize} from "rxjs";
 
 @Component({
   selector: 'app-editcourse',
@@ -12,7 +14,7 @@ import {IMyTeaching} from "../../../../interface/learning/i-my-teaching";
 })
 export class EditcourseComponent implements OnInit{
   editcourseForm! : UntypedFormGroup;
-  subCategory : string[] = [];
+  subCategory : any;
   isNextForm! : boolean;
   isCompleted! : boolean;
   urlInput!: string;
@@ -22,7 +24,13 @@ export class EditcourseComponent implements OnInit{
   myTeachingData!: IMyTeaching[];
   courseToEdit!: IMyTeaching;
 
-  constructor(private fb: UntypedFormBuilder,private router: Router,private activeRoute: ActivatedRoute, private message: NzMessageService) {
+  constructor(
+    private fb: UntypedFormBuilder,
+    private router: Router,
+    private activeRoute: ActivatedRoute, 
+    private message: NzMessageService,
+    private api: GetAPIService,
+    private ref: ChangeDetectorRef,) {
   }
   ngOnInit() {
     this.initSubCategory();
@@ -41,9 +49,23 @@ export class EditcourseComponent implements OnInit{
 
   }
 
-  initSubCategory(){
-    this.subCategory = ["Python", "Excel", "Web Developer","Data Science"];
+  // initSubCategory(){
+  //   this.subCategory = ["Python", "Excel", "Web Developer","Data Science"];
+  // }
+
+  initSubCategory() {
+    this.api.getSubCategoryName().pipe(
+      finalize(() => {
+        this.ref.detectChanges();
+        this.ref.markForCheck();
+      })
+    ).subscribe((resp) => {
+      console.log(resp);
+      this.subCategory = resp;
+    })
+
   }
+
 
   initEditCourseForm() {
     this.editcourseForm = this.fb.group({
@@ -89,15 +111,23 @@ export class EditcourseComponent implements OnInit{
       var description = this.editcourseForm.value['description'];
       var price = this.editcourseForm.value['price'];
       var data = {
-        'title' : title,
-        'author' : author,
-        'price': price,
-        'description' : description,
-        'category': this.category,
-        'urlInput': this.urlInput
+        "title" : title,
+        "author" : author,
+        "price": price,
+        "description" : description,
+        "category": this.category,
+        "urlInput": this.urlInput
       }
       //TODO
-
+      this.api.updateCourse(data).pipe(
+        finalize(() => {
+          this.ref.detectChanges();
+          this.ref.markForCheck();
+        })
+      ).subscribe((resp) => {
+        console.log(resp);
+        this.myTeachingData = resp;
+      })
       this.createSuccessMessage();
       this.backProfile();
     }

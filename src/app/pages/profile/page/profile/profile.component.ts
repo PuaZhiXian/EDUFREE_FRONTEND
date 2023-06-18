@@ -170,9 +170,8 @@ export class ProfileComponent implements OnInit {
     var username = sessionStorage.getItem('username');
     var data = {
       'username': username,
-      'category': " "
+      'category': null
     }
-    
     this.api.getUserCourse(data).pipe(
       finalize(() => {
         this.ref.detectChanges();
@@ -238,7 +237,7 @@ export class ProfileComponent implements OnInit {
     var username = sessionStorage.getItem('username');
     var data = {
       'username': username,
-      'category': (type == null) ? " " : type
+      'category': type
     }
     this.api.getUserCourse(data).pipe(
       finalize(() => {
@@ -302,20 +301,6 @@ export class ProfileComponent implements OnInit {
     this.router.navigate(['/', 'addcourse']);
   }
 
-  
-
-  // initMyTeachingData() : void{
-  //   var userId = sessionStorage.getItem('userId');
-  //   this.myTeachingData = [{
-  //     id: 1,
-  //     courseName: 'Python crashcourse',
-  //     category: 'Python',
-  //     author: 'Tester',
-  //     description: 'This is a testing teaching course',
-  //     price: 15.99,
-  //     url: 'https://youtu.be/kqtD5dpn9C8'
-  //   }]
-  // }
 
   initMyTeachingData() {
     //TODO: api to get all user's courses

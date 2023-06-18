@@ -1,9 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {NzUploadChangeParam} from "ng-zorro-antd/upload";
 import {UntypedFormBuilder, UntypedFormGroup, Validators} from "@angular/forms";
 import {finalize} from "rxjs";
 import {NzMessageService} from "ng-zorro-antd/message";
+import {GetAPIService} from "../../../../../get-api.service";
 import {Router} from "@angular/router";
+
 @Component({
   selector: 'app-addcourse',
   templateUrl: './addcourse.component.html',
@@ -11,13 +13,17 @@ import {Router} from "@angular/router";
 })
 export class AddcourseComponent implements OnInit{
   addcourseForm! : UntypedFormGroup;
-  subCategory : string[] = [];
+  subCategory: any;
   isNextForm! : boolean;
   isCompleted! : boolean;
   urlInput!: string;
   category!: string;
 
-  constructor(private fb: UntypedFormBuilder,private router: Router,private message: NzMessageService) {
+  constructor(private fb: UntypedFormBuilder,
+    private router: Router,
+    private message: NzMessageService,
+    private api: GetAPIService,
+    private ref: ChangeDetectorRef,) {
 
   }
 
@@ -28,8 +34,18 @@ export class AddcourseComponent implements OnInit{
     this.isCompleted = false;
   }
 
-  initSubCategory(){
-    this.subCategory = ["Python", "Excel", "Web Developer","Data Science"];
+  initSubCategory() {
+    //TODO: api to get all user's courses
+    this.api.getSubCategoryName().pipe(
+      finalize(() => {
+        this.ref.detectChanges();
+        this.ref.markForCheck();
+      })
+    ).subscribe((resp) => {
+      console.log(resp);
+      this.subCategory = resp;
+    })
+
   }
 
   initAddCourseForm() {
@@ -65,8 +81,8 @@ export class AddcourseComponent implements OnInit{
     }
   }
 
-  onSubmitForm() {
-    if(this.isCompleted){
+  submitForm() {
+    if (this.addcourseForm.valid) {
       var title = this.addcourseForm.value['title'];
       var author = this.addcourseForm.value['author'];
       var description = this.addcourseForm.value['description'];
@@ -79,7 +95,22 @@ export class AddcourseComponent implements OnInit{
         'category': this.category,
         'urlInput': this.urlInput
       }
-      //TODO
+      // TODO: API
+
+
+
+    } else {
+      Object.values(this.addcourseForm.controls).forEach(control => {
+        if (control.invalid) {
+          control.markAsDirty();
+          control.updateValueAndValidity({onlySelf: true});
+        }
+      });
+    }
+  }
+
+  onSubmitForm() {
+    if(this.isCompleted){
       this.createSuccessMessage();
       this.backProfile();
     }

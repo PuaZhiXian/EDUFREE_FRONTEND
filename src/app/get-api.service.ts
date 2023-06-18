@@ -104,4 +104,15 @@ export class GetAPIService {
     var result = this.http.get<IMyTeaching[]>(`${this.apiUrl}/db_getTeachingCourse.php?param=${param}`);
     return result;
   }
+
+  getSubCategoryName(){
+    var result = this.http.get(`${this.apiUrl}/db_getSubCategoryName.php`);
+    return result;
+  }
+
+  updateCourse(param: any): Observable<IMyTeaching[]>{
+    var result = this.http.post<IMyTeaching[]>(`${this.apiUrl}/db_updateCourse.php`, param);
+    return result;
+  }
+
 }

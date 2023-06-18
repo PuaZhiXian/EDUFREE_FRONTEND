@@ -8,7 +8,8 @@ const routes: Routes = [
   {path: 'courses', loadChildren: () => import('./pages/courses/courses.module').then(m => m.CoursesModule)},
   {path: 'learning', loadChildren: () => import('./pages/learning/learning.module').then(m => m.LearningModule)},
   {path: 'profile', loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfileModule)},
-  {path: 'addcourse', loadChildren: () => import('./pages/addcourse/addcourse.module').then(m => m.AddcourseModule)}
+  {path: 'addcourse', loadChildren: () => import('./pages/addcourse/addcourse.module').then(m => m.AddcourseModule)},
+  {path: 'editcourse', loadChildren: () => import('./pages/editcourse/editcourse.module').then(m => m.EditcourseModule)}
 ]
 
 @NgModule({

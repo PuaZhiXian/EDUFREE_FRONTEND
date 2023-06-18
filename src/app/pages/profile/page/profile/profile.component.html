@@ -55,10 +55,10 @@
         </nz-card>
       </div>
     </div>
-    <div class="pt-10">
+    <div class="pt-10 pb-5">
       <nz-card>
         <div class="flex items-center font-semibold text-[22px] ">
-          <div class="grow">My learning</div>
+          <div class="grow">My Learning</div>
           <form nz-form [formGroup]="validateForm">
             <div class="flex justify-center my-11 mx-4">
               <nz-input-group [nzPrefix]="prefixTemplateInfo" class="border-0">
@@ -86,6 +86,25 @@
           <my-learning-table
             [tableData]="selectingMyLearningData"></my-learning-table>
         </div>
+      </nz-card>
+    </div>
+    <div class="pt-5 pb-2">
+      <nz-card>
+        <div>
+          <div class="flex items-center font-semibold text-[22px] mb-2">
+            <div class="grow">My Teaching</div>
+          </div>
+          <div>
+            <my-teaching-table [teachingData]="myTeachingData"></my-teaching-table>
+          </div>
+          <div class="grid grid-cols-5 mt-4">
+            <div class="col-span-1 text-center">
+              <button class="bg-[#FCD980] text-[#282938] text-center text-xl font-medium px-10 py-4 rounded-lg"
+                      (click)="addCourse()">Add Course</button>
+            </div>
+          </div>
+        </div>
+
       </nz-card>
     </div>
   </div>

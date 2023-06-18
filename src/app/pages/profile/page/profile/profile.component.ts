@@ -1,13 +1,13 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {IMyLearning, IMyLearningCategory} from "../../../../interface/learning/i-my-learning";
-import {ICourseProgress} from "../../../../interface/courses/i-progress";
 import { IColumnDataPoints } from "../../../../interface/chart/i-column-data-points";
 import {ILogout} from "../../../../interface/login/i-logout";
 import {GetAPIService} from "../../../../get-api.service";
 import {finalize} from 'rxjs';
 import {UntypedFormBuilder, UntypedFormGroup} from "@angular/forms";
 import {AppComponent} from "../../../../app.component";
+import {IMyTeaching} from "../../../../interface/learning/i-my-teaching";
 
 @Component({
   selector: 'app-profile',
@@ -26,13 +26,14 @@ export class ProfileComponent implements OnInit {
   dayMyLearningData!: IMyLearning[];
   monthMyLearningData!: IMyLearning[];
 
+  myTeachingData! : IMyTeaching[];
+
   selectingMyLearningData!: IMyLearning[];
   logout: ILogout[] = [];
 
   validateForm!: UntypedFormGroup;
 
   listOfCategory: IMyLearningCategory[] = [];
-  userProgress: ICourseProgress[] = [];
 
   watchedVideoPercentage!:number;
 
@@ -76,6 +77,7 @@ export class ProfileComponent implements OnInit {
     this.initForm();
     this.changeHandler();
     this.initProgress();
+    this.initMyTeachingData();
   }
 
   initCategory() {
@@ -89,7 +91,7 @@ export class ProfileComponent implements OnInit {
       this.listOfCategory = resp;
       this.getMyLearningCategory(this.listOfCategory[0]);
     })
-    
+
     this.initMyLearningData();
   }
 
@@ -155,11 +157,11 @@ export class ProfileComponent implements OnInit {
           newArr2.push(data);
         }
         this.monthColumnDataPoints = newArr2;
-        
+
       })
-      
+
     })
-    
+
   }
 
   initMyLearningData() {
@@ -215,7 +217,7 @@ export class ProfileComponent implements OnInit {
 
   getColumnChartData(type: string) {
     this.columnCategoryType = type;
-    
+
     //TODO: create api to get statictis
     this.chartOptions = {
       height: 260,
@@ -292,6 +294,22 @@ export class ProfileComponent implements OnInit {
 
   isMatch(str: string): boolean {
     return str.toLocaleLowerCase().includes(this.validateForm.value.searchKey.toLowerCase());
+  }
+
+  addCourse():void{
+    this.router.navigate(['/', 'addcourse']);
+  }
+
+  initMyTeachingData() : void{
+    this.myTeachingData = [{
+      id: 1,
+      courseName: 'Python crashcourse',
+      category: 'Python',
+      author: 'Tester',
+      description: 'This is a testing teaching course',
+      price: 15.99,
+      url: 'https://youtu.be/kqtD5dpn9C8'
+    }]
   }
 
 }

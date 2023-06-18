@@ -16,11 +16,13 @@ import {NzPaginationModule} from "ng-zorro-antd/pagination";
 import {NzTableModule} from "ng-zorro-antd/table";
 import {NzImageModule} from "ng-zorro-antd/image";
 import {NzButtonModule} from "ng-zorro-antd/button";
+import { MyTeachingTableComponent } from './component/my-teaching-table/my-teaching-table/my-teaching-table.component';
+import {NzPopconfirmModule} from "ng-zorro-antd/popconfirm";
 
 
 @NgModule({
-  imports: [ProfileRoutingModule, NzDropDownModule, NzCardModule, CanvasJSAngularChartsModule, NzProgressModule, FormsModule, NzInputModule, NzRateModule, CommonModule, NzPaginationModule, NzTableModule, NzImageModule, NzButtonModule, ReactiveFormsModule],
-  declarations: [ProfileComponent, MyLearningTableComponent],
+  imports: [ProfileRoutingModule, NzDropDownModule, NzCardModule, CanvasJSAngularChartsModule, NzProgressModule, FormsModule, NzInputModule, NzRateModule, CommonModule, NzPaginationModule, NzTableModule, NzImageModule, NzButtonModule, ReactiveFormsModule, NzPopconfirmModule],
+  declarations: [ProfileComponent, MyLearningTableComponent, MyTeachingTableComponent],
   exports: [ProfileComponent]
 })
 export class ProfileModule {

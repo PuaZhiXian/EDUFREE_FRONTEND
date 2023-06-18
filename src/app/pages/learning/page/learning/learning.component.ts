@@ -18,6 +18,7 @@ export class LearningComponent implements OnInit {
   iLearning!: ILearning;
   isCollapsed = false;
   selectedVideo!: IVideo;
+  username!: string|null;
 
   previousVideo?: IVideo;
   nextVideo?: IVideo;
@@ -31,6 +32,7 @@ export class LearningComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.username = sessionStorage.getItem('username');
     this.activatedRoute.paramMap.subscribe((params) => {
       this.courseId = params.get('courseId');
     });
@@ -69,6 +71,23 @@ export class LearningComponent implements OnInit {
           }
         })
       }
+    })
+
+    var data = {
+      'courseId': this.courseId,
+      'userId': sessionStorage.getItem('userId'),
+      'index': videoIndex+1
+    }
+    this.api.updateProgress(data).pipe(
+      finalize(() => {
+        this.ref.detectChanges();
+        this.ref.markForCheck();
+      })
+    ).subscribe((resp) => {
+      console.log('progress updated');
+      this.iLearning.viewed  = videoIndex + 1;
+      console.log(this.iLearning.listVideos);
+      this.iLearning.total = this.iLearning.listVideos[0].videos.length;
     })
 
     this.getPreNextVideo(categoryIndex, videoIndex);

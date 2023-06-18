@@ -93,4 +93,9 @@ export class GetAPIService {
     var result = this.http.post<IRegister>(`${this.apiUrl}/db_register.php`, param);
     return result;
   }
+
+  updateProgress(param: any){
+    var result = this.http.post(`${this.apiUrl}/db_updateProgress.php`, param);
+    return result;
+  }
 }

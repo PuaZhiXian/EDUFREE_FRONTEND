@@ -4,9 +4,9 @@
     <div class="py-4 px-6" *ngIf="!isCollapsed">
       <div>
         <div class="text-base font-medium text-[#1C1E53]">Statistics</div>
-        <div class="text-sm text-right text-[#1C1E53">{{(iLearning.viewed / iLearning.total) * 100 | number :'1.0' }}%
+        <div class="text-sm text-right text-[#1C1E53">{{(iLearning.viewed / iLearning.total) * 100 | number :'1.0-0' }}%
         </div>
-        <nz-progress [nzPercent]="20" [nzStrokeColor]="{ '0%': '#108ee9', '100%': '#87d068' }"
+        <nz-progress [nzPercent]= "iLearning.viewed / iLearning.total * 100" [nzStrokeColor]="{ '0%': '#108ee9', '100%': '#87d068' }"
                      [nzShowInfo]="false"></nz-progress>
         <div class="font-light text-[13px] text-[#1C1E53]">{{iLearning.viewed}}/{{iLearning.total}} videos have been
           completed
@@ -39,7 +39,7 @@
                   [nzDropdownMenu]="profileAction">
             <div class="w-[50px] h-[50px] bg-[#1C1E53] rounded-full"></div>
             <div class="pl-3.5 pr-8">
-              <div class="text-sm">Hi, Jia Hong</div>
+              <div class="text-sm">Hi, {{username}}</div>
               <div class="font-medium text-xs">Student</div>
             </div>
             <div>

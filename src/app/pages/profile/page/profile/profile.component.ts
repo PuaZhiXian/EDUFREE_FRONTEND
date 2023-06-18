@@ -1,6 +1,7 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {IMyLearning, IMyLearningCategory} from "../../../../interface/learning/i-my-learning";
+import {ICourseProgress} from "../../../../interface/courses/i-progress";
 import { IColumnDataPoints } from "../../../../interface/chart/i-column-data-points";
 import {ILogout} from "../../../../interface/login/i-logout";
 import {GetAPIService} from "../../../../get-api.service";
@@ -30,6 +31,7 @@ export class ProfileComponent implements OnInit {
   validateForm!: UntypedFormGroup;
 
   listOfCategory: IMyLearningCategory[] = [];
+  userProgress: ICourseProgress[] = [];
 
   watchedVideoPercentage!:number;
 
@@ -70,8 +72,7 @@ export class ProfileComponent implements OnInit {
     this.getColumnChartData('Day');
     this.initForm();
     this.changeHandler();
-    //TODO: add api for this @Oscar
-    this.watchedVideoPercentage =60;
+    this.initProgress();
   }
 
   initCategory() {
@@ -87,6 +88,23 @@ export class ProfileComponent implements OnInit {
     })
     
     this.initMyLearningData();
+  }
+
+  initProgress() {
+    var username = sessionStorage.getItem('username');
+    var data = {
+      'username': username
+    }
+    this.api.getUserProgress(data).pipe(
+      finalize(() => {
+        this.ref.detectChanges();
+        this.ref.markForCheck();
+      })
+    ).subscribe((resp) => {
+      var totalProgress = Number(resp.totalProgress);
+      var currentProgress = Number(resp.currentProgress);
+      this.watchedVideoPercentage = (currentProgress/totalProgress) * 100;
+    })
   }
 
   initForm() {

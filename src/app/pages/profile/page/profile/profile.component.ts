@@ -281,11 +281,11 @@ export class ProfileComponent implements OnInit {
 
 
   searching() {
-    let temp = this.myLearningCategoryType === 'Day' ? this.dayMyLearningData : this.monthMyLearningData
+    // let temp = this.myLearningCategoryType === 'Day' ? this.dayMyLearningData : this.monthMyLearningData
     if (this.validateForm.value.searchKey.length == 0) {
-      this.selectingMyLearningData = temp;
+      this.selectingMyLearningData = this.selectingMyLearningData;
     } else {
-      this.selectingMyLearningData = temp.filter((items) => {
+      this.selectingMyLearningData = this.selectingMyLearningData.filter((items) => {
         return this.isMatch(items.courseName) || this.isMatch(items.description)
       })
     }

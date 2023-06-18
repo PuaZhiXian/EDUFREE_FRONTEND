@@ -35,6 +35,7 @@ export class ProfileComponent implements OnInit {
 
   listOfCategory: IMyLearningCategory[] = [];
 
+
   watchedVideoPercentage!:number;
 
   constructor(private fb: UntypedFormBuilder,
@@ -301,16 +302,39 @@ export class ProfileComponent implements OnInit {
     this.router.navigate(['/', 'addcourse']);
   }
 
-  initMyTeachingData() : void{
-    this.myTeachingData = [{
-      id: 1,
-      courseName: 'Python crashcourse',
-      category: 'Python',
-      author: 'Tester',
-      description: 'This is a testing teaching course',
-      price: 15.99,
-      url: 'https://youtu.be/kqtD5dpn9C8'
-    }]
+  
+
+  // initMyTeachingData() : void{
+  //   var userId = sessionStorage.getItem('userId');
+  //   this.myTeachingData = [{
+  //     id: 1,
+  //     courseName: 'Python crashcourse',
+  //     category: 'Python',
+  //     author: 'Tester',
+  //     description: 'This is a testing teaching course',
+  //     price: 15.99,
+  //     url: 'https://youtu.be/kqtD5dpn9C8'
+  //   }]
+  // }
+
+  initMyTeachingData() {
+    //TODO: api to get all user's courses
+    var userId = sessionStorage.getItem('userId');
+    this.api.getTeachingCourse(userId).pipe(
+      finalize(() => {
+        this.ref.detectChanges();
+        this.ref.markForCheck();
+      })
+    ).subscribe((resp) => {
+      console.log(resp);
+      this.myTeachingData = resp;
+    })
+
   }
+  
+  
+  
+
+  
 
 }

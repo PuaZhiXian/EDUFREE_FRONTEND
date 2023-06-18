@@ -4,7 +4,7 @@ import {EditcourseComponent} from "./page/editcourse/editcourse.component";
 
 const routes: Routes = [
   {
-    path: '',
+    path: ':id',
     component: EditcourseComponent
   },
 ];

@@ -12,7 +12,7 @@
         <button class="mx-5 cursor-pointer" (click)="redirect('courses')">COURSE</button>
         <button class="mx-5 cursor-pointer" (click)="redirect('faq')">FAQ</button>
         <button class="mx-5 cursor-pointer" >BLOG</button>
-        <button *ngIf="hl" class="mx-5 cursor-pointer" (click)="redirect('profile')">Profile</button>
+        <button *ngIf="hl" class="mx-5 cursor-pointer" (click)="redirect('profile')">PROFILE</button>
 
         <button nz-button *ngIf="!hl" class=" ml-16 border py-3 px-10 " (click)="redirect('login')">Login</button>
         <button nz-button *ngIf="hl" class=" ml-16 border py-3 px-10 " (click)="logOut()">LogOut</button>

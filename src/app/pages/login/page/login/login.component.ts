@@ -7,6 +7,7 @@ import { ILogin } from "../../../../interface/login/i-login";
 import { IRegister } from "../../../../interface/login/i-register";
 import { ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { AppComponent } from "../../../../app.component";
+import {NzMessageService} from "ng-zorro-antd/message";
 
 @Component({
   selector: 'app-login',
@@ -28,7 +29,8 @@ export class LoginComponent implements OnInit {
     private router: Router,
     public activatedRoute: ActivatedRoute,
     private api: GetAPIService,
-    private ref: ChangeDetectorRef,) {
+    private ref: ChangeDetectorRef,
+    private message: NzMessageService) {
 
   }
 
@@ -78,6 +80,7 @@ export class LoginComponent implements OnInit {
                 control.updateValueAndValidity({ onlySelf: true });
               }
             });
+            this.createErrorMessage('The username or password is incorrect!');
           }
         })
       } else {
@@ -155,5 +158,9 @@ export class LoginComponent implements OnInit {
         password: [null, [Validators.required]]
       });
     }
+  }
+
+  createErrorMessage(msg: string): void {
+    this.message.create('error',msg);
   }
 }

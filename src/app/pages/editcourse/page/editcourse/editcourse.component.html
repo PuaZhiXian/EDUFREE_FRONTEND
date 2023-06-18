@@ -32,8 +32,9 @@
                 <nz-form-item >
                   <nz-form-control nzErrorTip="Please input your course description!">
                     <nz-input-group class="rounded-2xl" >
+                      <input >
                       <textarea class="text-xl w-full px-10 pt-5 pb-40 border-2 border-gray-300 rounded-xl text-start placeholder-gray-300 break-after-all"
-                                nz-input  formControlName="description" placeholder="Description"></textarea>
+                                nz-input formControlName="description"  placeholder="Description"></textarea>
                     </nz-input-group>
                   </nz-form-control>
                 </nz-form-item>
@@ -43,8 +44,8 @@
             <div class="col-span-1 pr-10">
               <div class="mb-7">
                 <select class="text-xl w-full text-black px-10 py-5 border-2 border-gray-300 rounded-3xl" #category (change)="onSelectCategory(category.value)">
-                  <option value="" selected disabled >Category</option>
-                  <option class="text-black" *ngFor="let category of subCategory" value="{{category}}}">{{category}}</option>
+                  <option value="" disabled >Category</option>
+                  <option class="text-black" *ngFor="let category of subCategory"  value="{{category}}}">{{category}}</option>
                 </select>
               </div>
               <div class="mb-7">

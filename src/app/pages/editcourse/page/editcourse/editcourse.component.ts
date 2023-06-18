@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {UntypedFormBuilder, UntypedFormGroup, Validators} from "@angular/forms";
 import {NzUploadChangeParam} from "ng-zorro-antd/upload";
-import {Router} from "@angular/router";
+import {ActivatedRoute, ParamMap, Router} from "@angular/router";
 import {NzMessageService} from "ng-zorro-antd/message";
+import {IMyTeaching} from "../../../../interface/learning/i-my-teaching";
 
 @Component({
   selector: 'app-editcourse',
@@ -17,13 +18,27 @@ export class EditcourseComponent implements OnInit{
   urlInput!: string;
   category!: string;
 
-  constructor(private fb: UntypedFormBuilder,private router: Router,private message: NzMessageService) {
+  id! : string | null;
+  myTeachingData!: IMyTeaching[];
+  courseToEdit!: IMyTeaching;
+
+  constructor(private fb: UntypedFormBuilder,private router: Router,private activeRoute: ActivatedRoute, private message: NzMessageService) {
   }
   ngOnInit() {
     this.initSubCategory();
-    this.initEditCourseForm();
+    this.initTeachingData();
     this.isNextForm = false;
-    this.isCompleted = false;
+    this.isCompleted = true;
+    this.id = this.activeRoute.snapshot.paramMap.get('id');
+    if (this.id != null) {
+      var test = this.id;
+      this.myTeachingData.forEach((course)=>{
+        if(course.id == +test){
+          this.courseToEdit = course;
+        }
+      })
+    }this.initEditCourseForm();
+
   }
 
   initSubCategory(){
@@ -37,7 +52,12 @@ export class EditcourseComponent implements OnInit{
       price: [null, [Validators.required, Validators.min(0.00)]],
       description: [null, [Validators.required]],
     });
-    this.category = "";
+    this.editcourseForm.get('title')?.setValue(this.courseToEdit.courseName);
+    this.editcourseForm.get('author')?.setValue(this.courseToEdit.author);
+    this.editcourseForm.get('price')?.setValue(this.courseToEdit.price);
+    this.editcourseForm.get('description')?.setValue(this.courseToEdit.description);
+    this.category = this.courseToEdit.category;
+    this.urlInput = this.courseToEdit.url;
   }
 
 
@@ -127,5 +147,17 @@ export class EditcourseComponent implements OnInit{
 
   onSelectCategory(value: string) {
     this.category = value;
+  }
+
+  initTeachingData(){
+    this.myTeachingData = [{
+      id: 1,
+      courseName: 'Python crashcourse',
+      category: 'Python',
+      author: 'Tester',
+      description: 'This is a testing teaching course',
+      price: 15.99,
+      url: 'https://youtu.be/kqtD5dpn9C8'
+    }]
   }
 }

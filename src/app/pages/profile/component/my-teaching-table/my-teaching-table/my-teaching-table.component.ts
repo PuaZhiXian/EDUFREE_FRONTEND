@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import { IMyTeaching} from "../../../../../interface/learning/i-my-teaching";
+import {Router} from "@angular/router";
+import {NzMessageService} from "ng-zorro-antd/message";
 
 @Component({
   selector: 'my-teaching-table',
@@ -9,26 +11,32 @@ import { IMyTeaching} from "../../../../../interface/learning/i-my-teaching";
 export class MyTeachingTableComponent implements OnInit{
   @Input() teachingData!: IMyTeaching[];
 
-  constructor() {
+  constructor(private router: Router, private message: NzMessageService) {
   }
 
   ngOnInit(): void {
   }
 
   editCourse(id: number): void{
+    this.router.navigate(['/', 'editcourse',id]);
+  }
 
+  createSuccessMessage(): void {
+    this.message.create('success','The course is deleted successfully!');
   }
 
   deleteCourse(id: number): void{
-    var data = this.teachingData;
-    for(let i = 0 ; i < data.length, i++;){
-      if(data[i].id == id){
-        data.splice(i, 1);
+    var data : IMyTeaching[] = [];
+    for(let i = 0 ; i < this.teachingData.length; i++){
+      if(this.teachingData[i].id != id){
+        data.push(this.teachingData[i]);
       }
     }
     this.teachingData = data;
-    console.log(data)
+    this.createSuccessMessage()
   }
+
+
 
 
 }

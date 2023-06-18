@@ -103,7 +103,7 @@ export class ProfileComponent implements OnInit {
     ).subscribe((resp) => {
       var totalProgress = Number(resp.totalProgress);
       var currentProgress = Number(resp.currentProgress);
-      this.watchedVideoPercentage = (currentProgress/totalProgress) * 100;
+      this.watchedVideoPercentage = Math.ceil((currentProgress/totalProgress) * 100);
     })
   }
 

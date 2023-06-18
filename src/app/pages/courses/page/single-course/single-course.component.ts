@@ -58,7 +58,6 @@ export class SingleCourseComponent implements OnInit {
     ).subscribe((resp) => {
       console.log('added course to this user');
     })
-    //TODO: create api for toggle it
   }
 
   learningCourse() {

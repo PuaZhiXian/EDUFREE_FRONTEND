@@ -21,7 +21,8 @@ export class MyLearningTableComponent implements OnInit {
     this.router.navigate(['/', 'learning', id]);
   }
 
-  getCertificate(id: string) {
-
+  getCertificate() {
+    const url = new URL("https://drive.google.com/file/d/1qhkzNyOJyzK94Zrr4czjpS-cLGIyJ_wC/view?usp=sharing");
+    window.open(url, "_blank");
   }
 }

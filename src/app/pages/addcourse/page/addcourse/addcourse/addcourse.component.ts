@@ -56,8 +56,20 @@ export class AddcourseComponent implements OnInit{
       description: [null, [Validators.required]],
     });
     this.category = "";
+    var userID = sessionStorage.getItem('userId');
+    console.log(userID);
+    var authorName;
+    this.api.getAuthorName(userID).pipe(
+      finalize(() => {
+        this.ref.detectChanges();
+        this.ref.markForCheck();
+      })
+    ).subscribe((resp) => {
+      console.log(resp);
+      authorName = resp;
+    })
+    this.addcourseForm.get('author')?.setValue(authorName == undefined ? ' ' : authorName);
   }
-
 
   onToggleForm(){
     if(!this.isNextForm){

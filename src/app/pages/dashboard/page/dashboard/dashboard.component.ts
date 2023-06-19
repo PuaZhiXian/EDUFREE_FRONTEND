@@ -41,7 +41,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     {
       category: 'Excel',
       link: 'excel',
-      img:'https://bernardmarr.com/wp-content/uploads/2022/11/The-Top-5-Data-Science-And-Analytics-Trends-In-2023.jpg'
+      img:'https://cdn.educba.com/academy/wp-content/uploads/2017/11/microsoft-excel-skills.jpg'
     },
     {
       category: 'Web Development',
@@ -51,17 +51,17 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     {
       category: 'JavaScript',
       link: 'javaSript',
-      img:'https://www.worldatlas.com/r/w960-q80/upload/38/4f/7a/shutterstock-87113380.jpg'
+      img:'https://blog.logrocket.com/wp-content/uploads/2021/02/machine-learning-libraries-javascript.png'
     },
     {
       category: 'Data Science',
       link: 'dataScience',
-      img:'https://barcelona-amc.iafor.org/wp-content/uploads/sites/54/2020/07/The-Relevance-of-the-Humanities-and-Arts-in-Uncertain-Times.jpg'
+      img:'https://bernardmarr.com/wp-content/uploads/2022/11/The-Top-5-Data-Science-And-Analytics-Trends-In-2023.jpg'
     },
     {
       category: 'Amazon AWS',
       link: 'aws',
-      img:'https://cdn.mos.cms.futurecdn.net/HFUAjfbamNhbM8dsNSQW3D.jpg'
+      img:'https://i.ytimg.com/vi/JIbIYCM48to/maxresdefault.jpg'
     }
   ]
 

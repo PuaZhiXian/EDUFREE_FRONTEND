@@ -23,4 +23,7 @@ import {NzFormModule} from "ng-zorro-antd/form";
   exports: [CoursesComponent]
 })
 export class CoursesModule {
+
+
+
 }

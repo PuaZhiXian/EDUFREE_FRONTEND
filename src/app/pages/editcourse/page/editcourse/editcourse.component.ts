@@ -87,6 +87,7 @@ export class EditcourseComponent implements OnInit {
 
   onSubmitForm() {
     if (this.isCompleted) {
+      this.editcourseForm.get('author')?.enable();
       var title = this.editcourseForm.value['title'];
       var author = this.editcourseForm.value['author'];
       var description = this.editcourseForm.value['description'];
@@ -170,13 +171,13 @@ export class EditcourseComponent implements OnInit {
       // console.log(resp);
       this.myTeachingData = resp;
       this.courseToEdit = resp[0];
-
       this.editcourseForm.get('title')?.setValue(this.courseToEdit == undefined ? ' ' : this.courseToEdit.courseName);
       this.editcourseForm.get('author')?.setValue(this.courseToEdit == undefined ? ' ' : this.courseToEdit.author);
       this.editcourseForm.get('price')?.setValue(this.courseToEdit == undefined ? ' ' : this.courseToEdit.price);
       this.editcourseForm.get('description')?.setValue(this.courseToEdit == undefined ? ' ' : this.courseToEdit.description);
       this.category = this.courseToEdit == undefined ? ' ' : this.courseToEdit.category;
       this.urlInput = this.courseToEdit == undefined ? ' ' : this.courseToEdit.url;
+      this.editcourseForm.get('author')?.disable();
       // console.log('second ce: ', this.category);
     })
 

@@ -64,9 +64,13 @@ export class AddcourseComponent implements OnInit{
         this.ref.markForCheck();
       })
     ).subscribe((resp) => {
-      this.addcourseForm.get('author')?.setValue(resp == undefined ? ' ' : resp);
+      console.log(resp)
+      this.addcourseForm.get('author')?.setValue(resp.length == 0 ? '' : resp);
+      if(resp.length > 0){
+        this.addcourseForm.get('author')?.disable();
+      }
     })
-    
+
     console.log(this.addcourseForm)
   }
 
@@ -94,6 +98,7 @@ export class AddcourseComponent implements OnInit{
 
   onSubmitForm() {
     if (this.addcourseForm.valid) {
+      this.addcourseForm.get('author')?.enable();
       var title = this.addcourseForm.value['title'];
       var author = this.addcourseForm.value['author'];
       var description = this.addcourseForm.value['description'];

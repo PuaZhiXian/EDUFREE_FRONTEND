@@ -125,8 +125,8 @@ export class GetAPIService {
     return result;
   }
 
-  getAuthorName(param: any): Observable<any>{
-    var result = this.http.get(`${this.apiUrl}/db_getAuthorName.php?param=${param}`);
+  getAuthorName(param: any): Observable<string>{
+    var result = this.http.get<string>(`${this.apiUrl}/db_getAuthorName.php?param=${param}`);
     return result;
   }
 

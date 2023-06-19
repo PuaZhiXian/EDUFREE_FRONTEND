@@ -134,4 +134,9 @@ export class GetAPIService {
     var result = this.http.post<any>(`${this.apiUrl}/db_checkEnroll.php`, param);
     return result;
   }
+
+  unenroll(param: any):Observable<any>{
+    var result = this.http.post<any>(`${this.apiUrl}/db_unenroll.php`, param);
+    return result;
+  }
 }

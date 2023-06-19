@@ -81,7 +81,7 @@ export class AddcourseComponent implements OnInit{
     }
   }
 
-  submitForm() {
+  onSubmitForm() {
     if (this.addcourseForm.valid) {
       var title = this.addcourseForm.value['title'];
       var author = this.addcourseForm.value['author'];
@@ -98,8 +98,6 @@ export class AddcourseComponent implements OnInit{
         'urlInput': this.urlInput
       };
       console.log(data);
-      // TODO: API
-      //apiapiapiapiapiapiapiapiapi
       this.api.addCourse(data).pipe(
         finalize(() => {
           this.ref.detectChanges();
@@ -108,8 +106,11 @@ export class AddcourseComponent implements OnInit{
       ).subscribe((resp) => {
         console.log(resp);
       })
+      this.createSuccessMessage();
+      this.backProfile();
 
     } else {
+      this.createErrorMessage('Please upload a material or input the material URL!');
       Object.values(this.addcourseForm.controls).forEach(control => {
         if (control.invalid) {
           control.markAsDirty();
@@ -119,15 +120,6 @@ export class AddcourseComponent implements OnInit{
     }
   }
 
-  onSubmitForm() {
-    if(this.isCompleted){
-      this.createSuccessMessage();
-      this.backProfile();
-    }
-    else{
-      this.createErrorMessage('Please upload a material or input the material URL!');
-    }
-  }
 
   handleChange({ file, fileList }: NzUploadChangeParam):void {
     this.isCompleted = file.status ==='done';

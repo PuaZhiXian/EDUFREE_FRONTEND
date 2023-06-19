@@ -124,4 +124,9 @@ export class GetAPIService {
     var result = this.http.post(`${this.apiUrl}/db_addCourse.php`, param);
     return result;
   }
+
+  deleteCourse(param: any): Observable<IMyTeaching[]>{
+    var result = this.http.post<IMyTeaching[]>(`${this.apiUrl}/db_deleteCourse.php`, param);
+    return result;
+  }
 }

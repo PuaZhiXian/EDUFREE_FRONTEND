@@ -1,7 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
 import { IMyTeaching} from "../../../../../interface/learning/i-my-teaching";
 import {Router} from "@angular/router";
 import {NzMessageService} from "ng-zorro-antd/message";
+import {finalize} from "rxjs";
+import {GetAPIService} from "../../../../../get-api.service";
 
 @Component({
   selector: 'my-teaching-table',
@@ -11,7 +13,11 @@ import {NzMessageService} from "ng-zorro-antd/message";
 export class MyTeachingTableComponent implements OnInit{
   @Input() teachingData!: IMyTeaching[];
 
-  constructor(private router: Router, private message: NzMessageService) {
+  constructor(
+    private router: Router, 
+    private message: NzMessageService,
+    private api: GetAPIService,
+    private ref: ChangeDetectorRef,) {
   }
 
   ngOnInit(): void {
@@ -27,13 +33,25 @@ export class MyTeachingTableComponent implements OnInit{
 
   deleteCourse(id: number): void{
     var data : IMyTeaching[] = [];
+    var deletedData: IMyTeaching[] = [];
     for(let i = 0 ; i < this.teachingData.length; i++){
       if(this.teachingData[i].id != id){
         data.push(this.teachingData[i]);
+      }else{
+        deletedData.push(this.teachingData[i]);
       }
     }
-    this.teachingData = data;
+    this.api.deleteCourse(deletedData).pipe(
+      finalize(() => {
+        this.ref.detectChanges();
+        this.ref.markForCheck();
+      })
+    ).subscribe((resp) => {
+      console.log(resp);
+    })
+    //this.teachingData = data;
     this.createSuccessMessage()
+    window.location.reload();
   }
 
 

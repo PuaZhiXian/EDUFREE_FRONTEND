@@ -15,7 +15,7 @@ import { CoursesRoutingModule } from 'src/app/pages/courses/courses-routing.modu
 })
 export class EditcourseComponent implements OnInit{
   editcourseForm! : UntypedFormGroup;
-  subCategory : any;
+  subCategory! : any;
   isNextForm! : boolean;
   isCompleted! : boolean;
   urlInput!: string;
@@ -40,14 +40,6 @@ export class EditcourseComponent implements OnInit{
     this.initTeachingData();
     this.isNextForm = false;
     this.isCompleted = true;
-
-    this.editcourseForm = this.fb.group({
-      title: [null, [Validators.required]],
-      author: [null, [Validators.required]],
-      price: [null, [Validators.required, Validators.min(0.00)]],
-      description: [null, [Validators.required]]
-    });
-
       //console.log(this.id); get course id
       // if (this.id != null) {
       //   var test = this.id;
@@ -76,7 +68,7 @@ export class EditcourseComponent implements OnInit{
         this.ref.markForCheck();
       })
     ).subscribe((resp) => {
-      // console.log(resp);
+      console.log(resp);
       this.subCategory = resp;
     })
 
@@ -87,7 +79,7 @@ export class EditcourseComponent implements OnInit{
       title: [null, [Validators.required]],
       author: [null, [Validators.required]],
       price: [null, [Validators.required, Validators.min(0.00)]],
-      description: [null, [Validators.required]]
+      description: [null, [Validators.required]],
     });
 
     this.editcourseForm.get('title')?.setValue(this.courseToEdit == undefined ? ' ': this.courseToEdit.courseName );
@@ -109,11 +101,9 @@ export class EditcourseComponent implements OnInit{
       }
       else{
         Object.values(this.editcourseForm.controls).forEach(control => {
-          console.log(this.editcourseForm);
           if (control.invalid) {
             control.markAsDirty();
             control.updateValueAndValidity({onlySelf: true});
-            // this.createErrorMessage("Please fill in the blank");
           }
         })
       }
@@ -208,13 +198,7 @@ export class EditcourseComponent implements OnInit{
       // console.log(resp);
       this.myTeachingData = resp;
       this.courseToEdit = resp[0];
-  
-      this.editcourseForm.get('title')?.setValue(this.courseToEdit == undefined ? ' ': this.courseToEdit.courseName );
-      this.editcourseForm.get('author')?.setValue(this.courseToEdit == undefined ? ' ': this.courseToEdit.author);
-      this.editcourseForm.get('price')?.setValue(this.courseToEdit == undefined ? ' ': this.courseToEdit.price);
-      this.editcourseForm.get('description')?.setValue(this.courseToEdit == undefined ? ' ': this.courseToEdit.description);
-      this.category = this.courseToEdit == undefined ? ' ': this.courseToEdit.category;
-      this.urlInput = this.courseToEdit == undefined ? ' ': this.courseToEdit.url;
+      this.initEditCourseForm();
     })
 
   }

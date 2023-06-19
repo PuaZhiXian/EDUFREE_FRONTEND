@@ -45,7 +45,7 @@
               <div class="mb-7">
                 <select class="text-xl w-full text-black px-10 py-5 border-2 border-gray-300 rounded-3xl" #category (change)="onSelectCategory(category.value)">
                   <option value="" disabled >Category</option>
-                  <option class="text-black" *ngFor="let category of subCategory"  value="{{category}}">{{category}}</option>
+                  <option class="text-black" *ngFor="let category of subCategory"  [selected]="category == this.courseToEdit.category" value="{{category}}">{{category}}</option>
                 </select>
               </div>
               <div class="mb-7">

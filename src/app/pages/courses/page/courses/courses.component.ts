@@ -1,12 +1,4 @@
-import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  OnInit,
-  ViewChild
-} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {ICourseCategory} from "../../../../interface/courses/i-course-category";
 import {ICourseDetail} from "../../../../interface/courses/i-course-detail";
@@ -72,21 +64,29 @@ export class CoursesComponent implements OnInit {
       })
     ).subscribe((resp) => {
       this.coursesCategoryList = resp;
-      this.selectTab(this.coursesCategoryList[0].category);
+      if (this.courseCategory !== null) {
+        if (this.courseCategory == 'default') {
+          this.selectTab(this.coursesCategoryList[0].displayName);
+        } else {
+          this.selectTab(this.courseCategory);
+        }
+      } else {
+        this.selectTab(this.coursesCategoryList[0].displayName);
+      }
     })
   }
 
   selectTab(category: string) {
     this.selectedTab = category;
     this.selectedCourse = this.coursesCategoryList.filter(value => {
-      return value.category === category;
+      return value.displayName === category;
     })[0].courses;
     this.displayingSelectedCourse = this.selectedCourse;
     this.validateForm.reset();
   }
 
   searching() {
-    if (!this.validateForm.value.searchKey || this.validateForm.value.searchKey.length == 0 ) {
+    if (!this.validateForm.value.searchKey || this.validateForm.value.searchKey.length == 0) {
       this.displayingSelectedCourse = this.selectedCourse;
     } else {
       this.displayingSelectedCourse = this.selectedCourse.filter((items) => {

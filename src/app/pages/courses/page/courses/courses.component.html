@@ -8,9 +8,9 @@
     </form>
 
     <div class="flex justify-center">
-      <div *ngFor="let category of coursesCategoryList" (click)="selectTab(category.category)"
+      <div *ngFor="let category of coursesCategoryList" (click)="selectTab(category.displayName)"
            class="text-lg font-medium hover:text-[#2405F2] border-0 mx-5 cursor-pointer
-           {{category.category === selectedTab ? 'text-[#2405F2]' : 'text-black'}}">
+           {{category.displayName === selectedTab ? 'text-[#2405F2]' : 'text-black'}}">
         {{category.category}}
       </div>
     </div>

@@ -84,9 +84,10 @@ export class LearningComponent implements OnInit {
         this.ref.markForCheck();
       })
     ).subscribe((resp) => {
-      console.log('progress updated');
-      this.iLearning.viewed  = (categoryIndex == 0) ? categoryIndex + videoIndex + 1 : categoryIndex * (this.iLearning.listVideos[0].videos.length) + videoIndex + 1;
-      console.log(this.iLearning.total);
+      // console.log(this.iLearning.listVideos);
+      // console.log('progress updated');
+      this.iLearning.viewed  = (categoryIndex == 0) ? categoryIndex + videoIndex + 1 : categoryIndex * (this.iLearning.listVideos[categoryIndex].videos.length) + videoIndex + 2;
+      // console.log(this.iLearning.total);
       this.iLearning.total = this.iLearning.total;
     })
 

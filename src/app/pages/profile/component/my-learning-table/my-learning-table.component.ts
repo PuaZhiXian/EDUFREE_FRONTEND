@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, ChangeDetectorRef, Output} from '@angular/core';
+import {ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Router} from "@angular/router";
 import {IMyLearning} from "../../../../interface/learning/i-my-learning";
 import {NzMessageService} from "ng-zorro-antd/message";
@@ -16,9 +16,9 @@ export class MyLearningTableComponent implements OnInit {
   @Output() triggerRefreshData = new EventEmitter<any>();
 
   constructor(private router: Router,
-    private api: GetAPIService,
-    private message: NzMessageService,
-    private ref: ChangeDetectorRef) {
+              private api: GetAPIService,
+              private message: NzMessageService,
+              private ref: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
@@ -29,7 +29,7 @@ export class MyLearningTableComponent implements OnInit {
   }
 
   createSuccessMessage(): void {
-    this.message.create('success','The course is deleted successfully!');
+    this.message.create('success', 'The course is unenroll successfully!');
   }
 
   getCertificate() {
@@ -44,14 +44,14 @@ export class MyLearningTableComponent implements OnInit {
     }
     this.api.unenroll(data).pipe(
       finalize(() => {
-        
         this.createSuccessMessage();
+        this.triggerRefreshData.emit();
         this.ref.detectChanges();
         this.ref.markForCheck();
       })
     ).subscribe((resp) => {
-      if(resp == "true"){
-        
+      if (resp == "true") {
+
       }
     })
   }

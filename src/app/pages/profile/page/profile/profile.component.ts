@@ -79,6 +79,7 @@ export class ProfileComponent implements OnInit {
   }
 
   initCategory() {
+    console.log('init category')
     var username = sessionStorage.getItem('username');
     this.api.getUserCategory(username).pipe(
       finalize(() => {

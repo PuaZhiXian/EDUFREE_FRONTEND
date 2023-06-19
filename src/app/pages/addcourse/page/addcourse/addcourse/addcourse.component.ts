@@ -111,12 +111,6 @@ export class AddcourseComponent implements OnInit{
 
     } else {
       this.createErrorMessage('Please upload a material or input the material URL!');
-      Object.values(this.addcourseForm.controls).forEach(control => {
-        if (control.invalid) {
-          control.markAsDirty();
-          control.updateValueAndValidity({onlySelf: true});
-        }
-      });
     }
   }
 

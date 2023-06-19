@@ -28,12 +28,12 @@ export class EditcourseComponent implements OnInit{
   constructor(
     private fb: UntypedFormBuilder,
     private router: Router,
-    private activeRoute: ActivatedRoute, 
+    private activeRoute: ActivatedRoute,
     private message: NzMessageService,
     private api: GetAPIService,
     private ref: ChangeDetectorRef,) {
   }
-  
+
    ngOnInit() {
     this.id = this.activeRoute.snapshot.paramMap.get('id');
     this.initSubCategory();
@@ -52,7 +52,7 @@ export class EditcourseComponent implements OnInit{
       //   console.log('asdasd',this.courseToEdit)
       //   console.log(this.myTeachingData);
       // }
-    
+
       this.initEditCourseForm()
 
   }
@@ -184,7 +184,7 @@ export class EditcourseComponent implements OnInit{
   //     url: 'https://youtu.be/kqtD5dpn9C8'
   //   }]
   // }
-  
+
 
   initTeachingData() {
     //TODO: api to get all user's courses

@@ -26,7 +26,6 @@ export class SingleCourseComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe((params) => {
       this.courseId = params.get('courseId');
     });
-    this.checkEnroll();
     this.initSingleCourse();
   }
 
@@ -34,6 +33,7 @@ export class SingleCourseComponent implements OnInit {
     //TODO: create api for gain single course detail
     this.api.getSingleCourseDetail(this.courseId).pipe(
       finalize(() => {
+        this.checkEnroll();
         this.ref.detectChanges();
         this.ref.markForCheck();
       })
@@ -41,7 +41,7 @@ export class SingleCourseComponent implements OnInit {
       this.singleCourseDetail = resp;
       this.loadingSingleCourse = false;
     })
-    
+
   }
 
 

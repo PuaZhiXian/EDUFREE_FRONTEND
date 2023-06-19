@@ -126,7 +126,7 @@
 
 <nz-dropdown-menu #myLearningCategory="nzDropdownMenu">
   <ul nz-menu>
-    <li nz-menu-time *ngFor="let category of listOfCategory" (click)="getMyLearningCategory(category)">{{category}}</li>
+    <li nz-menu-time class="cursor-pointer" *ngFor="let category of listOfCategory" (click)="getMyLearningCategory(category)">{{category}}</li>
   </ul>
 </nz-dropdown-menu>
 

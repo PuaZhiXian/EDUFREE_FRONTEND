@@ -237,7 +237,7 @@ export class ProfileComponent implements OnInit {
     var username = sessionStorage.getItem('username');
     var data = {
       'username': username,
-      'category': type
+      'category': type == null ? ' ' : type
     }
     this.api.getUserCourse(data).pipe(
       finalize(() => {
@@ -311,7 +311,6 @@ export class ProfileComponent implements OnInit {
         this.ref.markForCheck();
       })
     ).subscribe((resp) => {
-      console.log(resp);
       this.myTeachingData = resp;
     })
 

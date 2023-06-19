@@ -129,4 +129,9 @@ export class GetAPIService {
     var result = this.http.post<any>(`${this.apiUrl}/db_deleteCourse.php`, param);
     return result;
   }
+
+  checkEnroll(param: any): Observable<any>{
+    var result = this.http.post<any>(`${this.apiUrl}/db_checkEnroll.php`, param);
+    return result;
+  }
 }

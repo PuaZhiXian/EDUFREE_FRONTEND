@@ -26,6 +26,7 @@ export class SingleCourseComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe((params) => {
       this.courseId = params.get('courseId');
     });
+    this.checkEnroll();
     this.initSingleCourse();
   }
 
@@ -57,6 +58,25 @@ export class SingleCourseComponent implements OnInit {
       })
     ).subscribe((resp) => {
       console.log('added course to this user');
+    })
+  }
+
+  checkEnroll(){
+    var data = {
+      'courseId': this.courseId,
+      'userId': sessionStorage.getItem('userId')
+    }
+    this.api.checkEnroll(data).pipe(
+      finalize(() => {
+        this.ref.detectChanges();
+        this.ref.markForCheck();
+      })
+    ).subscribe((resp) => {
+      if(resp == "false"){
+        this.singleCourseDetail.enrolled = true;
+      }else{
+        this.singleCourseDetail.enrolled = false;
+      }
     })
   }
 

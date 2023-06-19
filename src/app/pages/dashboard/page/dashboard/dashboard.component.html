@@ -116,7 +116,13 @@
   <div class="grid grid-cols-3 gap-10">
     <div *ngFor="let category of topCategory">
       <div (click)="redirectToCourse(category.link)">
-        <nz-card class="bg-[#F4F6FC] max-w-md	w-full h-[260px] cursor-pointer"></nz-card>
+        <nz-card class="bg-[#F4F6FC] max-w-md	w-full h-[260px] cursor-pointer">
+          <img
+            nz-image
+            class="object-center h-[215px] w-[500px]"
+            src="{{category.img}}"
+          />
+        </nz-card>
       </div>
       <div class="font-bold text-xl font-semibold text-center">{{category.category}}</div>
     </div>

@@ -35,27 +35,33 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   topCategory = [
     {
       category: 'Python',
-      link: 'python'
+      link: 'python',
+      img:'https://logos-world.net/wp-content/uploads/2021/10/Python-Logo-700x394.png'
     },
     {
       category: 'Data Science',
-      link: 'dataScience'
+      link: 'dataScience',
+      img:'https://bernardmarr.com/wp-content/uploads/2022/11/The-Top-5-Data-Science-And-Analytics-Trends-In-2023.jpg'
     },
     {
       category: 'IT and Software',
-      link: 'itSoftware'
+      link: 'itSoftware',
+      img:'https://www.robertsonbuildings.com/wp-content/uploads/2020/10/Tech-Image.jpg'
     },
     {
       category: 'Social sciences',
-      link: 'socialScience'
+      link: 'socialScience',
+      img:'https://www.worldatlas.com/r/w960-q80/upload/38/4f/7a/shutterstock-87113380.jpg'
     },
     {
       category: 'Art and Humanities',
-      link: 'artHumanities'
+      link: 'artHumanities',
+      img:'https://barcelona-amc.iafor.org/wp-content/uploads/sites/54/2020/07/The-Relevance-of-the-Humanities-and-Arts-in-Uncertain-Times.jpg'
     },
     {
       category: 'Engineering',
-      link: 'engineering'
+      link: 'engineering',
+      img:'https://cdn.mos.cms.futurecdn.net/HFUAjfbamNhbM8dsNSQW3D.jpg'
     }
   ]
 

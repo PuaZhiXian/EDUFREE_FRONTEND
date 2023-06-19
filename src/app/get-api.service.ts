@@ -115,4 +115,9 @@ export class GetAPIService {
     return result;
   }
 
+  getEditCourse(param: any): Observable<IMyTeaching[]>{
+    var result = this.http.get<IMyTeaching[]>(`${this.apiUrl}/db_getEditCourse.php?param=${param}`);
+    return result;
+  }
+
 }

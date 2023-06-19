@@ -32,20 +32,28 @@ export class EditcourseComponent implements OnInit{
     private api: GetAPIService,
     private ref: ChangeDetectorRef,) {
   }
-  ngOnInit() {
+  
+   ngOnInit() {
+    this.id = this.activeRoute.snapshot.paramMap.get('id');
     this.initSubCategory();
     this.initTeachingData();
     this.isNextForm = false;
     this.isCompleted = true;
-    this.id = this.activeRoute.snapshot.paramMap.get('id');
-    if (this.id != null) {
-      var test = this.id;
-      this.myTeachingData.forEach((course)=>{
-        if(course.id == +test){
-          this.courseToEdit = course;
-        }
-      })
-    }this.initEditCourseForm();
+    console.log('oasdpo');
+      //console.log(this.id); get course id
+      // if (this.id != null) {
+      //   var test = this.id;
+      //   this.myTeachingData.forEach((course)=>{
+      //     if(course.id == +test){
+      //       console.log(course);
+      //       this.courseToEdit = course;
+      //     }
+      //   });
+      //   console.log('asdasd',this.courseToEdit)
+      //   console.log(this.myTeachingData);
+      // }
+    
+      this.initEditCourseForm()
 
   }
 
@@ -66,14 +74,16 @@ export class EditcourseComponent implements OnInit{
 
   }
 
-
   initEditCourseForm() {
+    console.log('1123');
     this.editcourseForm = this.fb.group({
       title: [null, [Validators.required]],
       author: [null, [Validators.required]],
       price: [null, [Validators.required, Validators.min(0.00)]],
       description: [null, [Validators.required]],
     });
+    console.log('hii')
+    console.log(this.courseToEdit.courseName);
     this.editcourseForm.get('title')?.setValue(this.courseToEdit.courseName);
     this.editcourseForm.get('author')?.setValue(this.courseToEdit.author);
     this.editcourseForm.get('price')?.setValue(this.courseToEdit.price);
@@ -111,6 +121,7 @@ export class EditcourseComponent implements OnInit{
       var description = this.editcourseForm.value['description'];
       var price = this.editcourseForm.value['price'];
       var data = {
+        'id': this.id,
         "title" : title,
         "author" : author,
         "price": price,
@@ -164,15 +175,33 @@ export class EditcourseComponent implements OnInit{
     this.category = value;
   }
 
-  initTeachingData(){
-    this.myTeachingData = [{
-      id: 1,
-      courseName: 'Python crashcourse',
-      category: 'Python',
-      author: 'Tester',
-      description: 'This is a testing teaching course',
-      price: 15.99,
-      url: 'https://youtu.be/kqtD5dpn9C8'
-    }]
+  // initTeachingData(){
+  //   this.myTeachingData = [{
+  //     id: 1,
+  //     courseName: 'Python crashcourse',
+  //     category: 'Python',
+  //     author: 'Tester',
+  //     description: 'This is a testing teaching course',
+  //     price: 15.99,
+  //     url: 'https://youtu.be/kqtD5dpn9C8'
+  //   }]
+  // }
+  
+
+  initTeachingData() {
+    //TODO: api to get all user's courses
+    console.log(this.id);
+    this.api.getEditCourse(this.id).pipe(
+      finalize(() => {
+        this.ref.detectChanges();
+        this.ref.markForCheck();
+      })
+    ).subscribe((resp) => {
+      console.log(resp);
+      this.myTeachingData = resp;
+      this.courseToEdit = resp[0];
+      this.initEditCourseForm();
+    })
+
   }
 }

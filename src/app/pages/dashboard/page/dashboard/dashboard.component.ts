@@ -50,7 +50,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     },
     {
       category: 'JavaScript',
-      link: 'javaSript',
+      link: 'javaScript',
       img:'https://blog.logrocket.com/wp-content/uploads/2021/02/machine-learning-libraries-javascript.png'
     },
     {

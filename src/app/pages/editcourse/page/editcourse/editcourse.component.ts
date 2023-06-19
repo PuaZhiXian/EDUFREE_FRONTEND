@@ -28,24 +28,40 @@ export class EditcourseComponent implements OnInit{
   constructor(
     private fb: UntypedFormBuilder,
     private router: Router,
-    private activeRoute: ActivatedRoute, 
+    private activeRoute: ActivatedRoute,
     private message: NzMessageService,
     private api: GetAPIService,
     private ref: ChangeDetectorRef,) {
   }
-  
+
    ngOnInit() {
     this.id = this.activeRoute.snapshot.paramMap.get('id');
     this.initSubCategory();
     this.initTeachingData();
     this.isNextForm = false;
     this.isCompleted = true;
+
     this.editcourseForm = this.fb.group({
       title: [null, [Validators.required]],
       author: [null, [Validators.required]],
       price: [null, [Validators.required, Validators.min(0.00)]],
       description: [null, [Validators.required]]
     });
+
+      //console.log(this.id); get course id
+      // if (this.id != null) {
+      //   var test = this.id;
+      //   this.myTeachingData.forEach((course)=>{
+      //     if(course.id == +test){
+      //       console.log(course);
+      //       this.courseToEdit = course;
+      //     }
+      //   });
+      //   console.log('asdasd',this.courseToEdit)
+      //   console.log(this.myTeachingData);
+      // }
+
+      this.initEditCourseForm()
 
   }
 
@@ -178,7 +194,7 @@ export class EditcourseComponent implements OnInit{
   //     url: 'https://youtu.be/kqtD5dpn9C8'
   //   }]
   // }
-  
+
 
   initTeachingData() {
     //TODO: api to get all user's courses

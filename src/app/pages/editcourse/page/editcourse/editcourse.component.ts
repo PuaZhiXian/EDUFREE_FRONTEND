@@ -39,7 +39,6 @@ export class EditcourseComponent implements OnInit{
     this.initTeachingData();
     this.isNextForm = false;
     this.isCompleted = true;
-    console.log('oasdpo');
       //console.log(this.id); get course id
       // if (this.id != null) {
       //   var test = this.id;

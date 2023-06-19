@@ -87,17 +87,27 @@ export class AddcourseComponent implements OnInit{
       var author = this.addcourseForm.value['author'];
       var description = this.addcourseForm.value['description'];
       var price = this.addcourseForm.value['price'];
+      var userID = sessionStorage.getItem('userId');
       var data = {
+        'id' : userID,
         'title' : title,
         'author' : author,
         'price': price,
         'description' : description,
         'category': this.category,
         'urlInput': this.urlInput
-      }
+      };
+      console.log(data);
       // TODO: API
-
-
+      //apiapiapiapiapiapiapiapiapi
+      this.api.addCourse(data).pipe(
+        finalize(() => {
+          this.ref.detectChanges();
+          this.ref.markForCheck();
+        })
+      ).subscribe((resp) => {
+        console.log(resp);
+      })
 
     } else {
       Object.values(this.addcourseForm.controls).forEach(control => {

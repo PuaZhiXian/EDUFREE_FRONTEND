@@ -120,4 +120,8 @@ export class GetAPIService {
     return result;
   }
 
+  addCourse(param: any) {
+    var result = this.http.post(`${this.apiUrl}/db_addCourse.php`, param);
+    return result;
+  }
 }

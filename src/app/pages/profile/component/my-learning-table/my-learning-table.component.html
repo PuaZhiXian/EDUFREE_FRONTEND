@@ -10,6 +10,9 @@
     <th [nzAlign]="'center'">
       <div class="text-[#B5B7C0] font-medium text-sm">Status</div>
     </th>
+    <th [nzAlign]="'center'">
+      <div class="text-[#B5B7C0] font-medium text-sm">Unenroll</div>
+    </th>
   </tr>
   </thead>
   <tbody>
@@ -44,6 +47,14 @@
                 (click)="getCertificate()">
           Certificate
         </button>
+      </div>
+    </td>
+    <td class="" [nzAlign]="'center'">
+      <div >
+        <span nz-button class="text-rose-500 hover:text-rose-800 material-icons-outlined text-2xl border-0 cursor-pointer"
+                (click)="unenrollCourse()">
+          delete
+        </span>
       </div>
     </td>
   </tr>

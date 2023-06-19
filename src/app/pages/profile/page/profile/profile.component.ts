@@ -7,7 +7,6 @@ import {GetAPIService} from "../../../../get-api.service";
 import {finalize} from 'rxjs';
 import {UntypedFormBuilder, UntypedFormGroup} from "@angular/forms";
 import {AppComponent} from "../../../../app.component";
-import {IMyTeaching} from "../../../../interface/learning/i-my-teaching";
 
 @Component({
   selector: 'app-profile',
@@ -25,7 +24,6 @@ export class ProfileComponent implements OnInit {
   myLearningCategoryType!: string;
   dayMyLearningData!: IMyLearning[];
   monthMyLearningData!: IMyLearning[];
-
 
 
   selectingMyLearningData!: IMyLearning[];
@@ -181,6 +179,7 @@ export class ProfileComponent implements OnInit {
   }
 
   getMyLearningCategory(type: any) {
+    this.validateForm.get('searchKey')?.setValue('');
     this.myLearningCategoryType = type;
     // TODO : pass category to backend then gain my learning data
     var username = sessionStorage.getItem('username');

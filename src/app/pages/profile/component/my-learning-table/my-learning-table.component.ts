@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Router} from "@angular/router";
 import {IMyLearning} from "../../../../interface/learning/i-my-learning";
 
@@ -10,6 +10,7 @@ import {IMyLearning} from "../../../../interface/learning/i-my-learning";
 export class MyLearningTableComponent implements OnInit {
 
   @Input() tableData!: IMyLearning[];
+  @Output() triggerRefreshData = new EventEmitter<any>();
 
   constructor(private router: Router,) {
   }
@@ -24,5 +25,9 @@ export class MyLearningTableComponent implements OnInit {
   getCertificate() {
     const url = new URL("https://drive.google.com/file/d/1qhkzNyOJyzK94Zrr4czjpS-cLGIyJ_wC/view?usp=sharing");
     window.open(url, "_blank");
+  }
+
+  unenrollCourse() {
+
   }
 }

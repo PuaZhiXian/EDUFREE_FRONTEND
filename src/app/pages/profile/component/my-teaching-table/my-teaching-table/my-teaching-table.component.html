@@ -1,4 +1,4 @@
-<nz-table  #basicTable [nzData]="teachingData" [nzShowPagination]="false">
+<nz-table *ngIf="!loadingTable; else loadingTpl"   #basicTable [nzData]="teachingData" [nzShowPagination]="false">
   <thead>
   <tr>
     <th>
@@ -43,3 +43,6 @@
   </tr>
   </tbody>
 </nz-table>
+<ng-template #loadingTpl>
+  <nz-skeleton></nz-skeleton>
+</ng-template>

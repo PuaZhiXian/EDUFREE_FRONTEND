@@ -11,16 +11,35 @@ import {GetAPIService} from "../../../../../get-api.service";
   styleUrls: ['./my-teaching-table.component.scss']
 })
 export class MyTeachingTableComponent implements OnInit{
-  @Input() teachingData!: IMyTeaching[];
+
+  teachingData!: IMyTeaching[];
+  loadingTable:boolean = true;
 
   constructor(
-    private router: Router, 
+    private router: Router,
     private message: NzMessageService,
     private api: GetAPIService,
     private ref: ChangeDetectorRef,) {
   }
 
   ngOnInit(): void {
+    this.initMyTeachingData();
+  }
+
+  initMyTeachingData() {
+    //TODO: api to get all user's courses
+    var userId = sessionStorage.getItem('userId');
+    this.api.getTeachingCourse(userId).pipe(
+      finalize(() => {
+        this.loadingTable = false;
+        this.ref.detectChanges();
+        this.ref.markForCheck();
+
+      })
+    ).subscribe((resp) => {
+      this.teachingData = resp;
+    })
+
   }
 
   editCourse(id: number): void{
@@ -43,15 +62,16 @@ export class MyTeachingTableComponent implements OnInit{
     }
     this.api.deleteCourse(deletedData).pipe(
       finalize(() => {
+        this.createSuccessMessage();
+        this.initMyTeachingData();
         this.ref.detectChanges();
         this.ref.markForCheck();
+
       })
     ).subscribe((resp) => {
       console.log(resp);
     })
     //this.teachingData = data;
-    this.createSuccessMessage()
-    window.location.reload();
   }
 
 

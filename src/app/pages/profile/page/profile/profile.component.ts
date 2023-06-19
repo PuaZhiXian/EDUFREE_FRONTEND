@@ -26,7 +26,7 @@ export class ProfileComponent implements OnInit {
   dayMyLearningData!: IMyLearning[];
   monthMyLearningData!: IMyLearning[];
 
-  myTeachingData!: IMyTeaching[];
+
 
   selectingMyLearningData!: IMyLearning[];
   MyLearningData!: IMyLearning[];
@@ -78,7 +78,6 @@ export class ProfileComponent implements OnInit {
     this.initCategory();
     this.initColumnData();
     this.initProgress();
-    this.initMyTeachingData();
   }
 
   initCategory() {
@@ -251,21 +250,5 @@ export class ProfileComponent implements OnInit {
   addCourse(): void {
     this.router.navigate(['/', 'addcourse']);
   }
-
-
-  initMyTeachingData() {
-    //TODO: api to get all user's courses
-    var userId = sessionStorage.getItem('userId');
-    this.api.getTeachingCourse(userId).pipe(
-      finalize(() => {
-        this.ref.detectChanges();
-        this.ref.markForCheck();
-      })
-    ).subscribe((resp) => {
-      this.myTeachingData = resp;
-    })
-
-  }
-
 
 }

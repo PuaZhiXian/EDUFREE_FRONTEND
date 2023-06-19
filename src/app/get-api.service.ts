@@ -28,7 +28,7 @@ export class GetAPIService {
   getFaq(): Observable<IFaq[]> {
     var result = this.http.get<IFaq[]>(`${this.apiUrl}/db_getFaq.php`);
     return result;
-  } 
+  }
 
   getCourseList(): Observable<ICourseCategory[]>{
     var result = this.http.get<ICourseCategory[]>(`${this.apiUrl}/db_getICourseCategory.php`);
@@ -125,8 +125,8 @@ export class GetAPIService {
     return result;
   }
 
-  deleteCourse(param: any): Observable<IMyTeaching[]>{
-    var result = this.http.post<IMyTeaching[]>(`${this.apiUrl}/db_deleteCourse.php`, param);
+  deleteCourse(param: any): Observable<any>{
+    var result = this.http.post<any>(`${this.apiUrl}/db_deleteCourse.php`, param);
     return result;
   }
 }

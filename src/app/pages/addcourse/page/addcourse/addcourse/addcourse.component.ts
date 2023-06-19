@@ -100,14 +100,14 @@ export class AddcourseComponent implements OnInit{
       console.log(data);
       this.api.addCourse(data).pipe(
         finalize(() => {
+          this.createSuccessMessage();
+          this.backProfile();
           this.ref.detectChanges();
           this.ref.markForCheck();
         })
       ).subscribe((resp) => {
         console.log(resp);
       })
-      this.createSuccessMessage();
-      this.backProfile();
 
     } else {
       this.createErrorMessage('Please upload a material or input the material URL!');

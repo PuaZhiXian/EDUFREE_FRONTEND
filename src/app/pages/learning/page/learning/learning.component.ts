@@ -51,6 +51,9 @@ export class LearningComponent implements OnInit {
       this.selectVideo(this.iLearning.listVideos[0].videos[0], this.iLearning.listVideos[0].category);
       this.loadingCourse = false;
     })
+
+    // this.selectVideo(this.iLearning.listVideos[0].videos[0], this.iLearning.listVideos[0].category);
+    // this.loadingCourse = false;
   }
 
   selectVideo(video: IVideo, category: string) {

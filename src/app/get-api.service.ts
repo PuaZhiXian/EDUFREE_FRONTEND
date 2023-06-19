@@ -105,8 +105,8 @@ export class GetAPIService {
     return result;
   }
 
-  getSubCategoryName(){
-    var result = this.http.get(`${this.apiUrl}/db_getSubCategoryName.php`);
+  getSubCategoryName(): Observable<string[]>{
+    var result = this.http.get<string[]>(`${this.apiUrl}/db_getSubCategoryName.php`);
     return result;
   }
 

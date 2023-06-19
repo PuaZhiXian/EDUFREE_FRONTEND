@@ -7,7 +7,7 @@
           <div class="w-[50px] h-[50px] bg-[#1C1E53] rounded-full"></div>
           <div class="pl-3.5 pr-8">
             <div class="text-sm">Hi, {{username}}</div>
-<!--            <div class="font-medium text-xs">Student</div>-->
+            <!--            <div class="font-medium text-xs">Student</div>-->
           </div>
           <div>
             <span class="material-icons-outlined">expand_more</span>
@@ -34,7 +34,7 @@
               </div>
             </div>
             <div class="text-[#ACACAC] text-sm mb-4">Video completed ({{columnCategoryType}})</div>
-            <canvasjs-chart [options]="chartOptions"></canvasjs-chart>
+            <canvasjs-chart *ngIf="!loadingChart;else loadingTpl" [options]="chartOptions"></canvasjs-chart>
           </div>
         </nz-card>
       </div>
@@ -100,7 +100,8 @@
           <div class="grid grid-cols-5 mt-4">
             <div class="col-span-1 text-center">
               <button class="bg-[#FCD980] text-[#282938] text-center text-xl font-medium px-10 py-4 rounded-lg"
-                      (click)="addCourse()">Add Course</button>
+                      (click)="addCourse()">Add Course
+              </button>
             </div>
           </div>
         </div>
@@ -138,4 +139,9 @@
 <span class="material-icons-outlined">
 search
 </span>
+</ng-template>
+
+
+<ng-template #loadingTpl>
+  <nz-skeleton></nz-skeleton>
 </ng-template>

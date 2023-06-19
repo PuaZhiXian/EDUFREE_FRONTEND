@@ -18,8 +18,8 @@ export class ProfileComponent implements OnInit {
 
   chartOptions: any;
   columnCategoryType!: string;
-  dayColumnDataPoints!: IColumnDataPoints[];
-  monthColumnDataPoints!: IColumnDataPoints[];
+  dayColumnDataPoints: IColumnDataPoints[] = [];
+  monthColumnDataPoints: IColumnDataPoints[] = [];
   username!: string | null;
 
   myLearningCategoryType!: string;
@@ -29,6 +29,7 @@ export class ProfileComponent implements OnInit {
   myTeachingData!: IMyTeaching[];
 
   selectingMyLearningData!: IMyLearning[];
+  MyLearningData!: IMyLearning[];
   logout: ILogout[] = [];
 
   validateForm!: UntypedFormGroup;
@@ -37,6 +38,8 @@ export class ProfileComponent implements OnInit {
 
 
   watchedVideoPercentage!: number;
+
+  loadingChart: boolean = true;
 
   constructor(private fb: UntypedFormBuilder,
               private router: Router,
@@ -52,7 +55,6 @@ export class ProfileComponent implements OnInit {
       'username': username,
       'password': password
     }
-    //TODO: create api for log out
     this.api.logout(data).pipe(
       finalize(() => {
         this.ref.detectChanges();
@@ -71,12 +73,10 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.username = sessionStorage.getItem('username');
-    this.initMyLearningData();
-    this.initCategory();
-    this.initColumnData();
-    this.getColumnChartData('Day');
     this.initForm();
     this.changeHandler();
+    this.initCategory();
+    this.initColumnData();
     this.initProgress();
     this.initMyTeachingData();
   }
@@ -93,7 +93,6 @@ export class ProfileComponent implements OnInit {
       this.getMyLearningCategory(this.listOfCategory[0]);
     })
 
-    this.initMyLearningData();
   }
 
   initProgress() {
@@ -127,12 +126,13 @@ export class ProfileComponent implements OnInit {
 
   initColumnData() {
     var newArr: IColumnDataPoints[] = [];
-    this.api.getChartDay().pipe(
-      finalize(() => {
-        this.ref.detectChanges();
-        this.ref.markForCheck();
-      })
-    ).subscribe((resp) => {
+    this.api.getChartDay()
+      .pipe(finalize(() => {
+          this.getColumnChartData('Day');
+          this.ref.detectChanges();
+          this.ref.markForCheck();
+        })
+      ).subscribe((resp) => {
       for (let i = 0; i < resp.length; i++) {
         var data = {
           label: resp[i].label,
@@ -141,82 +141,28 @@ export class ProfileComponent implements OnInit {
         newArr.push(data);
       }
       this.dayColumnDataPoints = newArr;
-
-
-      var newArr2: IColumnDataPoints[] = [];
-      this.api.getChartMonth().pipe(
-        finalize(() => {
+    })
+    var newArr2: IColumnDataPoints[] = [];
+    this.api.getChartMonth()
+      .pipe(finalize(() => {
           this.ref.detectChanges();
           this.ref.markForCheck();
         })
       ).subscribe((respond) => {
-        for (let i = 0; i < respond.length; i++) {
-          var data = {
-            label: respond[i].label,
-            y: Number(respond[i].y)
-          }
-          newArr2.push(data);
+      for (let i = 0; i < respond.length; i++) {
+        var data = {
+          label: respond[i].label,
+          y: Number(respond[i].y)
         }
-        this.monthColumnDataPoints = newArr2;
-
-      })
-      this.getColumnChartData('Day');
+        newArr2.push(data);
+      }
+      this.monthColumnDataPoints = newArr2;
     })
-
-  }
-
-  initMyLearningData() {
-    //TODO: api to get all user's courses
-    var username = sessionStorage.getItem('username');
-    var data = {
-      'username': username,
-      'category': null
-    }
-    this.api.getUserCourse(data).pipe(
-      finalize(() => {
-        this.ref.detectChanges();
-        this.ref.markForCheck();
-        this.getMyLearningCategory(this.listOfCategory[0]);
-      })
-    ).subscribe((resp) => {
-      this.dayMyLearningData = resp;
-    })
-
-
-    this.monthMyLearningData = [
-      // {
-      //   id: "1",
-      //   courseName: 'Introduction to Data Science',
-      //   description: 'N/A',
-      //   progress: 50,
-      //   img: 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRxNhdWds9jljKiw7UEWef9tCslalAucMkUu9z4GkC8-Bfucvpr'
-      // },
-      // {
-      //   id: "1",
-      //   courseName: 'UI/UX Design',
-      //   description: 'N/A',
-      //   progress: 90,
-      //   img: 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSyZEbbB9vP9PtVmYKk3N2d_YZzk3nBjS0hrMZrlRSLEtyKCPZ_'
-      // },
-      // {
-      //   id: "1",
-      //   courseName: 'Fundamental of Web Programming',
-      //   description: 'Creating a website...',
-      //   progress: 20,
-      //   img: 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTg5j5w2xybUndnmFDBn19mJCk0Vd6BT3wmSuxGnXXwG0exeP9G'
-      // },
-      // {
-      //   id: "1",
-      //   courseName: 'Digital Marketing 101',
-      //   description: 'Marketing strategies and concepts for beginners',
-      //   progress: 100,
-      //   img: 'https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcT2jlelmdJPCLa6V9cCTnUk81iEfS8N6uVAmLtT8FYdrHqK4mf2'
-      // }
-    ]
 
   }
 
   getColumnChartData(type: string) {
+    this.loadingChart = true;
     this.columnCategoryType = type;
 
     //TODO: create api to get statictis
@@ -230,6 +176,9 @@ export class ProfileComponent implements OnInit {
       }]
     };
 
+    this.ref.detectChanges();
+    this.ref.markForCheck();
+    this.loadingChart = false;
   }
 
   getMyLearningCategory(type: any) {
@@ -246,7 +195,8 @@ export class ProfileComponent implements OnInit {
         this.ref.markForCheck();
       })
     ).subscribe((resp) => {
-      this.selectingMyLearningData = resp;
+      this.MyLearningData = resp;
+      this.selectingMyLearningData = this.MyLearningData;
     })
 
     // this.selectingMyLearningData = [
@@ -285,9 +235,9 @@ export class ProfileComponent implements OnInit {
   searching() {
     // let temp = this.myLearningCategoryType === 'Day' ? this.dayMyLearningData : this.monthMyLearningData
     if (this.validateForm.value.searchKey.length == 0) {
-      this.selectingMyLearningData = this.selectingMyLearningData;
+      this.selectingMyLearningData = this.MyLearningData;
     } else {
-      this.selectingMyLearningData = this.selectingMyLearningData.filter((items) => {
+      this.selectingMyLearningData = this.MyLearningData.filter((items) => {
         return this.isMatch(items.courseName) || this.isMatch(items.description)
       })
     }

@@ -43,6 +43,7 @@ export class CoursesComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe((params) => {
       this.courseCategory = params.get('category');
     });
+    console.log(this.courseCategory);
     this.initForm();
     this.changeHandler();
     this.initCourses();

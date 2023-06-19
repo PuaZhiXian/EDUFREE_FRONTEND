@@ -6,6 +6,7 @@ import {GetAPIService} from "../../../../get-api.service";
 import {NzMessageService} from "ng-zorro-antd/message";
 import {IMyTeaching} from "../../../../interface/learning/i-my-teaching";
 import {finalize} from "rxjs";
+import { CoursesRoutingModule } from 'src/app/pages/courses/courses-routing.module';
 
 @Component({
   selector: 'app-editcourse',
@@ -67,28 +68,26 @@ export class EditcourseComponent implements OnInit{
         this.ref.markForCheck();
       })
     ).subscribe((resp) => {
-      console.log(resp);
+      // console.log(resp);
       this.subCategory = resp;
     })
 
   }
 
   initEditCourseForm() {
-    console.log('1123');
     this.editcourseForm = this.fb.group({
       title: [null, [Validators.required]],
       author: [null, [Validators.required]],
       price: [null, [Validators.required, Validators.min(0.00)]],
       description: [null, [Validators.required]],
     });
-    console.log('hii')
-    console.log(this.courseToEdit.courseName);
-    this.editcourseForm.get('title')?.setValue(this.courseToEdit.courseName);
-    this.editcourseForm.get('author')?.setValue(this.courseToEdit.author);
-    this.editcourseForm.get('price')?.setValue(this.courseToEdit.price);
-    this.editcourseForm.get('description')?.setValue(this.courseToEdit.description);
-    this.category = this.courseToEdit.category;
-    this.urlInput = this.courseToEdit.url;
+
+    this.editcourseForm.get('title')?.setValue(this.courseToEdit == undefined ? ' ': this.courseToEdit.courseName );
+    this.editcourseForm.get('author')?.setValue(this.courseToEdit == undefined ? ' ': this.courseToEdit.author);
+    this.editcourseForm.get('price')?.setValue(this.courseToEdit == undefined ? ' ': this.courseToEdit.price);
+    this.editcourseForm.get('description')?.setValue(this.courseToEdit == undefined ? ' ': this.courseToEdit.description);
+    this.category = this.courseToEdit == undefined ? ' ': this.courseToEdit.category;
+    this.urlInput = this.courseToEdit == undefined ? ' ': this.courseToEdit.url;
   }
 
 
@@ -135,7 +134,7 @@ export class EditcourseComponent implements OnInit{
           this.ref.markForCheck();
         })
       ).subscribe((resp) => {
-        console.log(resp);
+        // console.log(resp);
         this.myTeachingData = resp;
       })
       this.createSuccessMessage();
@@ -189,14 +188,14 @@ export class EditcourseComponent implements OnInit{
 
   initTeachingData() {
     //TODO: api to get all user's courses
-    console.log(this.id);
+    // console.log(this.id);
     this.api.getEditCourse(this.id).pipe(
       finalize(() => {
         this.ref.detectChanges();
         this.ref.markForCheck();
       })
     ).subscribe((resp) => {
-      console.log(resp);
+      // console.log(resp);
       this.myTeachingData = resp;
       this.courseToEdit = resp[0];
       this.initEditCourseForm();

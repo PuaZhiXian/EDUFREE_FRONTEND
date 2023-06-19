@@ -1,7 +1,7 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {IMyLearning, IMyLearningCategory} from "../../../../interface/learning/i-my-learning";
-import { IColumnDataPoints } from "../../../../interface/chart/i-column-data-points";
+import {IColumnDataPoints} from "../../../../interface/chart/i-column-data-points";
 import {ILogout} from "../../../../interface/login/i-logout";
 import {GetAPIService} from "../../../../get-api.service";
 import {finalize} from 'rxjs';
@@ -20,13 +20,13 @@ export class ProfileComponent implements OnInit {
   columnCategoryType!: string;
   dayColumnDataPoints!: IColumnDataPoints[];
   monthColumnDataPoints!: IColumnDataPoints[];
-  username!: string|null;
+  username!: string | null;
 
   myLearningCategoryType!: string;
   dayMyLearningData!: IMyLearning[];
   monthMyLearningData!: IMyLearning[];
 
-  myTeachingData! : IMyTeaching[];
+  myTeachingData!: IMyTeaching[];
 
   selectingMyLearningData!: IMyLearning[];
   logout: ILogout[] = [];
@@ -36,7 +36,7 @@ export class ProfileComponent implements OnInit {
   listOfCategory: IMyLearningCategory[] = [];
 
 
-  watchedVideoPercentage!:number;
+  watchedVideoPercentage!: number;
 
   constructor(private fb: UntypedFormBuilder,
               private router: Router,
@@ -109,7 +109,7 @@ export class ProfileComponent implements OnInit {
     ).subscribe((resp) => {
       var totalProgress = Number(resp.totalProgress);
       var currentProgress = Number(resp.currentProgress);
-      this.watchedVideoPercentage = Math.ceil((currentProgress/totalProgress) * 100);
+      this.watchedVideoPercentage = Math.ceil((currentProgress / totalProgress) * 100);
     })
   }
 
@@ -134,7 +134,7 @@ export class ProfileComponent implements OnInit {
       })
     ).subscribe((resp) => {
       for (let i = 0; i < resp.length; i++) {
-        var data ={
+        var data = {
           label: resp[i].label,
           y: Number(resp[i].y)
         }
@@ -151,7 +151,7 @@ export class ProfileComponent implements OnInit {
         })
       ).subscribe((respond) => {
         for (let i = 0; i < respond.length; i++) {
-          var data ={
+          var data = {
             label: respond[i].label,
             y: Number(respond[i].y)
           }
@@ -229,6 +229,7 @@ export class ProfileComponent implements OnInit {
         dataPoints: this.columnCategoryType === 'Day' ? this.dayColumnDataPoints : this.monthColumnDataPoints
       }]
     };
+
   }
 
   getMyLearningCategory(type: any) {
@@ -297,7 +298,7 @@ export class ProfileComponent implements OnInit {
     return str.toLocaleLowerCase().includes(this.validateForm.value.searchKey.toLowerCase());
   }
 
-  addCourse():void{
+  addCourse(): void {
     this.router.navigate(['/', 'addcourse']);
   }
 
@@ -315,10 +316,6 @@ export class ProfileComponent implements OnInit {
     })
 
   }
-  
-  
-  
 
-  
 
 }

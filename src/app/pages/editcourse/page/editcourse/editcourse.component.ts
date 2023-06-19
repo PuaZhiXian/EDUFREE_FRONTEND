@@ -40,20 +40,12 @@ export class EditcourseComponent implements OnInit{
     this.initTeachingData();
     this.isNextForm = false;
     this.isCompleted = true;
-      //console.log(this.id); get course id
-      // if (this.id != null) {
-      //   var test = this.id;
-      //   this.myTeachingData.forEach((course)=>{
-      //     if(course.id == +test){
-      //       console.log(course);
-      //       this.courseToEdit = course;
-      //     }
-      //   });
-      //   console.log('asdasd',this.courseToEdit)
-      //   console.log(this.myTeachingData);
-      // }
-    
-      this.initEditCourseForm()
+    this.editcourseForm = this.fb.group({
+      title: [null, [Validators.required]],
+      author: [null, [Validators.required]],
+      price: [null, [Validators.required, Validators.min(0.00)]],
+      description: [null, [Validators.required]]
+    });
 
   }
 
@@ -79,7 +71,7 @@ export class EditcourseComponent implements OnInit{
       title: [null, [Validators.required]],
       author: [null, [Validators.required]],
       price: [null, [Validators.required, Validators.min(0.00)]],
-      description: [null, [Validators.required]],
+      description: [null, [Validators.required]]
     });
 
     this.editcourseForm.get('title')?.setValue(this.courseToEdit == undefined ? ' ': this.courseToEdit.courseName );
@@ -101,9 +93,11 @@ export class EditcourseComponent implements OnInit{
       }
       else{
         Object.values(this.editcourseForm.controls).forEach(control => {
+          console.log(this.editcourseForm);
           if (control.invalid) {
             control.markAsDirty();
             control.updateValueAndValidity({onlySelf: true});
+            // this.createErrorMessage("Please fill in the blank");
           }
         })
       }
@@ -198,7 +192,13 @@ export class EditcourseComponent implements OnInit{
       // console.log(resp);
       this.myTeachingData = resp;
       this.courseToEdit = resp[0];
-      this.initEditCourseForm();
+  
+      this.editcourseForm.get('title')?.setValue(this.courseToEdit == undefined ? ' ': this.courseToEdit.courseName );
+      this.editcourseForm.get('author')?.setValue(this.courseToEdit == undefined ? ' ': this.courseToEdit.author);
+      this.editcourseForm.get('price')?.setValue(this.courseToEdit == undefined ? ' ': this.courseToEdit.price);
+      this.editcourseForm.get('description')?.setValue(this.courseToEdit == undefined ? ' ': this.courseToEdit.description);
+      this.category = this.courseToEdit == undefined ? ' ': this.courseToEdit.category;
+      this.urlInput = this.courseToEdit == undefined ? ' ': this.courseToEdit.url;
     })
 
   }

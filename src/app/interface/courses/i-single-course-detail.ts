@@ -21,6 +21,6 @@ interface Iinstructor {
   rating: number,
   reviews: number,
   student: number,
-  courses: number,
+  course: number,
   introduction:string
 }
